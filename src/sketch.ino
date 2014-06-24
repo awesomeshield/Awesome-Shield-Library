@@ -1,4 +1,6 @@
 #include <OneWire.h>
+//#include <Button.h>
+#include <Awesome.h>
 
 // LEDs
 #define rgbRedPin       2
@@ -18,6 +20,8 @@
 #define lightSensorPin  A1
 #define tempSensorPin   12
 #define micPin          NULL
+
+Awesome awesome;
 
 void setup() {
   Serial.begin(9600);
@@ -43,25 +47,26 @@ void setup() {
 }
 
 void loop() {
-  diagnostic();
+
+  // diagnostic();
 }
 
 void diagnostic() {
 
-  LedsFlash(500);                       // works
-  LedsCycle();                          // works
+  // LedsFlash(500);                       // works
+  // LedsCycle();                          // works
 
   // beep(500);                            // works!
 
-  buttonReadOut();                      // works
-  delay(1500);
-  switchReadOut();                      // works
-  delay(1500);
+  // buttonReadOut();                      // works
+  // delay(1500);
+  // switchReadOut();                      // works
+  // delay(1500);
 
-  Serial.println(lightSensorReading()); // works
+  // Serial.println(lightSensorReading()); // works
 
-  Serial.println(tempSensorReading());  // works
-    
+  // Serial.println(tempSensorReading());  // works
+
   /*Serial.println(micReading());  //
   delay(1000);*/
 
@@ -103,7 +108,7 @@ void buttonReadOut() {
 }
 
 bool buttonIsPressed() {
-  return digitalRead(buttonPin);
+  return awesome.button.isPressed();
 }
 
 void LedsFlash(int millis) {
