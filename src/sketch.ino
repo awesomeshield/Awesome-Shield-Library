@@ -5,16 +5,36 @@ Awesome awesome;
 void setup() {
   Serial.begin(9600);
   awesome.rgbLedOn(GREEN);
+  delay(300);
+  awesome.rgbLedOff();
+  delay(300);
+  awesome.rgbLedOn(GREEN);
+  delay(300);
+  awesome.rgbLedOff();
+  delay(300);
 }
 
 
+/* lower, upper =>   run drain
+   lower, !upper =>  close drain
+   !lower, !upper => feed
+*/
+
 void loop() {
   // read float switch
-  bool floatSubmerged = awesome.switchRead();
-  // if float is off
-  if (floatSubmerged) {
-    awesome.rgbLedOn(GREEN);
+  bool upperFloatSubmerged = awesome.switchRead();
+
+  if (upperFloatSubmerged) {
+    openDrain();
   } else {
-    awesome.rgbLedOff();
+    closeDrain();
   }
+}
+
+void openDrain() {
+  awesome.rgbLedOn(WHITE);
+}
+
+void closeDrain() {
+  awesome.rgbLedOff();
 }
