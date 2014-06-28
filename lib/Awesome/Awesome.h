@@ -36,8 +36,8 @@ class Awesome
     Awesome();
     int lightRead();
     int micRead();
-    void switchRead();
-    void buttonRead();
+    bool switchRead();
+    bool buttonRead();
     float tempRead();
 
     void beep(int millis);

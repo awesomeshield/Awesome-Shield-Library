@@ -4,18 +4,17 @@ Awesome awesome;
 
 void setup() {
   Serial.begin(9600);
-  awesome.rgbLedOn(RED);
+  awesome.rgbLedOn(GREEN);
 }
 
-int brightness = 0;
 
 void loop() {
-  analogWrite(rgbRedPin, brightness);
-
-  if (brightness < 256) {
-    brightness = brightness + 1;
+  // read float switch
+  bool floatSubmerged = awesome.switchRead();
+  // if float is off
+  if (floatSubmerged) {
+    awesome.rgbLedOn(GREEN);
   } else {
-    brightness = 0;
+    awesome.rgbLedOff();
   }
-  delay(20);
 }

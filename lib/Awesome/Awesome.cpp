@@ -35,28 +35,16 @@ int Awesome::micRead() {
   return analogRead(micPin);
 }
 
-void Awesome::switchRead() {
-  if (_switchIsOn()) {
-    digitalWrite(greenLedPin,HIGH);
-    digitalWrite(redLedPin,LOW);
-  } else {
-    digitalWrite(greenLedPin,LOW);
-    digitalWrite(redLedPin,HIGH);
-  }
+bool Awesome::switchRead() {
+  return _switchIsOn();
 }
 
 bool Awesome::_switchIsOn() {
   return digitalRead(switchOnPin);
 }
 
-void Awesome::buttonRead() {
-  if (_buttonIsPressed()) {
-    digitalWrite(greenLedPin,HIGH);
-    digitalWrite(redLedPin,LOW);
-  } else {
-    digitalWrite(greenLedPin,LOW);
-    digitalWrite(redLedPin,HIGH);
-  }
+bool Awesome::buttonRead() {
+  return _buttonIsPressed();
 }
 
 bool Awesome::_buttonIsPressed() {
