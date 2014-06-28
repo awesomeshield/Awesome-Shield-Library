@@ -6,13 +6,220 @@
 */
 
 #include "Arduino.h"
-#include "Button.h"
+#include "OneWire.h"
 #include "Awesome.h"
 
 Awesome::Awesome()
 {
+  pinMode(rgbRedPin,OUTPUT);
+  pinMode(rgbGreenPin,OUTPUT);
+  pinMode(rgbBluePin,OUTPUT);
+  pinMode(redLedPin,OUTPUT);
+  pinMode(greenLedPin,OUTPUT);
+
+  pinMode(buzzerPin,OUTPUT);
+
+  pinMode(buttonPin,INPUT);
+  pinMode(switchOnPin,INPUT);
+
+  pinMode(lightSensorPin,INPUT);
+  pinMode(tempSensorPin,INPUT);
+  pinMode(micPin,INPUT);
 }
 
-bool Awesome::button::isPressed() {
-  return digitalRead(7);
+int Awesome::lightRead() {
+  return analogRead(lightSensorPin);
+}
+
+int Awesome::micRead() {
+  return analogRead(micPin);
+}
+
+void Awesome::switchRead() {
+  if (_switchIsOn()) {
+    digitalWrite(greenLedPin,HIGH);
+    digitalWrite(redLedPin,LOW);
+  } else {
+    digitalWrite(greenLedPin,LOW);
+    digitalWrite(redLedPin,HIGH);
+  }
+}
+
+bool Awesome::_switchIsOn() {
+  return digitalRead(switchOnPin);
+}
+
+void Awesome::buttonRead() {
+  if (_buttonIsPressed()) {
+    digitalWrite(greenLedPin,HIGH);
+    digitalWrite(redLedPin,LOW);
+  } else {
+    digitalWrite(greenLedPin,LOW);
+    digitalWrite(redLedPin,HIGH);
+  }
+}
+
+bool Awesome::_buttonIsPressed() {
+  return digitalRead(buttonPin);
+}
+
+void Awesome::rgbLedOn(int colour) {
+  switch (colour) {
+    case RED:
+      digitalWrite(rgbRedPin,HIGH);
+      digitalWrite(rgbGreenPin,LOW);
+      digitalWrite(rgbBluePin,LOW);
+      break;
+    case GREEN:
+      digitalWrite(rgbRedPin,LOW);
+      digitalWrite(rgbGreenPin,HIGH);
+      digitalWrite(rgbBluePin,LOW);
+      break;
+    case BLUE:
+      digitalWrite(rgbRedPin,LOW);
+      digitalWrite(rgbGreenPin,LOW);
+      digitalWrite(rgbBluePin,HIGH);
+      break;
+    case YELLOW:
+      digitalWrite(rgbRedPin,HIGH);
+      digitalWrite(rgbGreenPin,HIGH);
+      digitalWrite(rgbBluePin,LOW);
+      break;
+    case MAGENTA:
+      digitalWrite(rgbRedPin,HIGH);
+      digitalWrite(rgbGreenPin,LOW);
+      digitalWrite(rgbBluePin,HIGH);
+      break;
+    case CYAN:
+      digitalWrite(rgbRedPin,LOW);
+      digitalWrite(rgbGreenPin,HIGH);
+      digitalWrite(rgbBluePin,HIGH);
+      break;
+    case WHITE:
+      digitalWrite(rgbRedPin,HIGH);
+      digitalWrite(rgbGreenPin,HIGH);
+      digitalWrite(rgbBluePin,HIGH);
+      break;
+    default:
+      Serial.println("Invalid input");
+  }
+}
+
+void Awesome::rgbLedOff() {
+  digitalWrite(rgbRedPin,LOW);
+  digitalWrite(rgbGreenPin,LOW);
+  digitalWrite(rgbBluePin,LOW);
+}
+
+void Awesome::beep(int millis) {
+  tone(buzzerPin, 400, millis);
+}
+
+float Awesome::tempRead() {
+  OneWire ds(tempSensorPin);
+  //returns the temperature from one DS18S20 in DEG Celsius
+
+  byte data[12];
+  byte addr[8];
+
+  if ( !ds.search(addr)) {
+      //no more sensors on chain, reset search
+      ds.reset_search();
+  }
+
+  if ( OneWire::crc8( addr, 7) != addr[7]) {
+      Serial.println("CRC is not valid!");
+  }
+
+  if ( addr[0] != 0x10 && addr[0] != 0x28) {
+      Serial.print("Device is not recognized");
+  }
+
+  ds.reset();
+  ds.select(addr);
+  ds.write(0x44,1); // start conversion, with parasite power on at the end
+
+  byte present = ds.reset();
+  ds.select(addr);
+  ds.write(0xBE); // Read Scratchpad
+
+  for (int i = 0; i < 9; i++) { // we need 9 bytes
+    data[i] = ds.read();
+  }
+
+  ds.reset_search();
+
+  byte MSB = data[1];
+  byte LSB = data[0];
+
+  float tempRead = ((MSB << 8) | LSB); //using two's compliment
+  float TemperatureSum = tempRead / 16;
+
+  return TemperatureSum;
+}
+
+void Awesome::diagnostic() {
+  _LedsFlash(500);
+  _LedsCycle();
+
+  beep(500);
+
+  buttonRead();
+  delay(1500);
+  switchRead();
+  delay(1500);
+
+  Serial.println(lightRead());
+
+  Serial.println(tempRead());
+
+  // Serial.println(micReading());
+  // delay(1000);
+}
+
+void Awesome::_LedsFlash(int millis) {
+  _LedsTurnOn();
+  delay(millis);
+  _LedsTurnOff();
+}
+
+void Awesome::_LedsTurnOn() {
+  digitalWrite(rgbRedPin,HIGH);
+  digitalWrite(rgbGreenPin,HIGH);
+  digitalWrite(rgbBluePin,HIGH);
+  digitalWrite(redLedPin,HIGH);
+  digitalWrite(greenLedPin,HIGH);
+}
+
+void Awesome::_LedsTurnOff() {
+  digitalWrite(rgbRedPin,LOW);
+  digitalWrite(rgbGreenPin,LOW);
+  digitalWrite(rgbBluePin,LOW);
+  digitalWrite(redLedPin,LOW);
+  digitalWrite(greenLedPin,LOW);
+}
+
+void Awesome::_LedsCycle() {
+  rgbLedOn(RED);
+  delay(150);
+  rgbLedOn(GREEN);
+  delay(150);
+  rgbLedOn(BLUE);
+  delay(150);
+  rgbLedOn(CYAN);
+  delay(150);
+  rgbLedOn(YELLOW);
+  delay(150);
+  rgbLedOn(MAGENTA);
+  delay(150);
+  rgbLedOn(WHITE);
+  delay(150);
+  digitalWrite(redLedPin,HIGH);
+  delay(150);
+  digitalWrite(redLedPin,LOW);
+  delay(150);
+  digitalWrite(greenLedPin,HIGH);
+  delay(150);
+  digitalWrite(greenLedPin,LOW);
+  delay(150);
 }
