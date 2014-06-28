@@ -8,9 +8,9 @@
 #ifndef Awesome_h
 #define Awesome_h
 
-#define rgbRedPin       3      // 3
-#define rgbGreenPin     2      // 5
-#define rgbBluePin      4      // 6
+#define rgbRedPin       3
+#define rgbGreenPin     2
+#define rgbBluePin      4
 #define redLedPin       6
 #define greenLedPin     5
 #define buzzerPin       NULL
@@ -29,20 +29,25 @@
 #define WHITE    7
 
 #include "Arduino.h"
+#include "Timer.h"
 
-class Awesome
-{
+class Awesome {
   public:
     Awesome();
-    int lightRead();
-    int micRead();
-    bool switchRead();
-    bool buttonRead();
+    int   lightRead();
+    int   micRead();
+    bool  switchRead();
+    bool  buttonRead();
     float tempRead();
 
     void beep(int millis);
-    void rgbLedOn(int colour);
+    void rgbLedOn(int colour);  // should be (int colour, int duration w. default)
     void rgbLedOff();
+    void redLedOn();            // should be (int duration w. default)
+    void redLedOff();
+    void greenLedOn();          // should be (int duration w. default)
+    void greenLedOff();
+    // need to create LED objects use timers properly
 
     void diagnostic();
   private:

@@ -4,24 +4,23 @@ Awesome awesome;
 
 void setup() {
   Serial.begin(9600);
-  awesome.rgbLedOn(GREEN);
+  awesome.greenLedOn();
   delay(300);
-  awesome.rgbLedOff();
+  awesome.greenLedOff();
   delay(300);
-  awesome.rgbLedOn(GREEN);
+  awesome.greenLedOn();
   delay(300);
-  awesome.rgbLedOff();
+  awesome.greenLedOff();
   delay(300);
 }
 
-
-/* lower, upper =>   run drain
-   lower, !upper =>  close drain
-   !lower, !upper => feed
+/*
+  lower,  upper =>  run drain
+  lower,  !upper => close drain
+  !lower, !upper => top up with feed water
 */
 
 void loop() {
-  // read float switch
   bool upperFloatSubmerged = awesome.switchRead();
 
   if (upperFloatSubmerged) {
@@ -32,9 +31,9 @@ void loop() {
 }
 
 void openDrain() {
-  awesome.rgbLedOn(WHITE);
+  awesome.greenLedOn();
 }
 
 void closeDrain() {
-  awesome.rgbLedOff();
+  awesome.greenLedOff();
 }

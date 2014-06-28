@@ -99,6 +99,19 @@ void Awesome::rgbLedOff() {
   digitalWrite(rgbBluePin,LOW);
 }
 
+void Awesome::redLedOn() {
+  digitalWrite(redLedPin,HIGH);
+}
+void Awesome::redLedOff() {
+  digitalWrite(redLedPin,LOW);
+}
+void Awesome::greenLedOn() {
+  digitalWrite(greenLedPin,HIGH);
+}
+void Awesome::greenLedOff() {
+  digitalWrite(greenLedPin,LOW);
+}
+
 void Awesome::beep(int millis) {
   tone(buzzerPin, 400, millis);
 }
