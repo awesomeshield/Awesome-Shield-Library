@@ -51,45 +51,58 @@ bool Awesome::_buttonIsPressed() {
   return digitalRead(buttonPin);
 }
 
-void Awesome::rgbLedOn(int colour) {
-  switch (colour) {
-    case RED:
-      digitalWrite(rgbRedPin,HIGH);
-      digitalWrite(rgbGreenPin,LOW);
-      digitalWrite(rgbBluePin,LOW);
-      break;
-    case GREEN:
-      digitalWrite(rgbRedPin,LOW);
-      digitalWrite(rgbGreenPin,HIGH);
-      digitalWrite(rgbBluePin,LOW);
-      break;
-    case BLUE:
-      digitalWrite(rgbRedPin,LOW);
-      digitalWrite(rgbGreenPin,LOW);
-      digitalWrite(rgbBluePin,HIGH);
-      break;
-    case YELLOW:
-      digitalWrite(rgbRedPin,HIGH);
-      digitalWrite(rgbGreenPin,HIGH);
-      digitalWrite(rgbBluePin,LOW);
-      break;
-    case MAGENTA:
-      digitalWrite(rgbRedPin,HIGH);
-      digitalWrite(rgbGreenPin,LOW);
-      digitalWrite(rgbBluePin,HIGH);
-      break;
-    case CYAN:
-      digitalWrite(rgbRedPin,LOW);
-      digitalWrite(rgbGreenPin,HIGH);
-      digitalWrite(rgbBluePin,HIGH);
-      break;
-    case WHITE:
-      digitalWrite(rgbRedPin,HIGH);
-      digitalWrite(rgbGreenPin,HIGH);
-      digitalWrite(rgbBluePin,HIGH);
-      break;
-    default:
-      Serial.println("Invalid input");
+void Awesome::rgbLedOn(int c1, int c2, int c3) {
+  rgbLedOff();
+  if (c1 >= 255) {
+    switch (c1) {
+      case RED:
+        digitalWrite(rgbRedPin,HIGH);
+        digitalWrite(rgbGreenPin,LOW);
+        digitalWrite(rgbBluePin,LOW);
+        break;
+      case GREEN:
+        digitalWrite(rgbRedPin,LOW);
+        digitalWrite(rgbGreenPin,HIGH);
+        digitalWrite(rgbBluePin,LOW);
+        break;
+      case BLUE:
+        digitalWrite(rgbRedPin,LOW);
+        digitalWrite(rgbGreenPin,LOW);
+        digitalWrite(rgbBluePin,HIGH);
+        break;
+      case YELLOW:
+        digitalWrite(rgbRedPin,HIGH);
+        digitalWrite(rgbGreenPin,HIGH);
+        digitalWrite(rgbBluePin,LOW);
+        break;
+      case MAGENTA:
+        digitalWrite(rgbRedPin,HIGH);
+        digitalWrite(rgbGreenPin,LOW);
+        digitalWrite(rgbBluePin,HIGH);
+        break;
+      case CYAN:
+        digitalWrite(rgbRedPin,LOW);
+        digitalWrite(rgbGreenPin,HIGH);
+        digitalWrite(rgbBluePin,HIGH);
+        break;
+      case WHITE:
+        digitalWrite(rgbRedPin,HIGH);
+        digitalWrite(rgbGreenPin,HIGH);
+        digitalWrite(rgbBluePin,HIGH);
+        break;
+      default:
+        Serial.println("Invalid input");
+    }
+  } else {
+    if (c1 != 0) {
+      analogWrite(rgbRedPin, c1);
+    }
+    if (c2 != 0) {
+      analogWrite(rgbGreenPin, c2);
+    }
+    if (c3 != 0) {
+      analogWrite(rgbBluePin, c3);
+    }
   }
 }
 
@@ -165,14 +178,30 @@ void Awesome::diagnostic() {
 
   beep(500);
 
-  buttonRead();
+  if (buttonRead()) {
+    greenLedOn();
+    redLedOff();
+  } else {
+    greenLedOff();
+    redLedOn();
+  }
   delay(1500);
-  switchRead();
+  if (switchRead()) {
+    greenLedOn();
+    redLedOff();
+  } else {
+    greenLedOff();
+    redLedOn();
+  }
+
   delay(1500);
 
   Serial.println(lightRead());
 
   Serial.println(tempRead());
+  Serial.println();
+
+  _LedsTurnOff();
 
   // Serial.println(micReading());
   // delay(1000);

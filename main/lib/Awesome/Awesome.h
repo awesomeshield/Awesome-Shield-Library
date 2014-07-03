@@ -8,7 +8,7 @@
 #ifndef Awesome_h
 #define Awesome_h
 
-#define rgbRedPin       3
+#define rgbRedPin       3  // PWM
 #define rgbGreenPin     2
 #define rgbBluePin      4
 #define redLedPin       6
@@ -20,13 +20,13 @@
 #define tempSensorPin   12
 #define micPin          NULL
 
-#define RED      1
-#define GREEN    2
-#define BLUE     3
-#define YELLOW   4
-#define MAGENTA  5
-#define CYAN     6
-#define WHITE    7
+#define WHITE    300
+#define RED      301
+#define GREEN    302
+#define BLUE     303
+#define YELLOW   304
+#define MAGENTA  305
+#define CYAN     306
 
 #include "Arduino.h"
 #include "Timer.h"
@@ -41,7 +41,7 @@ class Awesome {
     float tempRead();
 
     void beep(int millis);
-    void rgbLedOn(int colour);  // should be (int colour, int duration w. default)
+    void rgbLedOn(int c1, int c2 = 0, int c3 = 0);  // should be (int colour, int duration w. default)
     void rgbLedOff();
     void redLedOn();            // should be (int duration w. default)
     void redLedOff();
