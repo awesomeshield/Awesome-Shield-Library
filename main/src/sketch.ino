@@ -6,7 +6,7 @@ void setup() {
   Serial.begin(9600);
   awesome.rgbLedOn(191,80,239);
   delay(500);
-  Serial.print("WHITE ");
+  /*Serial.print("WHITE ");
   Serial.println(WHITE);
   Serial.print("RED ");
   Serial.println(RED);
@@ -19,12 +19,18 @@ void setup() {
   Serial.print("MAGENTA ");
   Serial.println(MAGENTA);
   Serial.print("CYAN ");
-  Serial.println(CYAN);
+  Serial.println(CYAN);*/
   //awesome.diagnostic();
+  
+  /*awesome.redLED.setPin(6);*/
 }
 
 void loop() {
-  bool upperFloatSubmerged = awesome.switchRead();
+  awesome.redLED.turnOn();
+  delay(500);
+  awesome.redLED.turnOff();
+  delay(500);
+  /*bool upperFloatSubmerged = awesome.switchRead();
 
   if (upperFloatSubmerged) {
     openDrain();
@@ -34,7 +40,7 @@ void loop() {
 
   delay(1000);
   awesome.rgbLedOn(100);
-  delay(1000);
+  delay(1000);*/
 
 }
 

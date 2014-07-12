@@ -9,12 +9,24 @@
 #include "OneWire.h"
 #include "Awesome.h"
 
+void LED::turnOn() {
+  digitalWrite(_pin,HIGH);
+}
+void LED::turnOff() {
+  digitalWrite(_pin,LOW);
+}
+void LED::setPin(int pin) {
+  _pin = pin;
+  pinMode(_pin,OUTPUT);
+}
+
 Awesome::Awesome()
 {
+  redLED.setPin(redLedPin);
   pinMode(rgbRedPin,OUTPUT);
   pinMode(rgbGreenPin,OUTPUT);
   pinMode(rgbBluePin,OUTPUT);
-  pinMode(redLedPin,OUTPUT);
+  //pinMode(redLedPin,OUTPUT);
   pinMode(greenLedPin,OUTPUT);
 
   pinMode(buzzerPin,OUTPUT);

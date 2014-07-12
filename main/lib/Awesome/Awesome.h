@@ -31,9 +31,21 @@
 #include "Arduino.h"
 #include "Timer.h"
 
+class LED {
+  public:
+    void turnOn();
+    void turnOff();
+    void setPin(int pin);
+  private:
+    int _pin;
+};
+
 class Awesome {
   public:
     Awesome();
+
+    LED redLED;
+
     int   lightRead();
     int   micRead();
     bool  switchRead();
@@ -41,7 +53,7 @@ class Awesome {
     float tempRead();
 
     void beep(int millis);
-    void rgbLedOn(int c1, int c2 = 0, int c3 = 0);  // should be (int colour, int duration w. default)
+    void rgbLedOn(int c1, int c2 = 0, int c3 = 0);    // should be (int colour, int duration w. default)
     void rgbLedOff();
     void redLedOn();            // should be (int duration w. default)
     void redLedOff();

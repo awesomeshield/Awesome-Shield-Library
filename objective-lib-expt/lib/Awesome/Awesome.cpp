@@ -12,8 +12,3 @@ Awesome::Awesome()
 {
 
 }
-
-class box {
-  public:
-    int length;
-};
