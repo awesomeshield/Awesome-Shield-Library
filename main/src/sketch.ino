@@ -47,9 +47,9 @@ void loop() {
 }
 
 void openDrain() {
-  awesome.rgbLedOn(WHITE);
+  awesome.rgbLED.turnOn(WHITE);
 }
 
 void closeDrain() {
-  awesome.rgbLedOn(GREEN);
+  awesome.rgbLED.turnOn(GREEN);
 }

@@ -43,7 +43,7 @@ class ioLED {
 
 class redGreenBlueLED {
   public:
-    void turnOn(int c1, int c2, int c3);
+    void turnOn(int c1, int c2 = 0, int c3 = 0);
     void turnOff();
     void setup(int redPin, int greenPin, int bluePin);
   private:
@@ -53,6 +53,14 @@ class redGreenBlueLED {
     void _setPins (int redPin, int greenPin, int bluePin);
 };
 
+class LightSensor {
+  public:
+    void setup(int pin);
+    int read();
+  private:
+    int _pin;
+};
+
 class Awesome {
   public:
     Awesome();
@@ -60,6 +68,7 @@ class Awesome {
     ioLED redLED;
     ioLED greenLED;
     redGreenBlueLED rgbLED;
+    LightSensor lightSensor;
 
     int   lightRead();
     int   micRead();

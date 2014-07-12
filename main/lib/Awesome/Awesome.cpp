@@ -92,23 +92,27 @@ void redGreenBlueLED::setup(int redPin, int greenPin, int bluePin) {
   _setPins(redPin, greenPin, bluePin);
 }
 
+void LightSensor::setup(int pin) {
+  _pin = pin;
+  pinMode(_pin,INPUT);
+}
+int LightSensor::read() {
+  return analogRead(_pin);
+}
+
 Awesome::Awesome() {
-  redLED.setup(redLedPin);
-  greenLED.setup(greenLedPin);
-  rgbLED.setup(rgbRedPin, rgbGreenPin, rgbBluePin);
+  redLED.      setup(redLedPin);
+  greenLED.    setup(greenLedPin);
+  rgbLED.      setup(rgbRedPin, rgbGreenPin, rgbBluePin);
+  lightSensor. setup(lightSensorPin);
 
   pinMode(buzzerPin,OUTPUT);
 
   pinMode(buttonPin,INPUT);
   pinMode(switchOnPin,INPUT);
 
-  pinMode(lightSensorPin,INPUT);
   pinMode(tempSensorPin,INPUT);
   pinMode(micPin,INPUT);
-}
-
-int Awesome::lightRead() {
-  return analogRead(lightSensorPin);
 }
 
 int Awesome::micRead() {
@@ -178,6 +182,49 @@ float Awesome::tempRead() {
   return TemperatureSum;
 }
 
+void Awesome::_LedsFlash(int millis) {
+  _LedsTurnOn();
+  delay(millis);
+  _LedsTurnOff();
+}
+
+void Awesome::_LedsTurnOn() {
+  rgbLED.turnOn(WHITE);
+  redLED.turnOn();
+  greenLED.turnOn();
+}
+
+void Awesome::_LedsTurnOff() {
+  rgbLED.turnOff();
+  redLED.turnOff();
+  greenLED.turnOff();
+}
+
+void Awesome::_LedsCycle() {
+  rgbLED.turnOn(RED);
+  delay(150);
+  rgbLED.turnOn(GREEN);
+  delay(150);
+  rgbLED.turnOn(BLUE);
+  delay(150);
+  rgbLED.turnOn(CYAN);
+  delay(150);
+  rgbLED.turnOn(YELLOW);
+  delay(150);
+  rgbLED.turnOn(MAGENTA);
+  delay(150);
+  rgbLED.turnOn(WHITE);
+  delay(150);
+  redLED.turnOn();
+  delay(150);
+  redLED.turnOff();
+  delay(150);
+  greenLED.turnOn();
+  delay(150);
+  greenLED.turnOff();
+  delay(150);
+}
+
 void Awesome::diagnostic() {
   _LedsFlash(500);
   _LedsCycle();
@@ -202,7 +249,7 @@ void Awesome::diagnostic() {
 
   delay(1500);
 
-  Serial.println(lightRead());
+  Serial.println(lightSensor.read());
 
   Serial.println(tempRead());
   Serial.println();
@@ -211,47 +258,4 @@ void Awesome::diagnostic() {
 
   // Serial.println(micReading());
   // delay(1000);
-}
-
-void Awesome::_LedsFlash(int millis) {
-  _LedsTurnOn();
-  delay(millis);
-  _LedsTurnOff();
-}
-
-void Awesome::_LedsTurnOn() {
-  rgbLED.turnOn(WHITE,255,255);
-  redLED.turnOn();
-  greenLED.turnOn();
-}
-
-void Awesome::_LedsTurnOff() {
-  rgbLED.turnOff();
-  redLED.turnOff();
-  greenLED.turnOff();
-}
-
-void Awesome::_LedsCycle() {
-  rgbLED.turnOn(RED,255,255);
-  delay(150);
-  rgbLED.turnOn(GREEN,255,255);
-  delay(150);
-  rgbLED.turnOn(BLUE,255,255);
-  delay(150);
-  rgbLED.turnOn(CYAN,255,255);
-  delay(150);
-  rgbLED.turnOn(YELLOW,255,255);
-  delay(150);
-  rgbLED.turnOn(MAGENTA,255,255);
-  delay(150);
-  rgbLED.turnOn(WHITE,255,255);
-  delay(150);
-  redLED.turnOn();
-  delay(150);
-  redLED.turnOff();
-  delay(150);
-  greenLED.turnOn();
-  delay(150);
-  greenLED.turnOff();
-  delay(150);
 }
