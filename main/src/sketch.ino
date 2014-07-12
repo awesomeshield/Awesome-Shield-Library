@@ -4,7 +4,7 @@ Awesome awesome;
 
 void setup() {
   Serial.begin(9600);
-  awesome.rgbLedOn(191,80,239);
+  awesome.rgbLED.turnOn(191,80,239);
   delay(500);
   /*Serial.print("WHITE ");
   Serial.println(WHITE);
@@ -20,7 +20,7 @@ void setup() {
   Serial.println(MAGENTA);
   Serial.print("CYAN ");
   Serial.println(CYAN);*/
-  //awesome.diagnostic();
+  awesome.diagnostic();
 
   /*awesome.redLED.setPin(6);*/
 }

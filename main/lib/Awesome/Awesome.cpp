@@ -9,6 +9,7 @@
 #include "OneWire.h"
 #include "Awesome.h"
 
+// for on/off ('I/O') LEDs
 void ioLED::turnOn() {
   digitalWrite(_pin,HIGH);
 }
@@ -23,52 +24,8 @@ void ioLED::setup(int pin) {
   _setPin(pin);
 }
 
-Awesome::Awesome()
-{
-  redLED.setup(redLedPin);
-  greenLED.setup(greenLedPin);
-  pinMode(rgbRedPin,OUTPUT);
-  pinMode(rgbGreenPin,OUTPUT);
-  pinMode(rgbBluePin,OUTPUT);
-  //pinMode(redLedPin,OUTPUT);
-  pinMode(greenLedPin,OUTPUT);
-
-  pinMode(buzzerPin,OUTPUT);
-
-  pinMode(buttonPin,INPUT);
-  pinMode(switchOnPin,INPUT);
-
-  pinMode(lightSensorPin,INPUT);
-  pinMode(tempSensorPin,INPUT);
-  pinMode(micPin,INPUT);
-}
-
-int Awesome::lightRead() {
-  return analogRead(lightSensorPin);
-}
-
-int Awesome::micRead() {
-  return analogRead(micPin);
-}
-
-bool Awesome::switchRead() {
-  return _switchIsOn();
-}
-
-bool Awesome::_switchIsOn() {
-  return digitalRead(switchOnPin);
-}
-
-bool Awesome::buttonRead() {
-  return _buttonIsPressed();
-}
-
-bool Awesome::_buttonIsPressed() {
-  return digitalRead(buttonPin);
-}
-
-void Awesome::rgbLedOn(int c1, int c2, int c3) {
-  rgbLedOff();
+void redGreenBlueLED::turnOn(int c1, int c2, int c3) {
+  turnOff();
   if (c1 >= 255) {
     switch (c1) {
       case RED:
@@ -111,34 +68,67 @@ void Awesome::rgbLedOn(int c1, int c2, int c3) {
     }
   } else {
     if (c1 != 0) {
-      analogWrite(rgbRedPin, c1);
+      analogWrite(_redPin, c1);
     }
     if (c2 != 0) {
-      analogWrite(rgbGreenPin, c2);
+      analogWrite(_greenPin, c2);
     }
     if (c3 != 0) {
-      analogWrite(rgbBluePin, c3);
+      analogWrite(_bluePin, c3);
     }
   }
 }
-
-void Awesome::rgbLedOff() {
-  digitalWrite(rgbRedPin,LOW);
-  digitalWrite(rgbGreenPin,LOW);
-  digitalWrite(rgbBluePin,LOW);
+void redGreenBlueLED::turnOff() {
+  digitalWrite(_redPin,LOW);
+  digitalWrite(_greenPin,LOW);
+  digitalWrite(_bluePin,LOW);
+}
+void redGreenBlueLED::_setPins (int redPin, int greenPin, int bluePin) {
+  _redPin = redPin;
+  _greenPin = greenPin;
+  _bluePin = bluePin;
+}
+void redGreenBlueLED::setup(int redPin, int greenPin, int bluePin) {
+  _setPins(redPin, greenPin, bluePin);
 }
 
-void Awesome::redLedOn() {
-  digitalWrite(redLedPin,HIGH);
+Awesome::Awesome() {
+  redLED.setup(redLedPin);
+  greenLED.setup(greenLedPin);
+  rgbLED.setup(rgbRedPin, rgbGreenPin, rgbBluePin);
+
+  pinMode(buzzerPin,OUTPUT);
+
+  pinMode(buttonPin,INPUT);
+  pinMode(switchOnPin,INPUT);
+
+  pinMode(lightSensorPin,INPUT);
+  pinMode(tempSensorPin,INPUT);
+  pinMode(micPin,INPUT);
 }
-void Awesome::redLedOff() {
-  digitalWrite(redLedPin,LOW);
+
+int Awesome::lightRead() {
+  return analogRead(lightSensorPin);
 }
-void Awesome::greenLedOn() {
-  digitalWrite(greenLedPin,HIGH);
+
+int Awesome::micRead() {
+  return analogRead(micPin);
 }
-void Awesome::greenLedOff() {
-  digitalWrite(greenLedPin,LOW);
+
+bool Awesome::switchRead() {
+  return _switchIsOn();
+}
+
+bool Awesome::_switchIsOn() {
+  return digitalRead(switchOnPin);
+}
+
+bool Awesome::buttonRead() {
+  return _buttonIsPressed();
+}
+
+bool Awesome::_buttonIsPressed() {
+  return digitalRead(buttonPin);
 }
 
 void Awesome::beep(int millis) {
@@ -195,19 +185,19 @@ void Awesome::diagnostic() {
   beep(500);
 
   if (buttonRead()) {
-    greenLedOn();
-    redLedOff();
+    greenLED.turnOn();
+    redLED.turnOff();
   } else {
-    greenLedOff();
-    redLedOn();
+    greenLED.turnOff();
+    redLED.turnOn();
   }
   delay(1500);
   if (switchRead()) {
-    greenLedOn();
-    redLedOff();
+    greenLED.turnOn();
+    redLED.turnOff();
   } else {
-    greenLedOff();
-    redLedOn();
+    greenLED.turnOff();
+    redLED.turnOn();
   }
 
   delay(1500);
@@ -230,42 +220,38 @@ void Awesome::_LedsFlash(int millis) {
 }
 
 void Awesome::_LedsTurnOn() {
-  digitalWrite(rgbRedPin,HIGH);
-  digitalWrite(rgbGreenPin,HIGH);
-  digitalWrite(rgbBluePin,HIGH);
-  digitalWrite(redLedPin,HIGH);
-  digitalWrite(greenLedPin,HIGH);
+  rgbLED.turnOn(WHITE,255,255);
+  redLED.turnOn();
+  greenLED.turnOn();
 }
 
 void Awesome::_LedsTurnOff() {
-  digitalWrite(rgbRedPin,LOW);
-  digitalWrite(rgbGreenPin,LOW);
-  digitalWrite(rgbBluePin,LOW);
-  digitalWrite(redLedPin,LOW);
-  digitalWrite(greenLedPin,LOW);
+  rgbLED.turnOff();
+  redLED.turnOff();
+  greenLED.turnOff();
 }
 
 void Awesome::_LedsCycle() {
-  rgbLedOn(RED);
+  rgbLED.turnOn(RED,255,255);
   delay(150);
-  rgbLedOn(GREEN);
+  rgbLED.turnOn(GREEN,255,255);
   delay(150);
-  rgbLedOn(BLUE);
+  rgbLED.turnOn(BLUE,255,255);
   delay(150);
-  rgbLedOn(CYAN);
+  rgbLED.turnOn(CYAN,255,255);
   delay(150);
-  rgbLedOn(YELLOW);
+  rgbLED.turnOn(YELLOW,255,255);
   delay(150);
-  rgbLedOn(MAGENTA);
+  rgbLED.turnOn(MAGENTA,255,255);
   delay(150);
-  rgbLedOn(WHITE);
+  rgbLED.turnOn(WHITE,255,255);
   delay(150);
-  digitalWrite(redLedPin,HIGH);
+  redLED.turnOn();
   delay(150);
-  digitalWrite(redLedPin,LOW);
+  redLED.turnOff();
   delay(150);
-  digitalWrite(greenLedPin,HIGH);
+  greenLED.turnOn();
   delay(150);
-  digitalWrite(greenLedPin,LOW);
+  greenLED.turnOff();
   delay(150);
 }

@@ -41,12 +41,25 @@ class ioLED {
     int _pin;
 };
 
+class redGreenBlueLED {
+  public:
+    void turnOn(int c1, int c2, int c3);
+    void turnOff();
+    void setup(int redPin, int greenPin, int bluePin);
+  private:
+    int _redPin;
+    int _greenPin;
+    int _bluePin;
+    void _setPins (int redPin, int greenPin, int bluePin);
+};
+
 class Awesome {
   public:
     Awesome();
 
     ioLED redLED;
     ioLED greenLED;
+    redGreenBlueLED rgbLED;
 
     int   lightRead();
     int   micRead();
@@ -55,12 +68,7 @@ class Awesome {
     float tempRead();
 
     void beep(int millis);
-    void rgbLedOn(int c1, int c2 = 0, int c3 = 0);    // should be (int colour, int duration w. default)
-    void rgbLedOff();
-    void redLedOn();            // should be (int duration w. default)
-    void redLedOff();
-    void greenLedOn();          // should be (int duration w. default)
-    void greenLedOff();
+
     // need to create LED objects use timers properly
 
     void diagnostic();
