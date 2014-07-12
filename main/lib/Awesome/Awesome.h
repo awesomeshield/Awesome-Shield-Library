@@ -31,12 +31,13 @@
 #include "Arduino.h"
 #include "Timer.h"
 
-class LED {
+class ioLED {
   public:
     void turnOn();
     void turnOff();
-    void setPin(int pin);
+    void setup(int pin);
   private:
+    void _setPin(int pin);
     int _pin;
 };
 
@@ -44,7 +45,8 @@ class Awesome {
   public:
     Awesome();
 
-    LED redLED;
+    ioLED redLED;
+    ioLED greenLED;
 
     int   lightRead();
     int   micRead();

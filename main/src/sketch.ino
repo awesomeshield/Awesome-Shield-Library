@@ -21,14 +21,16 @@ void setup() {
   Serial.print("CYAN ");
   Serial.println(CYAN);*/
   //awesome.diagnostic();
-  
+
   /*awesome.redLED.setPin(6);*/
 }
 
 void loop() {
   awesome.redLED.turnOn();
+  awesome.greenLED.turnOff();
   delay(500);
   awesome.redLED.turnOff();
+  awesome.greenLED.turnOn();
   delay(500);
   /*bool upperFloatSubmerged = awesome.switchRead();
 
