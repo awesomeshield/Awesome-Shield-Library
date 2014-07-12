@@ -28,12 +28,15 @@ void loop() {
 
   if ( lowerFloatSubmerged ) {
     openDrain();
+    // do not change feed status
   } else if ( upperFloatSubmerged ) {
     Serial.print("Error: float malfunction. Upper float reads submerged, lower float reads not submerged. Check float switches. One may be stuck.");
     closeDrain();
+    // closeFeed() if possible
   } else {
     Serial.print("Both float switches read not submerged. Check filter to ensure sand bed is not dry.");
     closeDrain();
+    // openFeed() if possible
   }
 
   // just to keep things from running to fast
