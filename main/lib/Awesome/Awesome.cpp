@@ -150,19 +150,12 @@ float TemperatureSensor::read() {
   return _tempRead();
 }
 
-Awesome::Awesome() {
-  redLED.      setup(redLedPin);
-  greenLED.    setup(greenLedPin);
-  rgbLED.      setup(rgbRedPin, rgbGreenPin, rgbBluePin);
-  lightSensor. setup(lightSensorPin);
-
-  pinMode(buzzerPin,OUTPUT);
-
-  pinMode(buttonPin,INPUT);
-  pinMode(switchOnPin,INPUT);
-
-  pinMode(tempSensorPin,INPUT);
-  pinMode(micPin,INPUT);
+void Button::setup(int pin) {
+  _pin = pin;
+  pinMode(_pin, INPUT);
+}
+bool Button::read() {
+  return digitalRead(_pin);
 }
 
 int Awesome::micRead() {
@@ -175,14 +168,6 @@ bool Awesome::switchRead() {
 
 bool Awesome::_switchIsOn() {
   return digitalRead(switchOnPin);
-}
-
-bool Awesome::buttonRead() {
-  return _buttonIsPressed();
-}
-
-bool Awesome::_buttonIsPressed() {
-  return digitalRead(buttonPin);
 }
 
 void Awesome::beep(int millis) {
@@ -232,36 +217,57 @@ void Awesome::_LedsCycle() {
   delay(150);
 }
 
+Awesome::Awesome() {
+  redLED.      setup(redLedPin);
+  greenLED.    setup(greenLedPin);
+  rgbLED.      setup(rgbRedPin, rgbGreenPin, rgbBluePin);
+  lightSensor. setup(lightSensorPin);
+  button.      setup(buttonPin);
+
+  pinMode(buzzerPin,OUTPUT);
+
+  pinMode(switchOnPin,INPUT);
+
+  pinMode(tempSensorPin,INPUT);
+  pinMode(micPin,INPUT);
+}
+
 void Awesome::diagnostic() {
   _LedsFlash(500);
   _LedsCycle();
+  _LedsTurnOff();
 
   beep(500);
 
-  if (buttonRead()) {
-    greenLED.turnOn();
-    redLED.turnOff();
-  } else {
-    greenLED.turnOff();
-    redLED.turnOn();
+  // flash green LED once button is pushed
+  redLED.turnOn();
+  while ( ! button.read() ) {
+    // wait
   }
-  delay(1500);
-  if (switchRead()) {
-    greenLED.turnOn();
-    redLED.turnOff();
-  } else {
-    greenLED.turnOff();
-    redLED.turnOn();
-  }
+  redLED.turnOff();
+  greenLED.turnOn();
+  delay(1000);
+  greenLED.turnOff();
 
-  delay(1500);
+  delay(500);
+
+  // flash green LED once switch is flipped
+  bool initialSwitchState = switchRead();
+  redLED.turnOn();
+  while (switchRead() == initialSwitchState) {
+    // wait
+  }
+  redLED.turnOff();
+  greenLED.turnOn();
+  delay(1000);
+  greenLED.turnOff();
+
+  delay(500);
 
   Serial.println(lightSensor.read());
 
   Serial.println(temperatureSensor.read());
   Serial.println();
-
-  _LedsTurnOff();
 
   // Serial.println(micReading());
   // delay(1000);

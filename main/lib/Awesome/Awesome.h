@@ -70,6 +70,14 @@ class TemperatureSensor {
     float _tempRead();
 };
 
+class Button {
+  public:
+    void setup(int pin);
+    bool read();
+  private:
+    int _pin;
+};
+
 class Awesome {
   public:
     Awesome();
@@ -79,11 +87,11 @@ class Awesome {
     redGreenBlueLED rgbLED;
     LightSensor lightSensor;
     TemperatureSensor temperatureSensor;
+    Button button;
 
     int   lightRead();
     int   micRead();
     bool  switchRead();
-    bool  buttonRead();
     float tempRead();
 
     void beep(int millis);
@@ -93,7 +101,6 @@ class Awesome {
     void diagnostic();
   private:
     bool _switchIsOn();
-    bool _buttonIsPressed();
     void _LedsFlash(int millis);
     void _LedsTurnOn();
     void _LedsTurnOff();
