@@ -100,46 +100,11 @@ int LightSensor::read() {
   return analogRead(_pin);
 }
 
-Awesome::Awesome() {
-  redLED.      setup(redLedPin);
-  greenLED.    setup(greenLedPin);
-  rgbLED.      setup(rgbRedPin, rgbGreenPin, rgbBluePin);
-  lightSensor. setup(lightSensorPin);
-
-  pinMode(buzzerPin,OUTPUT);
-
-  pinMode(buttonPin,INPUT);
-  pinMode(switchOnPin,INPUT);
-
-  pinMode(tempSensorPin,INPUT);
-  pinMode(micPin,INPUT);
+void TemperatureSensor::setup(int pin) {
+  _pin = pin;
+  pinMode(_pin,INPUT);
 }
-
-int Awesome::micRead() {
-  return analogRead(micPin);
-}
-
-bool Awesome::switchRead() {
-  return _switchIsOn();
-}
-
-bool Awesome::_switchIsOn() {
-  return digitalRead(switchOnPin);
-}
-
-bool Awesome::buttonRead() {
-  return _buttonIsPressed();
-}
-
-bool Awesome::_buttonIsPressed() {
-  return digitalRead(buttonPin);
-}
-
-void Awesome::beep(int millis) {
-  tone(buzzerPin, 400, millis);
-}
-
-float Awesome::tempRead() {
+float TemperatureSensor::_tempRead() {
   OneWire ds(tempSensorPin);
   //returns the temperature from one DS18S20 in DEG Celsius
 
@@ -180,6 +145,48 @@ float Awesome::tempRead() {
   float TemperatureSum = tempRead / 16;
 
   return TemperatureSum;
+}
+float TemperatureSensor::read() {
+  return _tempRead();
+}
+
+Awesome::Awesome() {
+  redLED.      setup(redLedPin);
+  greenLED.    setup(greenLedPin);
+  rgbLED.      setup(rgbRedPin, rgbGreenPin, rgbBluePin);
+  lightSensor. setup(lightSensorPin);
+
+  pinMode(buzzerPin,OUTPUT);
+
+  pinMode(buttonPin,INPUT);
+  pinMode(switchOnPin,INPUT);
+
+  pinMode(tempSensorPin,INPUT);
+  pinMode(micPin,INPUT);
+}
+
+int Awesome::micRead() {
+  return analogRead(micPin);
+}
+
+bool Awesome::switchRead() {
+  return _switchIsOn();
+}
+
+bool Awesome::_switchIsOn() {
+  return digitalRead(switchOnPin);
+}
+
+bool Awesome::buttonRead() {
+  return _buttonIsPressed();
+}
+
+bool Awesome::_buttonIsPressed() {
+  return digitalRead(buttonPin);
+}
+
+void Awesome::beep(int millis) {
+  tone(buzzerPin, 400, millis);
 }
 
 void Awesome::_LedsFlash(int millis) {
@@ -251,7 +258,7 @@ void Awesome::diagnostic() {
 
   Serial.println(lightSensor.read());
 
-  Serial.println(tempRead());
+  Serial.println(temperatureSensor.read());
   Serial.println();
 
   _LedsTurnOff();

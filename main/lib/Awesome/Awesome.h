@@ -61,6 +61,15 @@ class LightSensor {
     int _pin;
 };
 
+class TemperatureSensor {
+  public:
+    void setup(int pin);
+    float read();
+  private:
+    int _pin;
+    float _tempRead();
+};
+
 class Awesome {
   public:
     Awesome();
@@ -69,6 +78,7 @@ class Awesome {
     ioLED greenLED;
     redGreenBlueLED rgbLED;
     LightSensor lightSensor;
+    TemperatureSensor temperatureSensor;
 
     int   lightRead();
     int   micRead();

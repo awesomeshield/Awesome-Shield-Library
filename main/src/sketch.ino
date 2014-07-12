@@ -6,20 +6,6 @@ void setup() {
   Serial.begin(9600);
   awesome.rgbLED.turnOn(191,80,239);
   delay(500);
-  /*Serial.print("WHITE ");
-  Serial.println(WHITE);
-  Serial.print("RED ");
-  Serial.println(RED);
-  Serial.print("GREEN ");
-  Serial.println(GREEN);
-  Serial.print("BLUE ");
-  Serial.println(BLUE);
-  Serial.print("YELLOW ");
-  Serial.println(YELLOW);
-  Serial.print("MAGENTA ");
-  Serial.println(MAGENTA);
-  Serial.print("CYAN ");
-  Serial.println(CYAN);*/
   awesome.diagnostic();
 
   /*awesome.redLED.setPin(6);*/
