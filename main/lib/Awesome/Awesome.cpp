@@ -6,10 +6,12 @@
 */
 
 #include "Arduino.h"
-#include "OneWire.h"
 #include "Awesome.h"
 
 // for on/off ('I/O') LEDs
+void ioLED::setup(int pin) {
+  _setPin(pin);
+}
 void ioLED::turnOn() {
   digitalWrite(_pin,HIGH);
 }
@@ -20,10 +22,15 @@ void ioLED::_setPin(int pin) {
   _pin = pin;
   pinMode(_pin,OUTPUT);
 }
-void ioLED::setup(int pin) {
-  _setPin(pin);
-}
 
+void redGreenBlueLED::setup(int redPin, int greenPin, int bluePin) {
+  _setPins(redPin, greenPin, bluePin);
+}
+void redGreenBlueLED::_setPins (int redPin, int greenPin, int bluePin) {
+  _redPin = redPin;
+  _greenPin = greenPin;
+  _bluePin = bluePin;
+}
 void redGreenBlueLED::turnOn(int c1, int c2, int c3) {
   turnOff();
   if (c1 >= 255) {
@@ -83,14 +90,6 @@ void redGreenBlueLED::turnOff() {
   digitalWrite(_greenPin,LOW);
   digitalWrite(_bluePin,LOW);
 }
-void redGreenBlueLED::_setPins (int redPin, int greenPin, int bluePin) {
-  _redPin = redPin;
-  _greenPin = greenPin;
-  _bluePin = bluePin;
-}
-void redGreenBlueLED::setup(int redPin, int greenPin, int bluePin) {
-  _setPins(redPin, greenPin, bluePin);
-}
 
 void LightSensor::setup(int pin) {
   _pin = pin;
@@ -104,50 +103,11 @@ void TemperatureSensor::setup(int pin) {
   _pin = pin;
   pinMode(_pin,INPUT);
 }
-float TemperatureSensor::_tempRead() {
-  OneWire ds(tempSensorPin);
-  //returns the temperature from one DS18S20 in DEG Celsius
-
-  byte data[12];
-  byte addr[8];
-
-  if ( !ds.search(addr)) {
-      //no more sensors on chain, reset search
-      ds.reset_search();
-  }
-
-  if ( OneWire::crc8( addr, 7) != addr[7]) {
-      Serial.println("CRC is not valid!");
-  }
-
-  if ( addr[0] != 0x10 && addr[0] != 0x28) {
-      Serial.print("Device is not recognized");
-  }
-
-  ds.reset();
-  ds.select(addr);
-  ds.write(0x44,1); // start conversion, with parasite power on at the end
-
-  byte present = ds.reset();
-  ds.select(addr);
-  ds.write(0xBE); // Read Scratchpad
-
-  for (int i = 0; i < 9; i++) { // we need 9 bytes
-    data[i] = ds.read();
-  }
-
-  ds.reset_search();
-
-  byte MSB = data[1];
-  byte LSB = data[0];
-
-  float tempRead = ((MSB << 8) | LSB); //using two's compliment
-  float TemperatureSum = tempRead / 16;
-
-  return TemperatureSum;
+float TemperatureSensor::_read() {
+  return analogRead(_pin);
 }
 float TemperatureSensor::read() {
-  return _tempRead();
+  return _read();
 }
 
 void Switch::setup(int pin) {
@@ -158,12 +118,16 @@ bool Switch::read() {
   return digitalRead(_pin);
 }
 
-int Awesome::micRead() {
-  return analogRead(micPin);
+void Buzzer::setup(int pin) {
+  _pin = pin;
+  pinMode(_pin, OUTPUT);
+}
+void Buzzer::beep(int millis) {
+  tone(_pin, 400, millis);
 }
 
-void Awesome::beep(int millis) {
-  tone(buzzerPin, 400, millis);
+int Awesome::micRead() {
+  return analogRead(micPin);
 }
 
 void Awesome::_LedsFlash(int millis) {
@@ -221,29 +185,18 @@ void Awesome::_allOkay() {
   }
 }
 
-Awesome::Awesome() {
-  redLED.        setup(redLedPin);
-  greenLED.      setup(greenLedPin);
-  rgbLED.        setup(rgbRedPin, rgbGreenPin, rgbBluePin);
-  lightSensor.   setup(lightSensorPin);
-  button.        setup(buttonPin);
-  toggleSwitch.  setup(switchOnPin);
-
-  pinMode(buzzerPin,OUTPUT);
-  pinMode(micPin,INPUT);
-}
-
 void Awesome::diagnostic() {
   _LedsFlash(500);
   _LedsCycle();
   _LedsTurnOff();
 
-  beep(500);
-
+  buzzer.beep(500);
   delay(500);
 
+  Serial.print("Light reading = ");
   Serial.println(lightSensor.read());
 
+  Serial.print("Temperature reading = ");
   Serial.println(temperatureSensor.read());
   Serial.println();
 
@@ -263,9 +216,9 @@ void Awesome::diagnostic() {
   delay(500);
 
   // flash green LED once switch is flipped
-  bool initialSwitchState = toggleSwitch.read();
+  bool initialSwitchState = toggle.read();
   redLED.turnOn();
-  while (toggleSwitch.read() == initialSwitchState) {
+  while (toggle.read() == initialSwitchState) {
     // wait
   }
   redLED.turnOff();
@@ -274,4 +227,15 @@ void Awesome::diagnostic() {
   greenLED.turnOff();
 
   _allOkay();
+}
+
+Awesome::Awesome() {
+  redLED.        setup(redLedPin);
+  greenLED.      setup(greenLedPin);
+  rgbLED.        setup(rgbRedPin, rgbGreenPin, rgbBluePin);
+  lightSensor.   setup(lightSensorPin);
+  button.        setup(buttonPin);
+  toggle.        setup(switchOnPin);
+  buzzer.        setup(buzzerPin);
+  // pinMode(micPin,INPUT);
 }

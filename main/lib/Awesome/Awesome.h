@@ -9,16 +9,22 @@
 #define Awesome_h
 
 #define rgbRedPin       3  // PWM
-#define rgbGreenPin     2
-#define rgbBluePin      4
-#define redLedPin       6
-#define greenLedPin     5
-#define buzzerPin       NULL
-#define buttonPin       7
+#define rgbGreenPin     5
+#define rgbBluePin      6
+#define redLedPin       4
+#define greenLedPin     7
+#define buzzerPin       9
+#define buttonPin       2
 #define switchOnPin     8
 #define lightSensorPin  A1
-#define tempSensorPin   12
+#define tempSensorPin   A2
 #define micPin          NULL
+
+/* Pins Kept Free
+0,1               RX, TX for comms
+A4, A5            for RTC on data logger shield
+10, 11, 12, 13    for SD card on data logger shield
+*/
 
 #define WHITE    300
 #define RED      301
@@ -67,13 +73,21 @@ class TemperatureSensor {
     float read();
   private:
     int _pin;
-    float _tempRead();
+    float _read();
 };
 
 class Switch {
   public:
     void setup(int pin);
     bool read();
+  private:
+    int _pin;
+};
+
+class Buzzer {
+  public:
+    void setup(int pin);
+    void beep(int millis);
   private:
     int _pin;
 };
@@ -85,12 +99,12 @@ class Awesome {
     ioLED redLED;
     ioLED greenLED;
     redGreenBlueLED rgbLED;
-    void beep(int millis);
+    Buzzer buzzer;
 
     LightSensor lightSensor;
     TemperatureSensor temperatureSensor;
     Switch button;
-    Switch toggleSwitch;
+    Switch toggle;
     int   micRead();
 
     void diagnostic();

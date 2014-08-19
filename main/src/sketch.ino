@@ -1,30 +1,16 @@
 #include <Awesome.h>
 
-Awesome awesome;
+Awesome aws;
 
 void setup() {
   Serial.begin(9600);
 }
 
 void loop() {
-  bool upperFloatSubmerged = awesome.switchRead();
-
-  if (upperFloatSubmerged) {
-    openDrain();
+  if ( aws.toggle.read() ) {
+    aws.greenLED.turnOn();
   } else {
-    closeDrain();
+    aws.greenLED.turnOff();
   }
-
-  delay(1000);
-  awesome.rgbLedOn(100);
-  delay(1000);
-
-}
-
-void openDrain() {
-  awesome.rgbLED.turnOn(WHITE);
-}
-
-void closeDrain() {
-  awesome.rgbLED.turnOn(GREEN);
+  delay(100);
 }
