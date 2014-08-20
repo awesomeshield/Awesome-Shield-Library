@@ -134,11 +134,7 @@ void loop() {
   Serial.println(lightRdg);
   Serial.println();
 
-  String row;
-  row += tempRdg;
-  row += ",";
-  row += lightRdg;
-  aws.dataLogger.log(row);
+  aws.dataLogger.log(tempRdg + "," + lightRdg);
 
   aws.greenLED.turnOn();
   delay(100);

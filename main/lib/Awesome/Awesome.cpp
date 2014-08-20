@@ -209,11 +209,11 @@ void DataLogger::setup(String headers) {
       // uncomment it & upload to set the time, date and start run the RTC!
       _RTC.adjust(DateTime(__DATE__, __TIME__));
   }
-  _filename = *file;
+  // _filename = *file; // broken
 }
 void DataLogger::log(String row) {
 
-  File dataFile = SD.open(file, FILE_WRITE);
+  File dataFile = SD.open(_filename, FILE_WRITE);
   DateTime now = _RTC.now();
   if (dataFile) {
     dataFile.print(now.year(), DEC);
