@@ -88,8 +88,10 @@ class Buzzer {
   public:
     void setup(int pin);
     void beep(int millis);
+    void setSilent(bool newState);
   private:
     int _pin;
+    bool _silent;
 };
 
 class Awesome {

@@ -8,6 +8,17 @@
 #include "Arduino.h"
 #include "Awesome.h"
 
+Awesome::Awesome() {
+  redLED.        setup(redLedPin);
+  greenLED.      setup(greenLedPin);
+  rgbLED.        setup(rgbRedPin, rgbGreenPin, rgbBluePin);
+  lightSensor.   setup(lightSensorPin);
+  button.        setup(buttonPin);
+  toggle.        setup(switchOnPin);
+  buzzer.        setup(buzzerPin);
+  // pinMode(micPin,INPUT);
+}
+
 // for on/off ('I/O') LEDs
 void ioLED::setup(int pin) {
   _setPin(pin);
@@ -121,9 +132,18 @@ bool Switch::read() {
 void Buzzer::setup(int pin) {
   _pin = pin;
   pinMode(_pin, OUTPUT);
+  _silent = false;
 }
 void Buzzer::beep(int millis) {
-  tone(_pin, 400, millis);
+  if ( _silent ) {
+    return;
+  } else {
+    tone(_pin, 400, millis);
+  }
+}
+void Buzzer::setSilent(bool newState) {
+  _silent = newState;
+  noTone(_pin);
 }
 
 int Awesome::micRead() {
@@ -227,15 +247,4 @@ void Awesome::diagnostic() {
   greenLED.turnOff();
 
   _allOkay();
-}
-
-Awesome::Awesome() {
-  redLED.        setup(redLedPin);
-  greenLED.      setup(greenLedPin);
-  rgbLED.        setup(rgbRedPin, rgbGreenPin, rgbBluePin);
-  lightSensor.   setup(lightSensorPin);
-  button.        setup(buttonPin);
-  toggle.        setup(switchOnPin);
-  buzzer.        setup(buzzerPin);
-  // pinMode(micPin,INPUT);
 }
