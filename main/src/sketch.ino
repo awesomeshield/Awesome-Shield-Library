@@ -8,11 +8,11 @@
 Awesome aws;
 
 void setup() {
+  aws.buzzer.setSilent(true);
+
   Serial.begin(9600);
 
   aws.dataLogger.setup("Temp, Light");
-
-  aws.buzzer.setSilent(true);
 }
 
 void loop() {

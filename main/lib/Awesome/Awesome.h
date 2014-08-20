@@ -101,8 +101,8 @@ class Buzzer {
 
 class DataLogger {
   public:
-    void setup(String headers);
-    void log(String row);
+    void setup(String headers);   // include optional NOTIMESTAMP argument
+    void log(String row);         // include optional NOTIMESTAMP argument
   private:
     char _filename[];
     File _logfile;
