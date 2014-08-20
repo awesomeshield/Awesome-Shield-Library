@@ -8,6 +8,12 @@
 #include "Arduino.h"
 #include "Awesome.h"
 
+#include <SD.h>                             //SD card library
+#include <Wire.h>                           //One Wire library
+#include "RTClib.h"                         //Real Time Clock library
+
+
+
 Awesome::Awesome() {
   redLED.        setup(redLedPin);
   greenLED.      setup(greenLedPin);
@@ -117,7 +123,7 @@ void TemperatureSensor::setup(int pin) {
 float TemperatureSensor::_read() {
   return analogRead(_pin);
 }
-float TemperatureSensor::read() {
+int TemperatureSensor::read() {
   return _read();
 }
 
@@ -144,6 +150,97 @@ void Buzzer::beep(int millis) {
 void Buzzer::setSilent(bool newState) {
   _silent = newState;
   noTone(_pin);
+}
+
+void DataLogger::setup(String headers) {
+  char * file = _filename;  // this works, but means that the file name doesn't seem to change in its original location. this is key, because log() has to be able to access the most recent file name as well.
+  file = "DATAF000.CSV";
+  // _filename = "AWESM000.CSV";
+  // initialize the SD card
+  if ( !SD.begin() ) {
+    _error("Card failed, or not present");
+  }
+  Serial.println("card initialized.");
+  // create a new file
+  for (uint8_t i = 0; i < 100000; i++) {
+    if ( i < 10 ) {
+      file[7] = i + '0';
+    } else if ( i < 100 ) {
+      file[6] = i/10 + '0';
+      file[7] = i%10 + '0';
+    } else if ( i < 1000) {
+      file[5] = i/100 + '0';
+      file[6] = i%100/10 + '0';
+      file[7] = i%100%10 + '0';
+    } else {
+      Serial.println();
+      Serial.println("ran out of file names");
+      Serial.println();
+    }
+    if ( ! SD.exists(file) ) {
+      // only open a new file if it doesn't exist
+      _logfile = SD.open(file, FILE_WRITE);
+      break;  // leave the loop
+    }
+  }
+  if ( ! _logfile ) {
+    _error("couldnt create file");
+  }
+  Serial.print("Logging to: ");
+  Serial.println(file);
+  File dataFile = SD.open(file, FILE_WRITE);
+  if (dataFile) {
+    dataFile.print("date time (yyy/mm/dd hh:mm:ss), ");
+    dataFile.print(headers);
+    dataFile.println();
+    dataFile.close();
+  } else {
+    Serial.println("error copying data to CSV");
+  }
+  // setup RTC
+  Wire.begin();
+  if (!_RTC.begin()) {
+    _logfile.println("RTC failed");
+    Serial.println("RTC failed");
+  }
+  if (! _RTC.isrunning()) {
+      Serial.println("RTC is NOT running!");
+      // following line sets the RTC to the date & time this sketch was compiled
+      // uncomment it & upload to set the time, date and start run the RTC!
+      _RTC.adjust(DateTime(__DATE__, __TIME__));
+  }
+  _filename = *file;
+}
+void DataLogger::log(String row) {
+
+  File dataFile = SD.open(file, FILE_WRITE);
+  DateTime now = _RTC.now();
+  if (dataFile) {
+    dataFile.print(now.year(), DEC);
+    dataFile.print('/');
+    dataFile.print(now.month(), DEC);
+    dataFile.print('/');
+    dataFile.print(now.day(), DEC);
+    dataFile.print(' ');
+    dataFile.print(now.hour(), DEC);
+    dataFile.print(':');
+    dataFile.print(now.minute(), DEC);
+    dataFile.print(':');
+    dataFile.print(now.second(), DEC);
+    dataFile.print(", ");
+    dataFile.print(row);
+    dataFile.println();
+    dataFile.close();
+  } else {
+    Serial.println("error copying data to CSV");
+  }
+}
+void DataLogger::_error(char *str) {
+  Serial.print("error: ");
+  Serial.println(str);
+  // red LED indicates error
+  digitalWrite(SDRedLEDPin, HIGH);
+  while(1);
 }
 
 int Awesome::micRead() {

@@ -4,15 +4,19 @@
 #include <Wire.h>                           //One Wire library
 #include "RTClib.h"                         //Real Time Clock library
 
+
+Awesome aws;
+
+
+/*
 #define redLEDpin          2                // LEDs on SD card
 
 char filename[] = "DATAF000.CSV";           //filename for CSV file
 File logfile;                               //indicate CSV file exists
 RTC_DS1307 RTC;                             //Define RTC module
 
-Awesome aws;
 
-/* Data Logger Functions */
+// Data Logger Functions
 void SDSetup() {
   // initialize the SD card
   if ( !SD.begin() ) {
@@ -21,8 +25,6 @@ void SDSetup() {
   Serial.println("card initialized.");
   // create a new file
   for (uint8_t i = 0; i < 100000; i++) {
-    /*filename[5] = i/100 + '0';
-    filename[6] = i/10 + '0';*/
     if ( i < 10 ) {
       filename[7] = i + '0';
     } else if ( i < 100 ) {
@@ -37,13 +39,13 @@ void SDSetup() {
       Serial.println("ran out of file names");
       Serial.println();
     }
-    if (! SD.exists(filename)) {
+    if ( ! SD.exists(filename) ) {
       // only open a new file if it doesn't exist
       logfile = SD.open(filename, FILE_WRITE);
-      break;  // leave the loop!
+      break;  // leave the loop
     }
   }
-  if (! logfile) {
+  if ( ! logfile ) {
     error("couldnt create file");
   }
   Serial.print("Logging to: ");
@@ -59,15 +61,29 @@ void SDSetup() {
     Serial.println("error copying data to CSV");
   }
 }
-void error(char *str)
-  {
-    Serial.print("error: ");
-    Serial.println(str);
+void error(char *str) {
+  Serial.print("error: ");
+  Serial.println(str);
 
-    // red LED indicates error
-    digitalWrite(redLEDpin, HIGH);
-    while(1);
-  }
+  // red LED indicates error
+  digitalWrite(redLEDpin, HIGH);
+  while(1);
+}
+void timeSetup()
+{
+    Wire.begin();
+    if (!RTC.begin()) {
+      logfile.println("RTC failed");
+      Serial.println("RTC failed");
+    }
+    if (! RTC.isrunning()) {
+        Serial.println("RTC is NOT running!");
+        // following line sets the RTC to the date & time this sketch was compiled
+        // uncomment it & upload to set the time, date and start run the RTC!
+        RTC.adjust(DateTime(__DATE__, __TIME__));
+    }
+}
+
 void SDLoop()
 {
   File dataFile = SD.open(filename, FILE_WRITE);
@@ -93,32 +109,37 @@ void SDLoop()
   } else {
     Serial.println("error copying data to CSV");
   }
-}
-void timeSetup()
-{
-    Wire.begin();
-    if (!RTC.begin()) {
-      logfile.println("RTC failed");
-      Serial.println("RTC failed");
-    }
-    if (! RTC.isrunning()) {
-        Serial.println("RTC is NOT running!");
-        // following line sets the RTC to the date & time this sketch was compiled
-        // uncomment it & upload to set the time, date and start run the RTC!
-        RTC.adjust(DateTime(__DATE__, __TIME__));
-    }
-}
+}*/
 
 void setup() {
   Serial.begin(9600);
+/*
   timeSetup();
-  SDSetup();
+  SDSetup();*/
+  aws.dataLogger.setup("Temp, Light");
+
   aws.buzzer.setSilent(true);
-  aws.diagnostic();
+  // aws.diagnostic();
 }
 
 void loop() {
-  SDLoop();
+  /*SDLoop();*/
+
+  int tempRdg = aws.temperatureSensor.read();
+  int lightRdg = aws.lightSensor.read();
+
+  Serial.print("Temp = ");
+  Serial.println(tempRdg);
+  Serial.print("Light = ");
+  Serial.println(lightRdg);
+  Serial.println();
+
+  String row;
+  row += tempRdg;
+  row += ",";
+  row += lightRdg;
+  aws.dataLogger.log(row);
+
   aws.greenLED.turnOn();
   delay(100);
   aws.greenLED.turnOff();

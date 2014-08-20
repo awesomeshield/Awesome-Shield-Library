@@ -20,6 +20,8 @@
 #define tempSensorPin   A2
 #define micPin          NULL
 
+#define SDRedLEDPin          2      // for SD shield only
+
 /* Pins Kept Free
 0,1               RX, TX for comms
 A4, A5            for RTC on data logger shield
@@ -36,6 +38,9 @@ A4, A5            for RTC on data logger shield
 
 #include "Arduino.h"
 #include "Timer.h"
+#include <SD.h>                             //SD card library
+#include <Wire.h>                           //One Wire library
+#include "RTClib.h"                         //Real Time Clock library
 
 class ioLED {
   public:
@@ -70,7 +75,7 @@ class LightSensor {
 class TemperatureSensor {
   public:
     void setup(int pin);
-    float read();
+    int read();
   private:
     int _pin;
     float _read();
@@ -94,6 +99,18 @@ class Buzzer {
     bool _silent;
 };
 
+class DataLogger {
+  public:
+    void setup(String headers);
+    void log(String row);
+  private:
+    char _filename[];
+    File _logfile;
+    RTC_DS1307 _RTC;
+    void _RTCSetup();
+    void _error(char *str);
+};
+
 class Awesome {
   public:
     Awesome();
@@ -108,6 +125,8 @@ class Awesome {
     Switch button;
     Switch toggle;
     int   micRead();
+
+    DataLogger dataLogger;
 
     void diagnostic();
   private:
