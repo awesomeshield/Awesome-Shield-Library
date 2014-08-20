@@ -216,6 +216,7 @@ void DataLogger::log(String row) {
   File dataFile = SD.open(_filename, FILE_WRITE);
   DateTime now = _RTC.now();
   if (dataFile) {
+    // print date-time
     dataFile.print(now.year(), DEC);
     dataFile.print('/');
     dataFile.print(now.month(), DEC);
@@ -228,6 +229,7 @@ void DataLogger::log(String row) {
     dataFile.print(':');
     dataFile.print(now.second(), DEC);
     dataFile.print(", ");
+    // print data
     dataFile.print(row);
     dataFile.println();
     dataFile.close();
@@ -240,7 +242,8 @@ void DataLogger::_error(char *str) {
   Serial.println(str);
   // red LED indicates error
   digitalWrite(SDRedLEDPin, HIGH);
-  while(1);
+  // stop here and wait
+  while( true );
 }
 
 int Awesome::micRead() {
