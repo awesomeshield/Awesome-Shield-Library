@@ -50,7 +50,7 @@ void redGreenBlueLED::_setPins (int redPin, int greenPin, int bluePin) {
 }
 void redGreenBlueLED::turnOn(int c1, int c2, int c3) {
   turnOff();
-  if (c1 >= 255) {
+  if ( c1 >= 255 ) {
     switch (c1) {
       case RED:
         digitalWrite(rgbRedPin,HIGH);
@@ -153,54 +153,21 @@ void Buzzer::setSilent(bool newState) {
 }
 
 void DataLogger::setup(String headers) {
-  char * file = _filename;  // this works, but means that the file name doesn't seem to change in its original location. this is key, because log() has to be able to access the most recent file name as well.
-  file = "DATAF000.CSV";
-  // _filename = "AWESM000.CSV";
-  // initialize the SD card
-  if ( !SD.begin() ) {
-    _error("Card failed, or not present");
-  }
-  Serial.println("card initialized.");
-  // create a new file
-  for (uint8_t i = 0; i < 100000; i++) {
-    if ( i < 10 ) {
-      file[7] = i + '0';
-    } else if ( i < 100 ) {
-      file[6] = i/10 + '0';
-      file[7] = i%10 + '0';
-    } else if ( i < 1000) {
-      file[5] = i/100 + '0';
-      file[6] = i%100/10 + '0';
-      file[7] = i%100%10 + '0';
-    } else {
-      Serial.println();
-      Serial.println("ran out of file names");
-      Serial.println();
-    }
-    if ( ! SD.exists(file) ) {
-      // only open a new file if it doesn't exist
-      _logfile = SD.open(file, FILE_WRITE);
-      break;  // leave the loop
-    }
-  }
-  if ( ! _logfile ) {
-    _error("couldnt create file");
-  }
-  Serial.print("Logging to: ");
-  Serial.println(file);
-  File dataFile = SD.open(file, FILE_WRITE);
-  if (dataFile) {
-    dataFile.print("date time (yyy/mm/dd hh:mm:ss), ");
-    dataFile.print(headers);
-    dataFile.println();
-    dataFile.close();
+  _makeFile();
+
+  //File dataFile = SD.open(file, FILE_WRITE);
+  if (_dataFile) {
+    _dataFile.print("date time (yyy/mm/dd hh:mm:ss), ");
+    _dataFile.print(headers);
+    _dataFile.println();
+    _dataFile.close();
   } else {
     Serial.println("error copying data to CSV");
   }
   // setup RTC
   Wire.begin();
   if (!_RTC.begin()) {
-    _logfile.println("RTC failed");
+    _dataFile.println("RTC failed");
     Serial.println("RTC failed");
   }
   if (! _RTC.isrunning()) {
@@ -209,10 +176,8 @@ void DataLogger::setup(String headers) {
       // uncomment it & upload to set the time, date and start run the RTC!
       _RTC.adjust(DateTime(__DATE__, __TIME__));
   }
-  // _filename = *file; // broken
 }
 void DataLogger::log(String row) {
-
   File dataFile = SD.open(_filename, FILE_WRITE);
   DateTime now = _RTC.now();
   if (dataFile) {
@@ -237,6 +202,11 @@ void DataLogger::log(String row) {
     Serial.println("error copying data to CSV");
   }
 }
+void DataLogger::printFileName() {
+  Serial.print("_filename is: ");
+  Serial.println(_filename);
+  Serial.println();
+}
 void DataLogger::_error(char *str) {
   Serial.print("error: ");
   Serial.println(str);
@@ -244,6 +214,60 @@ void DataLogger::_error(char *str) {
   digitalWrite(SDRedLEDPin, HIGH);
   // stop here and wait
   while( true );
+}
+void DataLogger::_makeFile() {
+  char * filenameptr = _filename;
+
+  //_filename = "DATAF000.CSV";
+
+  // char & filenameRef = *file;
+  //filenameRef = 'a';  // this does change the _filename, but only works with a single char
+
+  /* SET _filename */
+  // string containing desired file name
+  String initialFileNameString = "DATAF000.csv";
+  // char array to store file name
+  char initialFileNameArray[13];
+  // write contents of string to array
+  initialFileNameString.toCharArray(initialFileNameArray,13);
+  // write contents of array to _filename
+  for (int i=0; i<initialFileNameString.length(); i++) {
+    *(filenameptr+i) = initialFileNameArray[i];
+  }
+
+  // initialize the SD card
+  if ( !SD.begin() ) {
+    _error("Card failed, or not present");
+  }
+  Serial.println("card initialized.");
+
+  for (uint8_t i = 0; i < 100000; i++) {
+    if ( i < 10 ) {
+      filenameptr[7] = i + '0';
+    } else if ( i < 100 ) {
+      filenameptr[6] = i/10 + '0';
+      filenameptr[7] = i%10 + '0';
+    } else if ( i < 1000) {
+      filenameptr[5] = i/100 + '0';
+      filenameptr[6] = i%100/10 + '0';
+      filenameptr[7] = i%100%10 + '0';
+    } else {
+      Serial.println();
+      Serial.println("ran out of file names");
+      Serial.println();
+    }
+    if ( ! SD.exists(filenameptr) ) {
+      // only open a new file if it doesn't exist
+      _dataFile = SD.open(filenameptr, FILE_WRITE);
+      break;  // leave the loop
+    }
+  }
+
+  if ( ! _dataFile ) {
+    _error("couldnt create file");
+  }
+  Serial.print("Logging to: ");
+  Serial.println(filenameptr);
 }
 
 int Awesome::micRead() {

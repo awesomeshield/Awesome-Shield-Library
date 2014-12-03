@@ -11,8 +11,8 @@
 #define rgbRedPin       3  // PWM
 #define rgbGreenPin     5
 #define rgbBluePin      6
-#define redLedPin       4
-#define greenLedPin     7
+#define redLedPin       7
+#define greenLedPin     4
 #define buzzerPin       9
 #define buttonPin       2
 #define switchOnPin     8
@@ -103,12 +103,14 @@ class DataLogger {
   public:
     void setup(String headers);   // include optional NOTIMESTAMP argument
     void log(String row);         // include optional NOTIMESTAMP argument
+    void printFileName();
   private:
     char _filename[];
-    File _logfile;
+    File _dataFile;
     RTC_DS1307 _RTC;
     void _RTCSetup();
     void _error(char *str);
+    void _makeFile();
 };
 
 class Awesome {
