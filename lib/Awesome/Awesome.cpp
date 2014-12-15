@@ -329,7 +329,7 @@ void Awesome::_allOkay() {
   }
 }
 
-void Awesome::diagnostic() {
+void Awesome::test() {
   _LedsFlash(500);
   _LedsCycle();
   _LedsTurnOff();

@@ -130,7 +130,7 @@ class Awesome {
 
     DataLogger dataLogger;
 
-    void diagnostic();
+    void test();
   private:
     void _LedsFlash(int millis);
     void _LedsTurnOn();
