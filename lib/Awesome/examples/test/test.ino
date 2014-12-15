@@ -1,3 +1,5 @@
+#include <Awesome.h>
+
 Awesome awesome;
 
 void setup() {
