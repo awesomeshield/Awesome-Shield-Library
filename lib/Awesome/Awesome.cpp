@@ -8,9 +8,9 @@
 #include "Arduino.h"
 #include "Awesome.h"
 
-#include <SD.h>                             //SD card library
-#include <Wire.h>                           //One Wire library
-#include "RTClib.h"                         //Real Time Clock library
+//#include <SD.h>                             //SD card library
+//#include <Wire.h>                           //One Wire library
+//#include "RTClib.h"                         //Real Time Clock library
 
 
 
@@ -152,6 +152,7 @@ void Buzzer::setSilent(bool newState) {
   noTone(_pin);
 }
 
+/*
 void DataLogger::setup(String headers) {
   _makeFile();
 
@@ -223,7 +224,7 @@ void DataLogger::_makeFile() {
   // char & filenameRef = *file;
   //filenameRef = 'a';  // this does change the _filename, but only works with a single char
 
-  /* SET _filename */
+  // SET _filename
   // string containing desired file name
   String initialFileNameString = "DATAF000.csv";
   // char array to store file name
@@ -269,6 +270,7 @@ void DataLogger::_makeFile() {
   Serial.print("Logging to: ");
   Serial.println(filenameptr);
 }
+*/
 
 int Awesome::micRead() {
   return analogRead(micPin);

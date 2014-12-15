@@ -37,10 +37,10 @@ A4, A5            for RTC on data logger shield
 #define CYAN     306
 
 #include "Arduino.h"
-#include "Timer.h"
-#include <SD.h>                             //SD card library
-#include <Wire.h>                           //One Wire library
-#include "RTClib.h"                         //Real Time Clock library
+//#include "Timer.h"
+// #include <SD.h>                             //SD card library
+// #include <Wire.h>                           //One Wire library
+//#include "RTClib.h"                         //Real Time Clock library
 
 class ioLED {
   public:
@@ -99,6 +99,7 @@ class Buzzer {
     bool _silent;
 };
 
+/*
 class DataLogger {
   public:
     void setup(String headers);   // include optional NOTIMESTAMP argument
@@ -112,6 +113,7 @@ class DataLogger {
     void _error(char *str);
     void _makeFile();
 };
+*/
 
 class Awesome {
   public:
@@ -128,7 +130,7 @@ class Awesome {
     Switch toggle;
     int   micRead();
 
-    DataLogger dataLogger;
+    //DataLogger dataLogger;
 
     void test();
   private:
