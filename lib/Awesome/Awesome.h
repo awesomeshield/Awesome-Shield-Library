@@ -8,9 +8,9 @@
 #ifndef Awesome_h
 #define Awesome_h
 
-#define rgbRedPin       5 // 3  // PWM
-#define rgbGreenPin     6 // 5
-#define rgbBluePin      3 // 6
+#define rgbRedPin       3
+#define rgbGreenPin     5
+#define rgbBluePin      6
 #define redLedPin       7
 #define greenLedPin     4
 #define buzzerPin       9

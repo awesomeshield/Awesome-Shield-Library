@@ -76,4 +76,3 @@ void loop() {
     // the amount of blue is bigger when the sensor is colder
     delay(blue);
   }
-  
