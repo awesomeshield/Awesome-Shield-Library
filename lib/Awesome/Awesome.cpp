@@ -171,11 +171,14 @@ void Buzzer::beep(int millis) {
     return;
   } else {
     tone(_pin, 400, millis);
+    delay(millis + 5);
   }
 }
 void Buzzer::setSilent(bool newState) {
   _silent = newState;
-  noTone(_pin);
+  if (_silent) {
+    noTone(_pin);
+  }
 }
 
 /*
