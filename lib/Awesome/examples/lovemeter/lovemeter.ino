@@ -2,13 +2,12 @@
 Awesome awesome;
 
 float temp;
-float lowestTemp;
+float lowestTemp;     // should be air temp
 float highestTemp;
 int tempInterval = 3;
-int red;
-int blue;
-// float delayTime;
-float howHotIsIt;
+int red;      // change to hotness
+int blue;     // change to coldness
+float howHotIsIt; // change to hotter than air
 
 
 void setup() {
@@ -29,40 +28,26 @@ void loop() {
   // mathematically, this interpolation.. that's gonna be a DOOZEY to explain
   // we need to measure how hot it is
   // we particularly need to know how much hotter than room temperature it is
-  // [ ] break this into two variables: 'hotter than room temp' and 'temp range'
+  // [ ] break this into two variables: 'hotter than air temp' and 'maximum hotter than air temp'
   // explain each value, and the use of their ratio
   howHotIsIt = (temp - lowestTemp ) / ( highestTemp - lowestTemp );
 
+  // if temp < lowest temp [ ] change
   if ( howHotIsIt < 0 ) {
+    // adjust air temp ... the air got colder
     lowestTemp = temp - 0.25;
+    // since the temperature is colder than we expected, me
     red = 0;
     } else if ( howHotIsIt < 1 ) {
       red = howHotIsIt * 100;
       } else {
         red = 100;
       }
-      /*
-      if ( howHotIsIt < 1 ) {
-      blue = 255 - howHotIsIt * 100;
-      } else {
-      blue = 0;
-    }
-    */
+
     blue = 100 - red;
 
     red = red * 2.5;
     blue = blue * 2.5;
-
-
-    /*Serial.print("RED, BLUE = ");
-    Serial.print(red);
-    Serial.print(",  ");
-    Serial.println(blue);*/
-
-    // Serial.println(); // TEST
-
-    // turn off the RGB LED
-    // awesome.rgbLED.turnOff();
 
     // make a tick noise, adjust the length to what works for you
     awesome.buzzer.beep(5);
