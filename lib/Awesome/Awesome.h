@@ -54,7 +54,7 @@ class ioLED {
 
 class redGreenBlueLED {
   public:
-    void turnOn(int c1, int c2 = 0, int c3 = 0);
+    void turnOn(int ColorOrHowMuchRed, int howMuchGreen = 0, int howMuchBlue = 0);
     void turnOff();
     void setup(int redPin, int greenPin, int bluePin);
   private:

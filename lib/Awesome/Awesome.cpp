@@ -51,9 +51,9 @@ void redGreenBlueLED::_setPins (int redPin, int greenPin, int bluePin) {
   _greenPin = greenPin;
   _bluePin = bluePin;
 }
-void redGreenBlueLED::turnOn(int c1, int c2, int c3) {
-  if ( c1 >= 255 ) {
-    switch (c1) {
+void redGreenBlueLED::turnOn(int ColorOrHowMuchRed, int howMuchGreen, int howMuchBlue) {
+  if ( ColorOrHowMuchRed >= 255 ) {
+    switch (ColorOrHowMuchRed) {
       case RED:
         digitalWrite(rgbRedPin,HIGH);
         digitalWrite(rgbGreenPin,LOW);
@@ -93,14 +93,14 @@ void redGreenBlueLED::turnOn(int c1, int c2, int c3) {
         Serial.println("Invalid input");
     }
   } else {
-    if (c1 != 0) {
-      analogWrite(_redPin, c1);
+    if (ColorOrHowMuchRed != 0) {
+      analogWrite(_redPin, ColorOrHowMuchRed);
     }
-    if (c2 != 0) {
-      analogWrite(_greenPin, c2);
+    if (HowMuchGreen != 0) {
+      analogWrite(_greenPin, HowMuchGreen);
     }
-    if (c3 != 0) {
-      analogWrite(_bluePin, c3);
+    if (howMuchBlue != 0) {
+      analogWrite(_bluePin, howMuchBlue);
     }
   }
 }
