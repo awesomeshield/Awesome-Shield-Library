@@ -121,7 +121,7 @@ class Awesome {
 
     ioLED redLED;
     ioLED greenLED;
-    redGreenBlueLED rgbLED;
+    redGreenBlueLED colorLED;
     Buzzer buzzer;
 
     LightSensor lightSensor;

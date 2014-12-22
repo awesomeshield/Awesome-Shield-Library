@@ -19,7 +19,7 @@ const int temps[] PROGMEM = { 0, 1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
 Awesome::Awesome() {
   redLED.             setup(redLedPin);
   greenLED.           setup(greenLedPin);
-  rgbLED.             setup(rgbRedPin, rgbGreenPin, rgbBluePin);
+  colorLED.           setup(rgbRedPin, rgbGreenPin, rgbBluePin);
   lightSensor.        setup(lightSensorPin);
   temperatureSensor.  setup(tempSensorPin);
   button.             setup(buttonPin);
@@ -313,31 +313,31 @@ void Awesome::_LedsFlash(int millis) {
 }
 
 void Awesome::_LedsTurnOn() {
-  rgbLED.turnOn(WHITE);
+  colorLED.turnOn(WHITE);
   redLED.turnOn();
   greenLED.turnOn();
 }
 
 void Awesome::_LedsTurnOff() {
-  rgbLED.turnOff();
+  colorLED.turnOff();
   redLED.turnOff();
   greenLED.turnOff();
 }
 
 void Awesome::_LedsCycle() {
-  rgbLED.turnOn(RED);
+  colorLED.turnOn(RED);
   delay(150);
-  rgbLED.turnOn(GREEN);
+  colorLED.turnOn(GREEN);
   delay(150);
-  rgbLED.turnOn(BLUE);
+  colorLED.turnOn(BLUE);
   delay(150);
-  rgbLED.turnOn(CYAN);
+  colorLED.turnOn(CYAN);
   delay(150);
-  rgbLED.turnOn(YELLOW);
+  colorLED.turnOn(YELLOW);
   delay(150);
-  rgbLED.turnOn(MAGENTA);
+  colorLED.turnOn(MAGENTA);
   delay(150);
-  rgbLED.turnOn(WHITE);
+  colorLED.turnOn(WHITE);
   delay(150);
   redLED.turnOn();
   delay(150);
@@ -353,10 +353,10 @@ void Awesome::_allOkay() {
   // flash green 3 times
   for ( int i = 0; i <= 2; i++ ) {
     greenLED.turnOn();
-    rgbLED.turnOn(GREEN);
+    colorLED.turnOn(GREEN);
     delay(300);
     greenLED.turnOff();
-    rgbLED.turnOff();
+    colorLED.turnOff();
     delay(150);
   }
 }
