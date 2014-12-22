@@ -52,7 +52,7 @@ void redGreenBlueLED::_setPins (int redPin, int greenPin, int bluePin) {
   _bluePin = bluePin;
 }
 void redGreenBlueLED::turnOn(int ColorOrHowMuchRed, int howMuchGreen, int howMuchBlue) {
-  if ( ColorOrHowMuchRed >= 10001 ) {
+  if ( ColorOrHowMuchRed >= 1001 ) {
     switch (ColorOrHowMuchRed) {
       case RED:
         digitalWrite(rgbRedPin,HIGH);
