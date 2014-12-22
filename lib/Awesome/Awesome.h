@@ -8,14 +8,14 @@
 #ifndef Awesome_h
 #define Awesome_h
 
-#define rgbRedPin       3
-#define rgbGreenPin     5
-#define rgbBluePin      6
-#define redLedPin       4
-#define greenLedPin     7
-#define buzzerPin       9
-#define buttonPin       2
-#define switchOnPin     8
+#define rgbRedPin       3   // pwm
+#define rgbGreenPin     5   // pwm
+#define rgbBluePin      6   // pwm
+#define redLedPin       4   // io digital
+#define greenLedPin     7   // io digital
+#define buzzerPin       9   // pwm
+#define buttonPin       2   // io digital
+#define switchOnPin     8   // io digital
 #define lightSensorPin  A1
 #define tempSensorPin   A2
 #define micPin          NULL
