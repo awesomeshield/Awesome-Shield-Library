@@ -67,7 +67,7 @@ class redGreenBlueLED {
 class LightSensor {
   public:
     void setup(int pin);
-    int read();
+    int check();
   private:
     int _pin;
 };
@@ -75,16 +75,16 @@ class LightSensor {
 class TemperatureSensor {
   public:
     void setup(int pin);
-    float read();
+    float check();
   private:
     int _pin;
-    float _read();
+    float _check();
 };
 
 class Switch {
   public:
     void setup(int pin);
-    bool read();
+    bool check();
   private:
     int _pin;
 };
@@ -128,7 +128,7 @@ class Awesome {
     TemperatureSensor temperatureSensor;
     Switch button;
     Switch toggle;
-    //int   micRead();
+    //int   miccheck();
 
     //DataLogger dataLogger;
 

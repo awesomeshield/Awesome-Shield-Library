@@ -114,7 +114,7 @@ void LightSensor::setup(int pin) {
   _pin = pin;
   pinMode(_pin,INPUT);
 }
-int LightSensor::read() {
+int LightSensor::check() {
   return analogRead(_pin);
 }
 
@@ -122,7 +122,7 @@ void TemperatureSensor::setup(int pin) {
   _pin = pin;
   pinMode(_pin,INPUT);
 }
-float TemperatureSensor::_read() {
+float TemperatureSensor::_check() {
   int numData=5;
   int rawData[numData-1];
   for (short i=0;i<numData;i++) {
@@ -148,15 +148,15 @@ float TemperatureSensor::_read() {
   result = result / 10;
   return result;
 }
-float TemperatureSensor::read() {
-  return _read();
+float TemperatureSensor::check() {
+  return _check();
 }
 
 void Switch::setup(int pin) {
   _pin = pin;
   pinMode(_pin, INPUT);
 }
-bool Switch::read() {
+bool Switch::check() {
   return digitalRead(_pin);
 }
 
@@ -301,7 +301,7 @@ void DataLogger::_makeFile() {
 */
 
 /*
-int Awesome::micRead() {
+int Awesome::miccheck() {
   return analogRead(micPin);
 }
 */
@@ -370,10 +370,10 @@ void Awesome::test() {
   delay(500);
 
   Serial.print("Light reading = ");
-  Serial.println(lightSensor.read());
+  Serial.println(lightSensor.check());
 
   Serial.print("Temperature reading = ");
-  Serial.println(temperatureSensor.read());
+  Serial.println(temperatureSensor.check());
   Serial.println();
 
   // Serial.println(micReading());
@@ -381,7 +381,7 @@ void Awesome::test() {
 
   // flash green LED once button is pushed
   redLED.turnOn();
-  while ( ! button.read() ) {
+  while ( ! button.check() ) {
     // wait
   }
   redLED.turnOff();
@@ -392,9 +392,9 @@ void Awesome::test() {
   delay(500);
 
   // flash green LED once switch is flipped
-  bool initialSwitchState = toggle.read();
+  bool initialSwitchState = toggle.check();
   redLED.turnOn();
-  while (toggle.read() == initialSwitchState) {
+  while (toggle.check() == initialSwitchState) {
     // wait
   }
   redLED.turnOff();
