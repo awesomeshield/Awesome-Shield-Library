@@ -74,7 +74,7 @@ void redGreenBlueLED::turnOn(int ColorOrHowMuchRed, int howMuchGreen, int howMuc
         digitalWrite(rgbGreenPin,HIGH);
         digitalWrite(rgbBluePin,LOW);
         break;
-      case MAGENTA:
+      case PURPLE:
         digitalWrite(rgbRedPin,HIGH);
         digitalWrite(rgbGreenPin,LOW);
         digitalWrite(rgbBluePin,HIGH);
@@ -96,7 +96,7 @@ void redGreenBlueLED::turnOn(int ColorOrHowMuchRed, int howMuchGreen, int howMuc
     if (ColorOrHowMuchRed != 0) {
       analogWrite(_redPin, ColorOrHowMuchRed);
     }
-    if (HowMuchGreen != 0) {
+    if (howMuchGreen != 0) {
       analogWrite(_greenPin, howMuchGreen);
     }
     if (howMuchBlue != 0) {
@@ -335,7 +335,7 @@ void Awesome::_LedsCycle() {
   delay(150);
   colorLED.turnOn(YELLOW);
   delay(150);
-  colorLED.turnOn(MAGENTA);
+  colorLED.turnOn(PURPLE);
   delay(150);
   colorLED.turnOn(WHITE);
   delay(150);
