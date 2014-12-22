@@ -52,7 +52,6 @@ void redGreenBlueLED::_setPins (int redPin, int greenPin, int bluePin) {
   _bluePin = bluePin;
 }
 void redGreenBlueLED::turnOn(int c1, int c2, int c3) {
-  turnOff();
   if ( c1 >= 255 ) {
     switch (c1) {
       case RED:
