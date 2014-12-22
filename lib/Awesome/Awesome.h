@@ -28,6 +28,7 @@ A4, A5            for RTC on data logger shield
 10, 11, 12, 13    for SD card on data logger shield
 */
 
+// assign values to the text based color inputs
 #define WHITE    300
 #define RED      301
 #define GREEN    302

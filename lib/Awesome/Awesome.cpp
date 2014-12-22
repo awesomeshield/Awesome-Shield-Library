@@ -97,7 +97,7 @@ void redGreenBlueLED::turnOn(int ColorOrHowMuchRed, int howMuchGreen, int howMuc
       analogWrite(_redPin, ColorOrHowMuchRed);
     }
     if (HowMuchGreen != 0) {
-      analogWrite(_greenPin, HowMuchGreen);
+      analogWrite(_greenPin, howMuchGreen);
     }
     if (howMuchBlue != 0) {
       analogWrite(_bluePin, howMuchBlue);
