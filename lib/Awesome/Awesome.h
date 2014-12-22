@@ -11,8 +11,8 @@
 #define rgbRedPin       3
 #define rgbGreenPin     5
 #define rgbBluePin      6
-#define redLedPin       7
-#define greenLedPin     4
+#define redLedPin       4
+#define greenLedPin     7
 #define buzzerPin       9
 #define buttonPin       2
 #define switchOnPin     8
