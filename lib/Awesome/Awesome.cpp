@@ -52,7 +52,7 @@ void redGreenBlueLED::_setPins (int redPin, int greenPin, int bluePin) {
   _bluePin = bluePin;
 }
 void redGreenBlueLED::turnOn(int ColorOrHowMuchRed, int howMuchGreen, int howMuchBlue) {
-  if ( ColorOrHowMuchRed >= 255 ) {
+  if ( ColorOrHowMuchRed >= 10001 ) {
     switch (ColorOrHowMuchRed) {
       case RED:
         digitalWrite(rgbRedPin,HIGH);
@@ -94,13 +94,13 @@ void redGreenBlueLED::turnOn(int ColorOrHowMuchRed, int howMuchGreen, int howMuc
     }
   } else {
     if (ColorOrHowMuchRed != 0) {
-      analogWrite(_redPin, ColorOrHowMuchRed);
+      analogWrite(_redPin, ColorOrHowMuchRed / 4);
     }
     if (howMuchGreen != 0) {
-      analogWrite(_greenPin, howMuchGreen);
+      analogWrite(_greenPin, howMuchGreen / 4);
     }
     if (howMuchBlue != 0) {
-      analogWrite(_bluePin, howMuchBlue);
+      analogWrite(_bluePin, howMuchBlue / 4);
     }
   }
 }
