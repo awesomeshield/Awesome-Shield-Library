@@ -114,8 +114,15 @@ void LightSensor::setup(int pin) {
   _pin = pin;
   pinMode(_pin,INPUT);
 }
-int LightSensor::check() {
-  return analogRead(_pin);
+double LightSensor::check() {
+  int lightADCReading = analogRead(_pin);
+  // Calculating the voltage of the Analog to Digital Converter ADC for light
+  double lightInputVoltage = 5.0 * ((double)lightADCReading / 1024.0);
+  // Calculating the resistance of the photoresistor in the voltage divider
+  double lightResistance = (10.0 * 5.0) / lightInputVoltage - 10.0;
+  // Calculating the intensity of light in lux
+  double currentLightInLux = 255.84 * pow(lightResistance, -10/9);
+  return currentLightInLux;
 }
 
 void TemperatureSensor::setup(int pin) {

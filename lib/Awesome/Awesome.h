@@ -68,7 +68,7 @@ class redGreenBlueLED {
 class LightSensor {
   public:
     void setup(int pin);
-    int check();
+    double check();
   private:
     int _pin;
 };
