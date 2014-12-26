@@ -29,13 +29,13 @@ A4, A5            for RTC on data logger shield
 */
 
 // assign values to the text based color inputs
-#define WHITE    1001  // more of a turquoise
-#define RED      1002
-#define GREEN    1003
-#define BLUE     1004
-#define YELLOW   1005  // more of a turqoise
-#define PURPLE   1006  // good
-#define CYAN     1007  // nice
+#define WHITE    3001  // more of a turquoise
+#define RED      3002
+#define GREEN    3003
+#define BLUE     3004
+#define YELLOW   3005  // more of a turqoise
+#define PURPLE   3006  // good
+#define CYAN     3007  // nice
 
 #include "Arduino.h"
 //#include "Timer.h"
