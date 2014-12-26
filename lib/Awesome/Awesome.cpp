@@ -93,6 +93,17 @@ void redGreenBlueLED::turnOn(int ColorOrHowMuchRed, int howMuchGreen, int howMuc
         Serial.println("Invalid input");
     }
   } else {
+    //  zero negative inputs
+    if (ColorOrHowMuchRed < 0) {
+      ColorOrHowMuchRed = 0;
+    }
+    if (howMuchGreen < 0) {
+      howMuchGreen = 0;
+    }
+    if (howMuchBlue < 0) {
+      howMuchBlue = 0;
+    }
+    // turn on LEDs
     if (ColorOrHowMuchRed != 0) {
       analogWrite(_redPin, ColorOrHowMuchRed / 4);
     }
