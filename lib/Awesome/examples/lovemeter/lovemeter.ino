@@ -5,6 +5,7 @@ float sensorTemp;
 float airTemp;
 float howMuchHotterThanAir;
 float red;
+int blue;
 
 
 void setup() {
@@ -14,6 +15,12 @@ void setup() {
 void loop() {
   sensorTemp = awesome.temperatureSensor.check();
   howMuchHotterThanAir = sensorTemp - airTemp;
-  red = howMuchHotterThanAir * 100;
-  awesome.colorLED.turnOn(red, 0, 0);
+  red = howMuchHotterThanAir * 10;
+  blue = 100 - red;
+
+  awesome.buzzer.beep(10);
+
+  awesome.colorLED.turnOn(red, 0, blue);
+
+  delay(blue*10);
 }
