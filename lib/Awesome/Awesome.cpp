@@ -52,7 +52,7 @@ void redGreenBlueLED::_setPins (int redPin, int greenPin, int bluePin) {
   _bluePin = bluePin;
 }
 void redGreenBlueLED::turnOn(int ColorOrHowMuchRed, int howMuchGreen, int howMuchBlue) {
-  if ( ColorOrHowMuchRed > 1000 && howMuchGreen == 0 && howMuchBlue == 0 ) {  // 256
+  if ( ColorOrHowMuchRed > 1000 && howMuchGreen == 0 && howMuchBlue == 0 ) {  // [] change 1000 to 256
     switch (ColorOrHowMuchRed) {
       case RED:
         digitalWrite(rgbRedPin,HIGH);
@@ -105,13 +105,13 @@ void redGreenBlueLED::turnOn(int ColorOrHowMuchRed, int howMuchGreen, int howMuc
     }
     // turn on LEDs
     if (ColorOrHowMuchRed != 0) {
-      analogWrite(_redPin, ColorOrHowMuchRed / 4);  // rm '/4'
+      analogWrite(_redPin, ColorOrHowMuchRed / 4);  // [] rm '/4'
     }
     if (howMuchGreen != 0) {
-      analogWrite(_greenPin, howMuchGreen / 4); // rm '/4'
+      analogWrite(_greenPin, howMuchGreen / 4); // [] rm '/4'
     }
     if (howMuchBlue != 0) {
-      analogWrite(_bluePin, howMuchBlue / 4); // rm '/4'
+      analogWrite(_bluePin, howMuchBlue / 4); // [] rm '/4'
     }
   }
 }
@@ -191,7 +191,7 @@ void Buzzer::beep(int millis) {
     delay(millis + 5);
   }
 }
-void Buzzer::setSilent(bool newState) {
+void Buzzer::setSilent(bool newState) { // [] 'change to setSilentMode'
   _silent = newState;
   if (_silent) {
     noTone(_pin);
