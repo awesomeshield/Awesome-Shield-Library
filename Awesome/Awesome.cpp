@@ -183,11 +183,11 @@ void Buzzer::setup(int pin) {
   pinMode(_pin, OUTPUT);
   _silent = false;
 }
-void Buzzer::beep(int millis, int tone) {
+void Buzzer::beep(unsigned long millis, unsigned int frequency) {
   if ( _silent ) {
     return;
   } else {
-    tone(_pin, tone, millis);
+    tone(_pin, frequency, millis);
     delay(millis + 5);
   }
 }
