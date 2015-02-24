@@ -402,11 +402,10 @@ void Awesome::test() {
   while ( ! button.check() ) {
     // wait
   }
-  redLED.turnOff();
   greenLED.turnOn();
   delay(1000);
   greenLED.turnOff();
-
+  redLED.turnOff();
   delay(500);
 
   // flash green LED once switch is flipped
@@ -415,10 +414,9 @@ void Awesome::test() {
   while (toggle.check() == initialSwitchState) {
     // wait
   }
-  redLED.turnOff();
   greenLED.turnOn();
   delay(1000);
   greenLED.turnOff();
+  redLED.turnOff();
 
-  _allOkay();
 }
