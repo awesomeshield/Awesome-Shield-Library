@@ -52,7 +52,7 @@ void redGreenBlueLED::_setPins (int redPin, int greenPin, int bluePin) {
   _bluePin = bluePin;
 }
 void redGreenBlueLED::turnOn(int ColorOrHowMuchRed, int howMuchGreen, int howMuchBlue) {
-  if ( ColorOrHowMuchRed > 255 && howMuchGreen == 0 && howMuchBlue == 0 ) {  // [x] change 1000 to 256
+  if ( ColorOrHowMuchRed > 255 && howMuchGreen == 0 && howMuchBlue == 0 ) {
     switch (ColorOrHowMuchRed) {
       case RED:
         digitalWrite(rgbRedPin,HIGH);
@@ -105,13 +105,13 @@ void redGreenBlueLED::turnOn(int ColorOrHowMuchRed, int howMuchGreen, int howMuc
     }
     // turn on LEDs
     if (ColorOrHowMuchRed != 0) {
-      analogWrite(_redPin, ColorOrHowMuchRed);  // [x] rm '/4'
+      analogWrite(_redPin, ColorOrHowMuchRed);
     }
     if (howMuchGreen != 0) {
-      analogWrite(_greenPin, howMuchGreen); // [x] rm '/4'
+      analogWrite(_greenPin, howMuchGreen);
     }
     if (howMuchBlue != 0) {
-      analogWrite(_bluePin, howMuchBlue); // [x] rm '/4'
+      analogWrite(_bluePin, howMuchBlue);
     }
   }
 }
