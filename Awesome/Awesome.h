@@ -93,7 +93,7 @@ class Switch {
 class Buzzer {
   public:
     void setup(int pin);
-    void beep(unsigned long millis, unsigned int frequency);
+    void beep(unsigned long millis, unsigned int frequency = 400);
     void setSilentMode(bool newState);
   private:
     int _pin;
