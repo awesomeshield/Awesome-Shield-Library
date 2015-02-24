@@ -93,8 +93,8 @@ class Switch {
 class Buzzer {
   public:
     void setup(int pin);
-    void beep(int millis);
-    void setSilent(bool newState);
+    void beep(int millis, int tone = 400);
+    void setSilentMode(bool newState);
   private:
     int _pin;
     bool _silent;
@@ -133,7 +133,7 @@ class Awesome {
 
     //DataLogger dataLogger;
 
-    void test();
+    //void test();
   private:
     void _LedsFlash(int millis);
     void _LedsTurnOn();
