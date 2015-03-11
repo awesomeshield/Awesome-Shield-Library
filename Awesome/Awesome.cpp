@@ -132,7 +132,7 @@ double LightSensor::check() {
   // Calculating the resistance of the photoresistor in the voltage divider
   double lightResistance = (10.0 * 5.0) / lightInputVoltage - 10.0;
   // Calculating the intensity of light in lux
-  int currentLightInLux = 255.84 * pow(lightResistance, -10/9);
+  double currentLightInLux = 255.84 * pow(lightResistance, -10/9);
   return currentLightInLux;
 }
 
