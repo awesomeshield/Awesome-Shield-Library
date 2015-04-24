@@ -1,4 +1,4 @@
 #!/bin/bash
 
 # Copy lib into Arduino IDE folder
-cp -rpv lib/Awesome ~/Documents/Arduino/libraries/
+cp -rpv Awesome ~/Documents/Arduino/libraries/
