@@ -90,11 +90,16 @@ class Switch {
 class Buzzer {
   public:
     void setup(int pin);
+    void turnOn(unsigned int frequency = 400);
+    void turnOff();
+    bool isOn();
+    bool isOff();
     void beep(unsigned long millis, unsigned int frequency = 400);
     void setSilentMode(bool newState);
   private:
     int _pin;
     bool _silent;
+    bool _stateIsOn;
 };
 
 class Awesome {
@@ -108,7 +113,7 @@ class Awesome {
     TemperatureSensor temperatureSensor;
     Switch button;
     Switch toggleSwitch;
-    
+
   private:
 };
 

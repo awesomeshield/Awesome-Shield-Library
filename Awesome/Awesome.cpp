@@ -194,12 +194,27 @@ void Buzzer::setup(int pin) {
   pinMode(_pin, OUTPUT);
   _silent = false;
 }
+void Buzzer::turnOn(unsigned int frequency) {
+  tone(_pin, frequency);
+  _stateIsOn = true;
+}
+void Buzzer::turnOff() {
+  noTone(_pin);
+  _stateIsOn = false;
+}
+bool Buzzer::isOn() {
+  return _stateIsOn;
+}
+bool Buzzer::isOff() {
+  return ! _stateIsOn;
+}
 void Buzzer::beep(unsigned long millis, unsigned int frequency) {
   if ( _silent ) {
     return;
   } else {
-    tone(_pin, frequency, millis);
-    delay(millis + 5);
+    turnOn(frequency);
+    delay(millis);
+    turnOff();
   }
 }
 void Buzzer::setSilentMode(bool newState) { // [] 'change to setSilentMode'
