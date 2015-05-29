@@ -62,9 +62,10 @@ class led {
 class LightSensor {
   public:
     void setup(int pin);
-    double check();
+    int reading();
   private:
     int _pin;
+    int _read();
 };
 
 class TemperatureSensor {
@@ -96,22 +97,6 @@ class Buzzer {
     bool _silent;
 };
 
-/*
-class DataLogger {
-  public:
-    void setup(String headers);   // include optional NOTIMESTAMP argument
-    void log(String row);         // include optional NOTIMESTAMP argument
-    void printFileName();
-  private:
-    char _filename[];
-    File _dataFile;
-    RTC_DS1307 _RTC;
-    void _RTCSetup();
-    void _error(char *str);
-    void _makeFile();
-};
-*/
-
 class Awesome {
   public:
     Awesome();
@@ -123,11 +108,7 @@ class Awesome {
     TemperatureSensor temperatureSensor;
     Switch button;
     Switch toggleSwitch;
-    //int   miccheck();
-
-    //DataLogger dataLogger;
-
-    //void test();
+    
   private:
 };
 
