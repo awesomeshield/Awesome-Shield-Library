@@ -70,10 +70,10 @@ class LightSensor {
 class TemperatureSensor {
   public:
     void setup(int pin);
-    float check();
+    float reading();
   private:
     int _pin;
-    float _check();
+    float _read();
 };
 
 class Switch {

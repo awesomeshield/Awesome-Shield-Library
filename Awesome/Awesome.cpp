@@ -136,7 +136,7 @@ void TemperatureSensor::setup(int pin) {
   _pin = pin;
   pinMode(_pin,INPUT);
 }
-float TemperatureSensor::_check() {
+float TemperatureSensor::_read() {
   int numData=5;
   int rawData[numData-1];
   for (short i=0;i<numData;i++) {
@@ -162,8 +162,8 @@ float TemperatureSensor::_check() {
   result = result / 10;
   return result;
 }
-float TemperatureSensor::check() {
-  return _check();
+float TemperatureSensor::reading() {
+  return _read();
 }
 
 void Switch::setup(int pin, bool readingMeaningSwitchIsOn) {
