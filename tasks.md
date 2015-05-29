@@ -18,7 +18,7 @@ Updating each component is one task. x = done
 
 [x] LED
 [x] toggleSwitch
-[] button
+[x] button
 [] buzzer
 [] lightSensor
 [] temperatureSensor
