@@ -28,6 +28,8 @@ A4, A5            for RTC on data logger shield
 10, 11, 12, 13    for SD card on data logger shield
 */
 
+// the max analogWrite value
+#define MAX      255
 // assign values to the text based color inputs
 #define WHITE    3001  // more of a turquoise
 #define RED      3002

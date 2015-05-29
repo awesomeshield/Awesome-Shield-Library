@@ -38,39 +38,39 @@ void led::turnOn(int ColorOrHowMuchRed, int howMuchGreen, int howMuchBlue) {
   if ( ColorOrHowMuchRed > 255 && howMuchGreen == 0 && howMuchBlue == 0 ) {
     switch (ColorOrHowMuchRed) {
       case RED:
-        digitalWrite(rgbRedPin,HIGH);
-        digitalWrite(rgbGreenPin,LOW);
-        digitalWrite(rgbBluePin,LOW);
+        analogWrite(rgbRedPin,MAX);
+        analogWrite(rgbGreenPin,0);
+        analogWrite(rgbBluePin,0);
         break;
       case GREEN:
-        digitalWrite(rgbRedPin,LOW);
-        digitalWrite(rgbGreenPin,HIGH);
-        digitalWrite(rgbBluePin,LOW);
+        analogWrite(rgbRedPin,0);
+        analogWrite(rgbGreenPin,MAX);
+        analogWrite(rgbBluePin,0);
         break;
       case BLUE:
-        digitalWrite(rgbRedPin,LOW);
-        digitalWrite(rgbGreenPin,LOW);
-        digitalWrite(rgbBluePin,HIGH);
+        analogWrite(rgbRedPin,0);
+        analogWrite(rgbGreenPin,0);
+        analogWrite(rgbBluePin,MAX);
         break;
       case YELLOW:
-        digitalWrite(rgbRedPin,HIGH);
-        digitalWrite(rgbGreenPin,HIGH);
-        digitalWrite(rgbBluePin,LOW);
+        analogWrite(rgbRedPin,MAX);
+        analogWrite(rgbGreenPin,MAX);
+        analogWrite(rgbBluePin,0);
         break;
       case PURPLE:
-        digitalWrite(rgbRedPin,HIGH);
-        digitalWrite(rgbGreenPin,LOW);
-        digitalWrite(rgbBluePin,HIGH);
+        analogWrite(rgbRedPin,MAX);
+        analogWrite(rgbGreenPin,0);
+        analogWrite(rgbBluePin,MAX);
         break;
       case CYAN:
-        digitalWrite(rgbRedPin,LOW);
-        digitalWrite(rgbGreenPin,HIGH);
-        digitalWrite(rgbBluePin,HIGH);
+        analogWrite(rgbRedPin,0);
+        analogWrite(rgbGreenPin,MAX);
+        analogWrite(rgbBluePin,MAX);
         break;
       case WHITE:
-        digitalWrite(rgbRedPin,HIGH);
-        digitalWrite(rgbGreenPin,HIGH);
-        digitalWrite(rgbBluePin,HIGH);
+        analogWrite(rgbRedPin,255);
+        analogWrite(rgbGreenPin,255);
+        analogWrite(rgbBluePin,255);
         break;
       default:
         Serial.println("Invalid input");
