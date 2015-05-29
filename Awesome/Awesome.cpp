@@ -21,7 +21,7 @@ Awesome::Awesome() {
   lightSensor.        setup(lightSensorPin);
   temperatureSensor.  setup(tempSensorPin);
   button.             setup(buttonPin);
-  toggle.             setup(switchOnPin);
+  toggleSwitch.       setup(switchOnPin);
   buzzer.             setup(buzzerPin);
   // pinMode(micPin,INPUT);
 }

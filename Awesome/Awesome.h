@@ -11,8 +11,6 @@
 #define rgbRedPin       3   // pwm
 #define rgbGreenPin     5   // pwm
 #define rgbBluePin      6   // pwm
-#define redLedPin       4   // io digital
-#define greenLedPin     7   // io digital
 #define buzzerPin       9   // pwm
 #define buttonPin       2   // io digital
 #define switchOnPin     8   // io digital
@@ -122,7 +120,7 @@ class Awesome {
     LightSensor lightSensor;
     TemperatureSensor temperatureSensor;
     Switch button;
-    Switch toggle;
+    Switch toggleSwitch;
     //int   miccheck();
 
     //DataLogger dataLogger;
