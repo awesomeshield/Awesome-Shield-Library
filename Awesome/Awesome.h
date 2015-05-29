@@ -78,10 +78,12 @@ class TemperatureSensor {
 
 class Switch {
   public:
-    void setup(int pin);
-    bool check();
+    void setup(int pin, bool readingMeaningSwitchIsOn);
+    bool isOn();
+    bool isOff();
   private:
     int _pin;
+    bool _readingMeaningSwitchIsOn;
 };
 
 class Buzzer {

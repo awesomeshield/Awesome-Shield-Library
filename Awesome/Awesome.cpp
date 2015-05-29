@@ -20,8 +20,8 @@ Awesome::Awesome() {
   LED.                setup(rgbRedPin, rgbGreenPin, rgbBluePin);
   lightSensor.        setup(lightSensorPin);
   temperatureSensor.  setup(tempSensorPin);
-  button.             setup(buttonPin);
-  toggleSwitch.       setup(switchOnPin);
+  button.             setup(buttonPin, HIGH);
+  toggleSwitch.       setup(switchOnPin, HIGH);
   buzzer.             setup(buzzerPin);
   // pinMode(micPin,INPUT);
 }
@@ -166,12 +166,24 @@ float TemperatureSensor::check() {
   return _check();
 }
 
-void Switch::setup(int pin) {
+void Switch::setup(int pin, bool readingMeaningSwitchIsOn) {
   _pin = pin;
+  _readingMeaningSwitchIsOn = readingMeaningSwitchIsOn;
   pinMode(_pin, INPUT);
 }
-bool Switch::check() {
-  return digitalRead(_pin);
+bool Switch::isOn() {
+  if (_readingMeaningSwitchIsOn == HIGH) {
+    return digitalRead(_pin);
+  } else {
+    return ! digitalRead(_pin);
+  }
+}
+bool Switch::isOff() {
+  if (_readingMeaningSwitchIsOn == HIGH) {
+    return ! digitalRead(_pin);
+  } else {
+    return digitalRead(_pin);
+  }
 }
 
 void Buzzer::setup(int pin) {
