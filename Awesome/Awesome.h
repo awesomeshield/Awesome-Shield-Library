@@ -43,25 +43,19 @@ A4, A5            for RTC on data logger shield
 // #include <Wire.h>                           //One Wire library
 //#include "RTClib.h"                         //Real Time Clock library
 
-class ioLED {
+class led {
   public:
-    void turnOn();
+    void turnOn(int ColorOrHowMuchRed = WHITE, int howMuchGreen = 0, int howMuchBlue = 0);
     void turnOff();
-    void setup(int pin);
-  private:
-    void _setPin(int pin);
-    int _pin;
-};
-
-class redGreenBlueLED {
-  public:
-    void turnOn(int ColorOrHowMuchRed, int howMuchGreen = 0, int howMuchBlue = 0);
-    void turnOff();
+    bool isOn();
+    bool isOff();
+    void flash(int duration = 1000, int ColorOrHowMuchRed = WHITE, int howMuchGreen = 0, int howMuchBlue = 0);
     void setup(int redPin, int greenPin, int bluePin);
   private:
     int _redPin;
     int _greenPin;
     int _bluePin;
+    bool _stateIsOn;
     void _setPins (int redPin, int greenPin, int bluePin);
 };
 
@@ -120,9 +114,7 @@ class Awesome {
   public:
     Awesome();
 
-    ioLED redLED;
-    ioLED greenLED;
-    redGreenBlueLED colorLED;
+    led LED;
     Buzzer buzzer;
 
     LightSensor lightSensor;
@@ -135,11 +127,6 @@ class Awesome {
 
     //void test();
   private:
-    void _LedsFlash(int millis);
-    void _LedsTurnOn();
-    void _LedsTurnOff();
-    void _LedsCycle();
-    void _allOkay();
 };
 
 #endif
