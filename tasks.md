@@ -17,7 +17,7 @@ Update library to use semantic code, as outlined in current wiki.
 Updating each component is one task. x = done
 
 [x] LED
-[] toggleSwitch
+[x] toggleSwitch
 [] button
 [] buzzer
 [] lightSensor
