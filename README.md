@@ -9,7 +9,7 @@
 * download this library by clicking "Download Zip" on the right-hand side of this page
 * open the Arduino IDE
 * select "Sketch > Import Library... > Add Library... "
-* select the Awesome Shield library folder from the file browser
+* select the Awesome Shield library called "Awesome" folder from the file browser
 * click "import"
 
 ### Questions? ###
