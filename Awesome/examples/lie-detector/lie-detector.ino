@@ -14,13 +14,13 @@ int blue;                     // strength of the blue LED
 void setup() {
   // set the air temperature equal to what the temperature sensor reads
   // when the Arduino turns on
-  airTemp = awesome.temperatureSensor.check();
+  airTemp = awesome.temperatureSensor.reading();
 }
 
 void loop() {
   // set the sensor temperature to the temperature the sensor reads
   // at the beginning of the loop
-  sensorTemp = awesome.temperatureSensor.check();
+  sensorTemp = awesome.temperatureSensor.reading();
   // calculate how much hotter the sensor is than the air
   howMuchHotterThanAir = sensorTemp - airTemp;
   // set the strength of the red LED to 100 times the temperature difference
@@ -35,7 +35,7 @@ void loop() {
 
   // turn on the color LED, setting the strength of red and blue as calculated
   // above
-  awesome.colorLED.turnOn(red, 0, blue);
+  awesome.LED.turnOn(red, 0, blue);
 
   // delay for the same amount of time as blue
   // the delay will be long when the temperature difference is low
