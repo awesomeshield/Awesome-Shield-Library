@@ -4,7 +4,7 @@
 Awesome awesome;
 
 // create variables
-float sensorTemp;             // temperature of the senso
+float currentTemp;             // temperature of the senso
 float airTemp;                // temperature of the air
 float howMuchHotterThanAir;   // difference between sensor temperature and air temperature
 float red;                    // strength of the red LED
@@ -12,17 +12,17 @@ int blue;                     // strength of the blue LED
 
 
 void setup() {
-  // set the air temperature equal to what the temperature sensor reads
+  // set the air temperature to the temeprature sensor reading
   // when the Arduino turns on
   airTemp = awesome.temperatureSensor.reading();
 }
 
 void loop() {
-  // set the sensor temperature to the temperature the sensor reads
+  // set the current temeprature to the temperature sensor reading
   // at the beginning of the loop
-  sensorTemp = awesome.temperatureSensor.reading();
-  // calculate how much hotter the sensor is than the air
-  howMuchHotterThanAir = sensorTemp - airTemp;
+  currentTemp = awesome.temperatureSensor.reading();
+  // calculate how much hotter current temperature is than the air
+  howMuchHotterThanAir = currentTemp - airTemp;
   // set the strength of the red LED to 100 times the temperature difference
   red = howMuchHotterThanAir * 100;
   // set the strength of the blue LED to the maximum value (1000)
