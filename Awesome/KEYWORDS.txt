@@ -1,0 +1,37 @@
+#######################################
+# Syntax Coloring Map Awesome
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+Awesome KEYWORD1
+LED KEYWORD1
+buzzer  KEYWORD1
+lightSensor KEYWORD1
+temperatureSensor KEYWORD1
+button  KEYWORD1
+toggleSwitch  KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+turnOn  KEYWORD2
+turnOff KEYWORD2
+isOn  KEYWORD2
+isOff KEYWORD2
+flash KEYWORD2
+reading KEYWORD2
+beep  KEYWORD2
+setSilentMode KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+WHITE LITERAL1
+RED LITERAL1
+GREEN LITERAL1
+BLUE  LITERAL1
+YELLOW  LITERAL1
+PURPLE  LITERAL1
+CYAN  LITERAL1
