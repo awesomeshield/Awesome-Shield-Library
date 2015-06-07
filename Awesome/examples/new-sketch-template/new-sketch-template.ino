@@ -10,6 +10,7 @@ Awesome awesome;
 void setup()
 {
   // put code here to have it run right after the Arduino turns on or resets
+  Serial.begin(9600);
 }
 
 void loop()
