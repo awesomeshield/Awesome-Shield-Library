@@ -6,12 +6,6 @@
 # Datatypes (KEYWORD1)
 #######################################
 Awesome	KEYWORD1
-LED	KEYWORD1
-buzzer	KEYWORD1
-lightSensor	KEYWORD1
-temperatureSensor	KEYWORD1
-button	KEYWORD1
-toggleSwitch	KEYWORD1
 
 #######################################
 # Methods and Functions (KEYWORD2)
@@ -24,6 +18,18 @@ flash	KEYWORD2
 reading	KEYWORD2
 beep	KEYWORD2
 setSilentMode	KEYWORD2
+
+#######################################
+# Components (LITERAL1)
+# this is a hack - should be KEYWORD1
+# but then coloring is confusing
+#######################################
+LED	LITERAL1
+buzzer	LITERAL1
+lightSensor	LITERAL1
+temperatureSensor	LITERAL1
+button	LITERAL1
+toggleSwitch	LITERAL1
 
 #######################################
 # Constants (LITERAL1)
