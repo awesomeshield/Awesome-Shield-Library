@@ -16,6 +16,7 @@
 #define lightSensorPin  A1
 #define tempSensorPin   A2
 #define micPin          NULL
+#define knobPin         A3
 
 #define SDRedLEDPin          2      // for SD shield only
 
