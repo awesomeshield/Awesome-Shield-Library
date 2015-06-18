@@ -134,6 +134,22 @@ int LightSensor::_read() {
   return currentLightInLux;
 }
 
+void Potentiometer::setup(int pin) {
+  _pin = pin;
+  pinMode(_pin,INPUT);
+}
+int Potentiometer::reading() {
+  return _read();
+}
+int Potentiometer::_read() {
+  int potADCReading = analogRead(_pin);
+  // Calculating the voltage of the Analog to Digital Converter ADC for light
+  int potInputVoltage = 5.0 * ((double)potADCReading / 1024.0);
+  // Calculating the resistance of the photoresistor in the voltage divider
+  int result = (10.0 * 5.0) / potInputVoltage - 10.0; // not sure if this is right
+  return result;
+}
+
 void TemperatureSensor::setup(int pin) {
   _pin = pin;
   pinMode(_pin,INPUT);

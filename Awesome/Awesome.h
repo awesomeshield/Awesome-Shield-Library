@@ -67,6 +67,17 @@ class LightSensor {
     int _read();
 };
 
+class Potentiometer {
+  // [ ] add pin
+  // [ ] verify range is 0-1024 (use grove one)
+  public:
+    void setup(int pin);
+    int reading();
+  private:
+    int _pin;
+    int _read();
+};
+
 class TemperatureSensor {
   public:
     void setup(int pin);
