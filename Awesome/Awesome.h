@@ -120,6 +120,7 @@ class Awesome {
     Buzzer buzzer;
 
     LightSensor lightSensor;
+    Potentiometer knob;
     TemperatureSensor temperatureSensor;
     Switch button;
     Switch toggleSwitch;
