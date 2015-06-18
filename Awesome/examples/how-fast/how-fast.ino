@@ -12,10 +12,10 @@ void setup()
 void loop()
 {
   // put code here to have it run over and over again
-  while ( millis < 10000) {
+  while ( millis() < 10000) {
     i+=1;
   }
   Serial.begin(9600);
-  Serial.println(millis/10);
+  Serial.println(i/10);
   delay(10000);
 }
