@@ -2,7 +2,7 @@
    using a 10 second sample
 */
 
-int i;
+long i = 0;
 
 void setup()
 {
@@ -12,10 +12,10 @@ void setup()
 void loop()
 {
   // put code here to have it run over and over again
-  while ( millis() < 10000) {
+  while ( millis() < 1000) {
     i+=1;
   }
   Serial.begin(9600);
   Serial.println(i/10);
-  delay(10000);
+  delay(1000);
 }
