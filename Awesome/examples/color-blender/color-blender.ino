@@ -9,6 +9,7 @@ int red, green, blue;
 bool wasLastPressed = false;
 int counter;
 int currentColor = 3;
+int colorValue;
 
 
 void setup()
@@ -31,18 +32,27 @@ void loop()
   // convert loop counter to ternary value
   currentColor = counter % 3 + 1;
 
+  // colorValue from knob reading
+  colorValue = awesome.knob.reading()/4;
+
   switch(currentColor) {
     case 1:
-      awesome.LED.turnOn(RED);
+      red = colorValue;
+      Serial.print("Red set at: ");
+      Serial.println(red);
       break;
     case 2:
-      awesome.LED.turnOn(GREEN);
+      green = colorValue;
+      Serial.print("Green set at: ");
+      Serial.println(green);
       break;
     case 3:
-      awesome.LED.turnOn(BLUE);
+      blue = colorValue;
+      Serial.print("Blue set at: ");
+      Serial.println(blue);
       break;
   }
 
-  Serial.println(counter);
+  //Serial.println(counter);
   awesome.LED.turnOn(red,green,blue);
 }
