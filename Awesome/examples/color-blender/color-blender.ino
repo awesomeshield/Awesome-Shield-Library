@@ -38,21 +38,21 @@ void loop()
   switch(currentColor) {
     case 1:
       red = colorValue;
-      Serial.print("Red set at: ");
-      Serial.println(red);
       break;
     case 2:
       green = colorValue;
-      Serial.print("Green set at: ");
-      Serial.println(green);
       break;
     case 3:
       blue = colorValue;
-      Serial.print("Blue set at: ");
-      Serial.println(blue);
       break;
   }
-
+  Serial.print("awesome.LED.turnOn(");
+  Serial.print(red);
+  Serial.print(", ");
+  Serial.print(green);
+  Serial.print(", ");
+  Serial.print(blue);
+  Serial.println(");    // (red, green, blue)");
   //Serial.println(counter);
   awesome.LED.turnOn(red,green,blue);
 }
