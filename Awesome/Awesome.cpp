@@ -181,11 +181,7 @@ bool Switch::isOn() {
   }
 }
 bool Switch::isOff() {
-  if (_readingMeaningSwitchIsOn == HIGH) {
-    return ! digitalRead(_pin);
-  } else {
-    return digitalRead(_pin);
-  }
+    return ! isOn();
 }
 
 void Buzzer::setup(int pin) {
