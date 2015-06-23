@@ -11,7 +11,6 @@ int counter;
 int currentColor = 3;
 int colorValue;
 
-
 void setup()
 {
   // put code here to have it run right after the Arduino turns on or resets
@@ -52,7 +51,18 @@ void loop()
   Serial.print(green);
   Serial.print(", ");
   Serial.print(blue);
-  Serial.println(");    // (red, green, blue)");
+//  Serial.println(");    // (red, green, blue)");
+  switch(currentColor) {
+    case 1:
+      Serial.println(");    // (RED, green, blue)");
+      break;
+    case 2:
+      Serial.println(");    // (red, GREEN, blue)");
+      break;
+    case 3:
+      Serial.println(");    // (red, green, BLUE)");
+      break;
+  }
   //Serial.println(counter);
   awesome.LED.turnOn(red,green,blue);
 }
