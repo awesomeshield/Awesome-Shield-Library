@@ -6,10 +6,21 @@ Awesome awesome;
 
 // declare variables here
 int red, green, blue;
-bool wasLastPressed = false;
-int counter;
-int currentColor = 3;
+bool pressedLastLoop = false;
+int pressCounter;
+int colorNumber = 3;
 int colorValue;
+
+// a function to print the current red, green, and blue values
+// to serial, written inside the LED turnOn() function
+void serialUpdate() {
+  Serial.print("awesome.LED.turnOn(");
+  Serial.print(red);
+  Serial.print(", ");
+  Serial.print(green);
+  Serial.print(", ");
+  Serial.print(blue);
+}
 
 void setup()
 {
@@ -17,52 +28,48 @@ void setup()
   Serial.begin(9600);
 }
 
-void loop()
-{
-  // loop counter
-  if ( awesome.button.isDown() && ! wasLastPressed ) {
-    counter += 1;
-    wasLastPressed = true;
+void loop() {
+  // if the button is down & it was not pressed during the last loop
+  // this means the button was pressed between last loop
+  // and the current loop
+  if ( awesome.button.isDown() && ! pressedLastLoop ) {
+    // increase the pressCounter
+    pressCounter += 1;
+    // save the information that button was pressed last loop
+    pressedLastLoop = true;
   }
+  // if the button is up
   if ( awesome.button.isUp() ) {
-    wasLastPressed = false;
+    // save the information that the button was not pressed last loop
+    pressedLastLoop = false;
   }
 
-  // convert loop counter to ternary value
-  currentColor = counter % 3 + 1;
+  // convert loop pressCounter to value that is either 1, 2 or 3
+  colorNumber = pressCounter % 3 + 1;
 
-  // colorValue from knob reading
+  // awesome.knob.reading() is between 0-1023
+  // divide it by 4 to get a value between 0-255
   colorValue = awesome.knob.reading()/4;
 
-  switch(currentColor) {
+  switch(colorNumber) {
+    // when colorNumber is 1:
     case 1:
       red = colorValue;
-      break;
-    case 2:
-      green = colorValue;
-      break;
-    case 3:
-      blue = colorValue;
-      break;
-  }
-  Serial.print("awesome.LED.turnOn(");
-  Serial.print(red);
-  Serial.print(", ");
-  Serial.print(green);
-  Serial.print(", ");
-  Serial.print(blue);
-//  Serial.println(");    // (red, green, blue)");
-  switch(currentColor) {
-    case 1:
+      serialUpdate();
       Serial.println(");    // (RED, green, blue)");
       break;
+    // when colorNumber is 2:
     case 2:
+      green = colorValue;
+      serialUpdate();
       Serial.println(");    // (red, GREEN, blue)");
       break;
+    // when colorNumber is 3:
     case 3:
+      blue = colorValue;
+      serialUpdate();
       Serial.println(");    // (red, green, BLUE)");
       break;
   }
-  //Serial.println(counter);
-  awesome.LED.turnOn(red,green,blue);
+  awesome.LED.turnOn(red, green, blue);
 }
