@@ -84,6 +84,16 @@ class Switch {
     bool _readingMeaningSwitchIsOn;
 };
 
+class Button {
+  public:
+    void setup(int pin, bool readingMeaningButtonIsDown);
+    bool isDown();
+    bool isUp();
+  private:
+    int _pin;
+    bool _readingMeaningButtonIsDown;
+};
+
 class Buzzer {
   public:
     void setup(int pin);
@@ -109,7 +119,7 @@ class Awesome {
     LightSensor lightSensor;
     Potentiometer knob;
     TemperatureSensor temperatureSensor;
-    Switch button;
+    Button button;
     Switch toggleSwitch;
 
   private:

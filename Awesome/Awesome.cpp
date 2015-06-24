@@ -192,6 +192,22 @@ bool Switch::isOff() {
     return ! isOn();
 }
 
+void Button::setup(int pin, bool readingMeaningButtonIsDown) {
+  _pin = pin;
+  _readingMeaningButtonIsDown = readingMeaningButtonIsDown;
+  pinMode(_pin, INPUT);
+}
+bool Button::isDown() {
+  if (_readingMeaningButtonIsDown == HIGH) {
+    return digitalRead(_pin);
+  } else {
+    return ! digitalRead(_pin);
+  }
+}
+bool Button::isUp() {
+    return ! isDown();
+}
+
 void Buzzer::setup(int pin) {
   _pin = pin;
   pinMode(_pin, OUTPUT);
