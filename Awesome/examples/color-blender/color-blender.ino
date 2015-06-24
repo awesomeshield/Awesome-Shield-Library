@@ -20,11 +20,11 @@ void setup()
 void loop()
 {
   // loop counter
-  if ( awesome.button.isOn() && ! wasLastPressed ) {
+  if ( awesome.button.isDown() && ! wasLastPressed ) {
     counter += 1;
     wasLastPressed = true;
   }
-  if ( awesome.button.isOff() ) {
+  if ( awesome.button.isUp() ) {
     wasLastPressed = false;
   }
 
