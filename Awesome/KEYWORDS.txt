@@ -30,6 +30,7 @@ lightSensor	LITERAL1
 temperatureSensor	LITERAL1
 button	LITERAL1
 toggleSwitch	LITERAL1
+knob	LITERAL1
 
 #######################################
 # Constants (LITERAL1)

@@ -15,32 +15,20 @@
 #define switchOnPin     8   // io digital
 #define lightSensorPin  A1
 #define tempSensorPin   A2
-#define micPin          NULL
-
-#define SDRedLEDPin          2      // for SD shield only
-
-/* Pins Kept Free
-0,1               RX, TX for comms
-A4, A5            for RTC on data logger shield
-10, 11, 12, 13    for SD card on data logger shield
-*/
+#define knobPin         A3
 
 // the max analogWrite value
 #define MAX      255
 // assign values to the text based color inputs
-#define WHITE    3001  // more of a turquoise
+#define WHITE    3001
 #define RED      3002
 #define GREEN    3003
 #define BLUE     3004
-#define YELLOW   3005  // more of a turqoise
-#define PURPLE   3006  // good
-#define CYAN     3007  // nice
+#define YELLOW   3005
+#define PURPLE   3006
+#define CYAN     3007
 
 #include "Arduino.h"
-//#include "Timer.h"
-// #include <SD.h>                             //SD card library
-// #include <Wire.h>                           //One Wire library
-//#include "RTClib.h"                         //Real Time Clock library
 
 class led {
   public:
@@ -59,6 +47,16 @@ class led {
 };
 
 class LightSensor {
+  public:
+    void setup(int pin);
+    int reading();
+  private:
+    int _pin;
+    int _read();
+};
+
+class Potentiometer {
+  // [ ] verify range is 0-1024 (use grove one)
   public:
     void setup(int pin);
     int reading();
@@ -109,6 +107,7 @@ class Awesome {
     Buzzer buzzer;
 
     LightSensor lightSensor;
+    Potentiometer knob;
     TemperatureSensor temperatureSensor;
     Switch button;
     Switch toggleSwitch;
