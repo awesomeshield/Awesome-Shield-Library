@@ -82,16 +82,10 @@ void led::turnOn(int ColorOrHowMuchRed, int howMuchGreen, int howMuchBlue) {
     if (howMuchBlue < 0) {
       howMuchBlue = 0;
     }
-    // turn on leds
-    if (ColorOrHowMuchRed != 0) {
-      analogWrite(_redPin, ColorOrHowMuchRed);
-    }
-    if (howMuchGreen != 0) {
-      analogWrite(_greenPin, howMuchGreen);
-    }
-    if (howMuchBlue != 0) {
-      analogWrite(_bluePin, howMuchBlue);
-    }
+    // turn on LEDs
+    analogWrite(_redPin, ColorOrHowMuchRed);
+    analogWrite(_greenPin, howMuchGreen);
+    analogWrite(_bluePin, howMuchBlue);
   }
   _stateIsOn = true;
 }
