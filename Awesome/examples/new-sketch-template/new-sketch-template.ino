@@ -1,19 +1,18 @@
-// the next line tells the Arduino you're using the Awesome Shield library
+// tell the Arduino you're using the Awesome Shield library
 #include <Awesome.h>
-// the next line tells the Arduino you're using the Awesome Shield itself
+// tell the Arduino you're using the Awesome Shield hardware
 Awesome awesome;
-
 
 // declare variables here
 
 
-void setup()
-{
-  // put code here to have it run right after the Arduino turns on or resets
+void setup() {
   Serial.begin(9600);
+  // put your setup code here, to run once:
+
 }
 
-void loop()
-{
-  // put code here to have it run over and over again
+void loop() {
+  // put your main code here, to run repeatedly:
+
 }
