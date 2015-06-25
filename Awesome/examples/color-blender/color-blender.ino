@@ -1,8 +1,7 @@
-// the next line tells the Arduino you're using the Awesome Shield library
+// tell the Arduino you're using the Awesome Shield library
 #include <Awesome.h>
-// the next line tells the Arduino you're using the Awesome Shield itself
+// tell the Arduino you're using the Awesome Shield hardware
 Awesome awesome;
-
 
 // declare variables here
 int red, green, blue;
@@ -22,9 +21,7 @@ void serialUpdate() {
   Serial.print(blue);
 }
 
-void setup()
-{
-  // put code here to have it run right after the Arduino turns on or resets
+void setup() {
   Serial.begin(9600);
 }
 

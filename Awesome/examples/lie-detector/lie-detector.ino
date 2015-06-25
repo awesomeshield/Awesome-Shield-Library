@@ -1,10 +1,10 @@
-// include the library with the sketch when sending to the Arduino
+// tell the Arduino you're using the Awesome Shield library
 #include <Awesome.h>
-// tell the Arduino you're using the Awesome Shield
+// tell the Arduino you're using the Awesome Shield hardware
 Awesome awesome;
 
-// create variables
-float currentTemp;             // temperature of the senso
+// declare variables
+float currentTemp;            // temperature of the sensor
 float airTemp;                // temperature of the air
 float howMuchHotterThanAir;   // difference between sensor temperature and air temperature
 float red;                    // strength of the red LED
