@@ -30,63 +30,63 @@ void led::_setPins (int redPin, int greenPin, int bluePin) {
   _greenPin = greenPin;
   _bluePin = bluePin;
 }
-void led::turnOn(int ColorOrHowMuchRed, int howMuchGreen, int howMuchBlue) {
-  if ( ColorOrHowMuchRed > 255 && howMuchGreen == 0 && howMuchBlue == 0 ) {
-    switch (ColorOrHowMuchRed) {
-      case RED:
-        analogWrite(rgbRedPin,MAX);
-        analogWrite(rgbGreenPin,0);
-        analogWrite(rgbBluePin,0);
-        break;
-      case GREEN:
-        analogWrite(rgbRedPin,0);
-        analogWrite(rgbGreenPin,MAX);
-        analogWrite(rgbBluePin,0);
-        break;
-      case BLUE:
-        analogWrite(rgbRedPin,0);
-        analogWrite(rgbGreenPin,0);
-        analogWrite(rgbBluePin,MAX);
-        break;
-      case YELLOW:
-        analogWrite(rgbRedPin,MAX);
-        analogWrite(rgbGreenPin,MAX);
-        analogWrite(rgbBluePin,0);
-        break;
-      case PURPLE:
-        analogWrite(rgbRedPin,MAX);
-        analogWrite(rgbGreenPin,0);
-        analogWrite(rgbBluePin,MAX);
-        break;
-      case CYAN:
-        analogWrite(rgbRedPin,0);
-        analogWrite(rgbGreenPin,MAX);
-        analogWrite(rgbBluePin,MAX);
-        break;
-      case WHITE:
-        analogWrite(rgbRedPin,255);
-        analogWrite(rgbGreenPin,255);
-        analogWrite(rgbBluePin,255);
-        break;
-      default:
-        Serial.println("Invalid input");
-    }
-  } else {
-    //  zero negative inputs
-    if (ColorOrHowMuchRed < 0) {
-      ColorOrHowMuchRed = 0;
-    }
-    if (howMuchGreen < 0) {
-      howMuchGreen = 0;
-    }
-    if (howMuchBlue < 0) {
-      howMuchBlue = 0;
-    }
-    // turn on LEDs
-    analogWrite(_redPin, ColorOrHowMuchRed);
-    analogWrite(_greenPin, howMuchGreen);
-    analogWrite(_bluePin, howMuchBlue);
+void led::turnOn(int color) {
+  switch (color) {
+    case RED:
+      analogWrite(rgbRedPin,MAX);
+      analogWrite(rgbGreenPin,0);
+      analogWrite(rgbBluePin,0);
+      break;
+    case GREEN:
+      analogWrite(rgbRedPin,0);
+      analogWrite(rgbGreenPin,MAX);
+      analogWrite(rgbBluePin,0);
+      break;
+    case BLUE:
+      analogWrite(rgbRedPin,0);
+      analogWrite(rgbGreenPin,0);
+      analogWrite(rgbBluePin,MAX);
+      break;
+    case YELLOW:
+      analogWrite(rgbRedPin,MAX);
+      analogWrite(rgbGreenPin,MAX);
+      analogWrite(rgbBluePin,0);
+      break;
+    case PURPLE:
+      analogWrite(rgbRedPin,MAX);
+      analogWrite(rgbGreenPin,0);
+      analogWrite(rgbBluePin,MAX);
+      break;
+    case CYAN:
+      analogWrite(rgbRedPin,0);
+      analogWrite(rgbGreenPin,MAX);
+      analogWrite(rgbBluePin,MAX);
+      break;
+    case WHITE:
+      analogWrite(rgbRedPin,255);
+      analogWrite(rgbGreenPin,255);
+      analogWrite(rgbBluePin,255);
+      break;
+    default:
+      Serial.println("Invalid input");
   }
+  _stateIsOn = true;
+}
+void led::turnOn(int howMuchRed, int howMuchGreen, int howMuchBlue) {
+  //  zero negative inputs
+  if (howMuchRed < 0) {
+    howMuchRed = 0;
+  }
+  if (howMuchGreen < 0) {
+    howMuchGreen = 0;
+  }
+  if (howMuchBlue < 0) {
+    howMuchBlue = 0;
+  }
+  // turn on LEDs
+  analogWrite(_redPin, howMuchRed);
+  analogWrite(_greenPin, howMuchGreen);
+  analogWrite(_bluePin, howMuchBlue);
   _stateIsOn = true;
 }
 void led::turnOff() {
@@ -102,8 +102,8 @@ bool led::isOff() {
   bool stateIsOff = ! _stateIsOn;
   return stateIsOff;
 }
-void led::flash(int duration, int ColorOrHowMuchRed, int howMuchGreen, int howMuchBlue){
-  turnOn(ColorOrHowMuchRed, howMuchGreen, howMuchBlue);
+void led::flash(int duration, int howMuchRed, int howMuchGreen, int howMuchBlue){
+  turnOn(howMuchRed, howMuchGreen, howMuchBlue);
   delay(duration);
   turnOff();
 }

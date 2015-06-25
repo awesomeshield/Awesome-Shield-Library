@@ -32,11 +32,12 @@
 
 class led {
   public:
-    void turnOn(int ColorOrHowMuchRed = WHITE, int howMuchGreen = 0, int howMuchBlue = 0);
+    void turnOn(int color = WHITE);
+    void turnOn(int howMuchRed, int howMuchGreen, int howMuchBlue);
     void turnOff();
     bool isOn();
     bool isOff();
-    void flash(int duration = 1000, int ColorOrHowMuchRed = WHITE, int howMuchGreen = 0, int howMuchBlue = 0);
+    void flash(int duration = 1000, int  = WHITE, int howMuchGreen = 0, int howMuchBlue = 0);
     void setup(int redPin, int greenPin, int bluePin);
   private:
     int _redPin;
