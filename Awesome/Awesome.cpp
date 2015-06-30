@@ -107,6 +107,7 @@ void led::flash(int duration, int howMuchRed, int howMuchGreen, int howMuchBlue)
   delay(duration);
   turnOff();
 }
+
 void LightSensor::setup(int pin) {
   _pin = pin;
   pinMode(_pin,INPUT);
