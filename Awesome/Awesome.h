@@ -57,7 +57,6 @@ class LightSensor {
 };
 
 class Potentiometer {
-  // [ ] verify range is 0-1024 (use grove one)
   public:
     void setup(int pin);
     int reading();
