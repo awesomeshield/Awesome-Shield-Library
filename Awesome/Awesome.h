@@ -31,6 +31,7 @@
 #define CYAN     3007
 
 #include "Arduino.h"
+#include "buildsterbot.h"
 
 class led {
   public:
@@ -76,15 +77,15 @@ class TemperatureSensor {
     float _read();
 };
 
-class Switch {
-  public:
-    void setup(int pin, bool readingMeaningSwitchIsOn);
-    bool isOn();
-    bool isOff();
-  private:
-    int _pin;
-    bool _readingMeaningSwitchIsOn;
-};
+// class Switch {
+//   public:
+//     void setup(int pin, bool readingMeaningSwitchIsOn);
+//     bool isOn();
+//     bool isOff();
+//   private:
+//     int _pin;
+//     bool _readingMeaningSwitchIsOn;
+// };
 
 class Button {
   public:
@@ -122,7 +123,7 @@ class Awesome {
     Potentiometer knob;
     TemperatureSensor temperatureSensor;
     Button button;
-    Switch toggleSwitch;
+    DigitalInput toggleSwitch;
     // grove components
     Potentiometer knob2;
   private:

@@ -6,6 +6,7 @@
 
 #include "Arduino.h"
 #include "Awesome.h"
+#include "buildsterbot.h"
 
 #include <avr/pgmspace.h>
 
@@ -171,21 +172,21 @@ float TemperatureSensor::reading() {
   return _read();
 }
 
-void Switch::setup(int pin, bool readingMeaningSwitchIsOn) {
-  _pin = pin;
-  _readingMeaningSwitchIsOn = readingMeaningSwitchIsOn;
-  pinMode(_pin, INPUT);
-}
-bool Switch::isOn() {
-  if (_readingMeaningSwitchIsOn == HIGH) {
-    return digitalRead(_pin);
-  } else {
-    return ! digitalRead(_pin);
-  }
-}
-bool Switch::isOff() {
-    return ! isOn();
-}
+// void Switch::setup(int pin, bool readingMeaningSwitchIsOn) {
+//   _pin = pin;
+//   _readingMeaningSwitchIsOn = readingMeaningSwitchIsOn;
+//   pinMode(_pin, INPUT);
+// }
+// bool Switch::isOn() {
+//   if (_readingMeaningSwitchIsOn == HIGH) {
+//     return digitalRead(_pin);
+//   } else {
+//     return ! digitalRead(_pin);
+//   }
+// }
+// bool Switch::isOff() {
+//     return ! isOn();
+// }
 
 void Button::setup(int pin, bool readingMeaningButtonIsDown) {
   _pin = pin;
