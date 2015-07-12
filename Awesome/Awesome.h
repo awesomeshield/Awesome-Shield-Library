@@ -126,6 +126,8 @@ class Awesome {
     DigitalInput toggleSwitch;
     // grove components
     AnalogInput knob2;
+    Button button2;
+    DigitalInput touchSensor;
   private:
 };
 
