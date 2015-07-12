@@ -7,6 +7,11 @@
 #ifndef Awesome_h
 #define Awesome_h
 
+#include "Arduino.h"
+#include "buildsterbot.h"
+#include <Wire.h>
+#include "rgb_lcd.h"
+
 #define rgbRedPin       3   // pwm
 #define rgbGreenPin     5   // pwm
 #define rgbBluePin      6   // pwm
@@ -29,9 +34,6 @@
 #define YELLOW   3005
 #define PURPLE   3006
 #define CYAN     3007
-
-#include "Arduino.h"
-#include "buildsterbot.h"
 
 class led {
   public:
@@ -112,6 +114,13 @@ class Buzzer {
     bool _stateIsOn;
 };
 
+class lcd {
+  public:
+    void setup();
+    void printString(String message);
+  private:
+};
+
 class Awesome {
   public:
     Awesome();
@@ -133,6 +142,8 @@ class Awesome {
     DigitalOutput relay;
     AnalogInput externalTemperatureSensor;
     AnalogInput externalLightSensor;
+    Buzzer externalBuzzer;
+    rgb_lcd lcd;
   private:
 };
 
