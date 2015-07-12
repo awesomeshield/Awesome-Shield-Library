@@ -16,6 +16,8 @@
 #define lightSensorPin  A1
 #define tempSensorPin   A2
 #define knobPin         A3
+#define port1           A5  // primary (outside) pin
+#define port2           A0  // primary (outside) pin
 
 // the max analogWrite value
 #define MAX      255
@@ -112,16 +114,17 @@ class Buzzer {
 class Awesome {
   public:
     Awesome();
-
+    // core outputs
     led LED;
     Buzzer buzzer;
-
+    // core inputs
     LightSensor lightSensor;
     Potentiometer knob;
     TemperatureSensor temperatureSensor;
     Button button;
     Switch toggleSwitch;
-
+    // grove components
+    Potentiometer knob2;
   private:
 };
 
