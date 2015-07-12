@@ -129,6 +129,7 @@ class Awesome {
     Button button2;
     DigitalInput touchSensor;
     DigitalOutput singleColorLED;
+    AnalogInput mic;
   private:
 };
 
