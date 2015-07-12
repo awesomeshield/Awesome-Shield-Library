@@ -130,6 +130,7 @@ class Awesome {
     DigitalInput touchSensor;
     DigitalOutput singleColorLED;
     AnalogInput mic;
+    DigitalOutput relay;
   private:
 };
 
