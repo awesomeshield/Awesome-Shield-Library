@@ -128,6 +128,7 @@ class Awesome {
     AnalogInput knob2;
     Button button2;
     DigitalInput touchSensor;
+    DigitalOutput singleColorLED;
   private:
 };
 
