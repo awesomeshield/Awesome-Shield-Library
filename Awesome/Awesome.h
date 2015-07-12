@@ -59,14 +59,14 @@ class LightSensor {
     int _read();
 };
 
-class Potentiometer {
-  public:
-    void setup(int pin);
-    int reading();
-  private:
-    int _pin;
-    int _read();
-};
+// class Potentiometer {
+//   public:
+//     void setup(int pin);
+//     int reading();
+//   private:
+//     int _pin;
+//     int _read();
+// };
 
 class TemperatureSensor {
   public:
@@ -120,12 +120,12 @@ class Awesome {
     Buzzer buzzer;
     // core inputs
     LightSensor lightSensor;
-    Potentiometer knob;
+    AnalogInput knob;
     TemperatureSensor temperatureSensor;
     Button button;
     DigitalInput toggleSwitch;
     // grove components
-    Potentiometer knob2;
+    AnalogInput knob2;
   private:
 };
 

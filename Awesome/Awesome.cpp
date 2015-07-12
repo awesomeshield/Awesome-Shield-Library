@@ -127,16 +127,16 @@ int LightSensor::_read() {
   return currentLightInLux;
 }
 
-void Potentiometer::setup(int pin) {
-  _pin = pin;
-  pinMode(_pin,INPUT);
-}
-int Potentiometer::reading() {
-  return _read();
-}
-int Potentiometer::_read() {
-  return analogRead(_pin);
-}
+// void Potentiometer::setup(int pin) {
+//   _pin = pin;
+//   pinMode(_pin,INPUT);
+// }
+// int Potentiometer::reading() {
+//   return _read();
+// }
+// int Potentiometer::_read() {
+//   return analogRead(_pin);
+// }
 
 void TemperatureSensor::setup(int pin) {
   _pin = pin;
