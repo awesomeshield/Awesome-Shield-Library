@@ -131,6 +131,8 @@ class Awesome {
     DigitalOutput singleColorLED;
     AnalogInput mic;
     DigitalOutput relay;
+    AnalogInput externalTemperatureSensor;
+    AnalogInput externalLightSensor;
   private:
 };
 
