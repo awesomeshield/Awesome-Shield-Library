@@ -218,3 +218,7 @@ void groveLCD::setup() {
 void groveLCD::begin() {
   _lcd.begin(16, 2);
 }
+void groveLCD::print(String message) {
+  _lcd.setCursor(0, 0);
+  _lcd.print(message);
+}

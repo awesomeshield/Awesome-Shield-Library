@@ -99,6 +99,7 @@ class groveLCD {
   public:
     void setup();
     void begin();
+    void print(String message);
   private:
     rgb_lcd _lcd;
 };
