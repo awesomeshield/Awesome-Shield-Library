@@ -9,8 +9,6 @@
 #include "buildsterbot.h"
 #include <Wire.h>
 #include "rgb_lcd.h"
-#include <Servo.h>
-
 #include <avr/pgmspace.h>
 
 // temperature data table for 10k thermistor with a 10k pull down resistor
@@ -224,22 +222,4 @@ void groveLCD::print(String message) {
   } else {
     _lcd.print(message);
   }
-
-}
-
-void SERVO::setup(int pin) {
-  _pin = pin;
-  _servo.attach(_pin);
-  setPosition(0);
-}
-void SERVO::setPosition(int position){
-  if ( position > 180 ) {
-    _positionSetting = 180;
-  } else {
-    _positionSetting = position;
-  }
-  _servo.write(_positionSetting);
-}
-int SERVO::currentPosition(){
-  return _positionSetting;
 }

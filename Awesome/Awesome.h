@@ -11,7 +11,6 @@
 #include "buildsterbot.h"
 #include <Wire.h>
 #include "rgb_lcd.h"
-#include <Servo.h>
 
 #define rgbRedPin       3   // pwm
 #define rgbGreenPin     5   // pwm
@@ -102,17 +101,6 @@ class groveLCD {
     void print(String message);
   private:
     rgb_lcd _lcd;
-};
-
-class SERVO {
-  public:
-    void setup(int pin);
-    void setPosition(int position);
-    int currentPosition();
-  private:
-    int _positionSetting;
-    int _pin;
-    Servo _servo;
 };
 
 class Awesome {
