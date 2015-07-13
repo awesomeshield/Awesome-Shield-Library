@@ -9,7 +9,7 @@
 
 #include "Arduino.h"
 #include "buildsterbot.h"
-#include <Wire.h>
+#include "Wire.h"
 #include "rgb_lcd.h"
 
 #define rgbRedPin       3   // pwm
@@ -61,15 +61,6 @@ class LightSensor {
     int _read();
 };
 
-// class Potentiometer {
-//   public:
-//     void setup(int pin);
-//     int reading();
-//   private:
-//     int _pin;
-//     int _read();
-// };
-
 class TemperatureSensor {
   public:
     void setup(int pin);
@@ -78,16 +69,6 @@ class TemperatureSensor {
     int _pin;
     float _read();
 };
-
-// class Switch {
-//   public:
-//     void setup(int pin, bool readingMeaningSwitchIsOn);
-//     bool isOn();
-//     bool isOff();
-//   private:
-//     int _pin;
-//     bool _readingMeaningSwitchIsOn;
-// };
 
 class Button {
   public:
@@ -114,12 +95,13 @@ class Buzzer {
     bool _stateIsOn;
 };
 
-// class lcd {
-//   public:
-//     void setup();
-//     void printString(String message);
-//   private:
-// };
+class groveLCD {
+  public:
+    void setup();
+    void begin();
+  private:
+    rgb_lcd _lcd;
+};
 
 class Awesome {
   public:
@@ -143,7 +125,7 @@ class Awesome {
     AnalogInput externalTemperatureSensor;
     AnalogInput externalLightSensor;
     Buzzer externalBuzzer;
-    rgb_lcd lcd;
+    groveLCD LCD;
   private:
 };
 
