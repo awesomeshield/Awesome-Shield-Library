@@ -9,6 +9,7 @@
 #include "buildsterbot.h"
 #include <Wire.h>
 #include "rgb_lcd.h"
+#include <Servo.h>
 
 #include <avr/pgmspace.h>
 
@@ -23,7 +24,7 @@ Awesome::Awesome() {
   button.             setup(buttonPin, HIGH);
   toggleSwitch.       setup(switchOnPin, HIGH);
   buzzer.             setup(buzzerPin);
-  // lcd.                begin(16, 2); // not working
+  // LCD.                setup(); doesn't work
 }
 
 void led::setup(int redPin, int greenPin, int bluePin) {
@@ -213,12 +214,32 @@ void Buzzer::setSilentMode(bool newState) {
 }
 
 void groveLCD::setup() {
-  //
-}
-void groveLCD::begin() {
   _lcd.begin(16, 2);
 }
 void groveLCD::print(String message) {
   _lcd.setCursor(0, 0);
-  _lcd.print(message);
+  if ( message.length() > 16 ) {
+    _lcd.autoscroll();
+    _lcd.print(message);
+  } else {
+    _lcd.print(message);
+  }
+
+}
+
+void SERVO::setup(int pin) {
+  _pin = pin;
+  _servo.attach(_pin);
+  setPosition(0);
+}
+void SERVO::setPosition(int position){
+  if ( position > 180 ) {
+    _positionSetting = 180;
+  } else {
+    _positionSetting = position;
+  }
+  _servo.write(_positionSetting);
+}
+int SERVO::currentPosition(){
+  return _positionSetting;
 }
