@@ -23,7 +23,7 @@ Awesome::Awesome() {
   button.             setup(buttonPin, HIGH);
   toggleSwitch.       setup(switchOnPin, HIGH);
   buzzer.             setup(buzzerPin);
-  lcd.                setup();
+  // LCD.                begin(16, 2);
 }
 
 void led::setup(int redPin, int greenPin, int bluePin) {
@@ -242,33 +242,33 @@ void Buzzer::setSilentMode(bool newState) {
   }
 }
 
-void lcd::setup() {
-  begin(16, 2);     // 16 columns, 2 rows
-}
-void lcd::print(String message) {
-
-  // clear screen for the next loop:
-  lcd.clear();
-
-  // set the cursor to (0,0):
-  lcd.setCursor(0, 0);
-  // print from 0 to 9:
-  for (int thisChar = 0; thisChar < 10; thisChar++)
-  {
-      lcd.print(thisChar);
-      delay(500);
-  }
-
-  // set the cursor to (16,1):
-  lcd.setCursor(16,1);
-  // set the display to automatically scroll:
-  lcd.autoscroll();
-  // print from 0 to 9:
-  for (int thisChar = 0; thisChar < 10; thisChar++)
-  {
-      lcd.print(thisChar);
-      delay(500);
-  }
-  // turn off automatic scrolling
-  lcd.noAutoscroll();
-}
+// void lcd::setup() {
+//   begin(16, 2);     // 16 columns, 2 rows
+// }
+// void lcd::print(String message) {
+//
+//   // clear screen for the next loop:
+//   lcd.clear();
+//
+//   // set the cursor to (0,0):
+//   lcd.setCursor(0, 0);
+//   // print from 0 to 9:
+//   for (int thisChar = 0; thisChar < 10; thisChar++)
+//   {
+//       lcd.print(thisChar);
+//       delay(500);
+//   }
+//
+//   // set the cursor to (16,1):
+//   lcd.setCursor(16,1);
+//   // set the display to automatically scroll:
+//   lcd.autoscroll();
+//   // print from 0 to 9:
+//   for (int thisChar = 0; thisChar < 10; thisChar++)
+//   {
+//       lcd.print(thisChar);
+//       delay(500);
+//   }
+//   // turn off automatic scrolling
+//   lcd.noAutoscroll();
+// }

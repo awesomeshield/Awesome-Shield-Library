@@ -114,12 +114,12 @@ class Buzzer {
     bool _stateIsOn;
 };
 
-class lcd {
-  public:
-    void setup();
-    void printString(String message);
-  private:
-};
+// class lcd {
+//   public:
+//     void setup();
+//     void printString(String message);
+//   private:
+// };
 
 class Awesome {
   public:
