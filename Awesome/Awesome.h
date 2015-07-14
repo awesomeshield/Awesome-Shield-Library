@@ -72,6 +72,7 @@ class TemperatureSensor {
 
 class Button {
   public:
+    Button(int pin, bool isDownState);
     void setup(int pin, bool readingMeaningButtonIsDown);
     bool isDown();
     bool isUp();
@@ -113,11 +114,11 @@ class Awesome {
     LightSensor lightSensor;
     AnalogInput knob;
     TemperatureSensor temperatureSensor;
-    Button button;
+    //Button button;
     DigitalInput toggleSwitch;
     // grove components
     AnalogInput knob2;
-    Button button2;
+    //Button button2;
     DigitalInput touchSensor;
     DigitalOutput singleColorLED;
     AnalogInput mic;

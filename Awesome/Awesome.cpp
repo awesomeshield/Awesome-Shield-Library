@@ -19,7 +19,7 @@ Awesome::Awesome() {
   lightSensor.        setup(lightSensorPin);
   knob.               setup(knobPin);
   temperatureSensor.  setup(tempSensorPin);
-  button.             setup(buttonPin, HIGH);
+  //button.             setup(buttonPin, HIGH);
   toggleSwitch.       setup(switchOnPin, HIGH);
   buzzer.             setup(buzzerPin);
   // LCD.                setup(); doesn't work
@@ -160,6 +160,9 @@ float TemperatureSensor::reading() {
   return _read();
 }
 
+Button::Button(int pin, bool isDownState) {
+  setup(pin, isDownState);
+}
 void Button::setup(int pin, bool readingMeaningButtonIsDown) {
   _pin = pin;
   _readingMeaningButtonIsDown = readingMeaningButtonIsDown;
