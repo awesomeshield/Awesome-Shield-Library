@@ -8,9 +8,10 @@
 #define Awesome_h
 
 #include "Arduino.h"
-#include "buildsterbot.h"
-#include <Wire.h>
+#include "Wire.h"
 #include "rgb_lcd.h"
+#include <Servo.h>
+
 
 #define rgbRedPin       3   // pwm
 #define rgbGreenPin     5   // pwm
@@ -93,6 +94,58 @@ class Buzzer {
     int _pin;
     bool _silent;
     bool _stateIsOn;
+};
+
+class DigitalInput {
+  public:
+    void setup(int pin, bool stateThatMeansIsOn);
+    bool isOn();
+    bool isOff();
+  private:
+    int _pin;
+    int _stateThatMeansIsOn;
+};
+
+class DigitalOutput {
+  public:
+    void setup(int pin);
+    void turnOn();
+    void turnOff();
+    bool isOn();
+    bool isOff();
+  private:
+    int _pin;
+    int _stateIsOn;
+};
+
+class AnalogInput {
+  public:
+    void setup(int pin);
+    int reading();
+  private:
+    int _pin;
+    int _value;
+};
+
+class AnalogOutput {
+  public:
+    void setup(int pin);
+    void set(int newSetting);
+    int setting();
+  private:
+    int _pin;
+    int _currentSetting;
+};
+
+class SERVO {
+  public:
+    void setup(int pin);
+    void setPosition(int position);
+    int currentPosition();
+  private:
+    int _positionSetting;
+    int _pin;
+    Servo _servo;
 };
 
 class groveLCD {
