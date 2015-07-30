@@ -209,8 +209,10 @@ void Buzzer::setup(int pin) {
   _silent = false;
 }
 void Buzzer::turnOn(unsigned int frequency) {
-  tone(_pin, frequency);
-  _stateIsOn = true;
+  if ( ! _silent ) {
+    tone(_pin, frequency);
+    _stateIsOn = true;
+  }
 }
 void Buzzer::turnOff() {
   noTone(_pin);
