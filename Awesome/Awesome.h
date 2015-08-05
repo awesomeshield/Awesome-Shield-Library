@@ -1,6 +1,6 @@
 /*
   Awesome.h library - for the Awesome Shield Learning Platform
-  Awesome Shield UG (Haftungsbeschrankt)
+  Copyright Awesome Shield UG (haftungsbeschraenkt), all rights reserved
   MIT License
 */
 
