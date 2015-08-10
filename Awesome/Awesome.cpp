@@ -116,14 +116,7 @@ int LightSensor::reading() {
   return _read();
 }
 int LightSensor::_read() {
-  int lightADCReading = analogRead(_pin);
-  // Calculating the voltage of the Analog to Digital Converter ADC for light
-  int lightInputVoltage = 5.0 * ((double)lightADCReading / 1024.0);
-  // Calculating the resistance of the photoresistor in the voltage divider
-  int lightResistance = (10.0 * 5.0) / lightInputVoltage - 10.0;
-  // Calculating the intensity of light in lux
-  int currentLightInLux = 255.84 * pow(lightResistance, -10/9);
-  return currentLightInLux;
+  return analogRead(_pin);
 }
 
 void Potentiometer::setup(int pin) {
