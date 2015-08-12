@@ -312,10 +312,19 @@ void electretMic::setup(int pin) {
   pinMode(_pin, INPUT);
 }
 int electretMic::reading() {
-  int value = analogRead(_pin);
+  int value = 0;
+  // take the sum of some readings
+  for (int i=0; i<100; i++) {
+    value += analogRead(_pin);
+    //delay(1);
+  }
+  // find the average reading
+  value = float(value) / 100;
   // high pass filter to decrease noise
-  value = value - 190;
+  value = value - 200;
   // map new value to normal analog reading range
   map(value,0,1023-190,0,1023);
+  // make sure value stays within expected range
+  value = constrain(value,0,1023);
   return value;
 }
