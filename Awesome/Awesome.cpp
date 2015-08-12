@@ -312,18 +312,21 @@ void electretMic::setup(int pin) {
   pinMode(_pin, INPUT);
 }
 int electretMic::reading() {
+  int threshhold = 85;
+  int loops = 15;
+
   int value = 0;
   // take the sum of some readings
-  for (int i=0; i<100; i++) {
+  for (int i=0; i<loops; i++) {
     value += analogRead(_pin);
-    //delay(1);
+    delay(1);
   }
   // find the average reading
-  value = float(value) / 100;
+  value = float(value) / loops;
   // high pass filter to decrease noise
-  value = value - 200;
+  value = value - threshhold;
   // map new value to normal analog reading range
-  map(value,0,1023-190,0,1023);
+  map(value,0,1023-threshhold-600,0,1023);
   // make sure value stays within expected range
   value = constrain(value,0,1023);
   return value;
