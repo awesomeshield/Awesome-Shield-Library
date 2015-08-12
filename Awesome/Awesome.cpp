@@ -306,3 +306,11 @@ void SERVO::setPosition(int position){
 int SERVO::currentPosition(){
   return _positionSetting;
 }
+
+void electretMic::setup(int pin) {
+  _pin = pin;
+  pinMode(_pin, INPUT);
+}
+int electretMic::reading() {
+  return analogRead(_pin);
+}

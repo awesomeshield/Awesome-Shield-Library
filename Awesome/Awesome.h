@@ -156,6 +156,14 @@ class groveLCD {
     rgb_lcd _lcd;
 };
 
+class electretMic {
+  public:
+    void setup(int pin);
+    int reading();
+  private:
+    int _pin;
+};
+
 class Awesome {
   public:
     Awesome();
@@ -173,7 +181,7 @@ class Awesome {
     Button button2;
     DigitalInput touchSensor;
     DigitalOutput singleColorLED;
-    AnalogInput mic;
+    electretMic mic;
     DigitalOutput relay;
     AnalogInput externalTemperatureSensor;
     AnalogInput externalLightSensor;
