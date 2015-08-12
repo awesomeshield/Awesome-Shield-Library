@@ -312,5 +312,10 @@ void electretMic::setup(int pin) {
   pinMode(_pin, INPUT);
 }
 int electretMic::reading() {
-  return analogRead(_pin);
+  int value = analogRead(_pin);
+  // high pass filter to decrease noise
+  value = value - 190;
+  // map new value to normal analog reading range
+  map(value,0,1023-190,0,1023);
+  return value;
 }
