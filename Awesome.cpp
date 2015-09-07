@@ -17,8 +17,8 @@ Awesome::Awesome() {
   lightSensor.        setup(lightSensorPin);
   knob.               setup(knobPin);
   temperatureSensor.  setup(tempSensorPin);
-  button.             setup(buttonPin, HIGH);
-  toggleSwitch.       setup(switchOnPin, HIGH);
+  button.             setup(buttonPin, LOW);
+  toggleSwitch.       setup(switchOnPin, LOW);
   buzzer.             setup(buzzerPin);
 }
 
@@ -166,11 +166,13 @@ float TemperatureSensor::reading() {
 
 void Switch::setup(int pin, bool readingMeaningSwitchIsOn) {
   _pin = pin;
-  digitalWrite(_pin,HIGH);
   _readingMeaningSwitchIsOn = readingMeaningSwitchIsOn;
   pinMode(_pin, INPUT);
 }
 bool Switch::isOn() {
+  pinMode(_pin,OUTPUT);
+  digitalWrite(_pin,HIGH);
+  pinMode(_pin,INPUT);
   if (_readingMeaningSwitchIsOn == HIGH) {
     return digitalRead(_pin);
   } else {
@@ -183,18 +185,17 @@ bool Switch::isOff() {
 
 void Button::setup(int pin, bool readingMeaningButtonIsDown) {
   _pin = pin;
-  digitalWrite(_pin,HIGH);
   _readingMeaningButtonIsDown = readingMeaningButtonIsDown;
   pinMode(_pin, INPUT);
 }
 bool Button::isDown() {
+  pinMode(_pin,OUTPUT);
+  digitalWrite(_pin,HIGH);
+  pinMode(_pin,INPUT);
   if (_readingMeaningButtonIsDown == HIGH) {
-    pinMode(_pin,OUTPUT);
-    digitalWrite(_pin,HIGH);
-    pinMode(_pin,INPUT);
-    return ! digitalRead(_pin);
-  } else {
     return digitalRead(_pin);
+  } else {
+    return ! digitalRead(_pin);
   }
 }
 bool Button::isUp() {
