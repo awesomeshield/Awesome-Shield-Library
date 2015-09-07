@@ -16,6 +16,8 @@
 #define lightSensorPin  A1
 #define tempSensorPin   A2
 #define knobPin         A3
+#define port1           A5  // primary (outside) pin
+#define port2           A0  // primary (outside) pin
 
 // the max analogWrite value
 #define MAX      255
