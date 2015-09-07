@@ -166,6 +166,7 @@ float TemperatureSensor::reading() {
 
 void Switch::setup(int pin, bool readingMeaningSwitchIsOn) {
   _pin = pin;
+  digitalWrite(_pin,HIGH);
   _readingMeaningSwitchIsOn = readingMeaningSwitchIsOn;
   pinMode(_pin, INPUT);
 }
@@ -182,14 +183,18 @@ bool Switch::isOff() {
 
 void Button::setup(int pin, bool readingMeaningButtonIsDown) {
   _pin = pin;
+  digitalWrite(_pin,HIGH);
   _readingMeaningButtonIsDown = readingMeaningButtonIsDown;
   pinMode(_pin, INPUT);
 }
 bool Button::isDown() {
   if (_readingMeaningButtonIsDown == HIGH) {
-    return digitalRead(_pin);
-  } else {
+    pinMode(_pin,OUTPUT);
+    digitalWrite(_pin,HIGH);
+    pinMode(_pin,INPUT);
     return ! digitalRead(_pin);
+  } else {
+    return digitalRead(_pin);
   }
 }
 bool Button::isUp() {

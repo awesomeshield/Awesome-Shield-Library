@@ -7,9 +7,9 @@
 #ifndef Awesome_h
 #define Awesome_h
 
-#define rgbRedPin       3   // pwm
-#define rgbGreenPin     5   // pwm
-#define rgbBluePin      6   // pwm
+#define rgbRedPin       5   // pwm
+#define rgbGreenPin     6   // pwm
+#define rgbBluePin      3   // pwm
 #define buzzerPin       9   // pwm
 #define buttonPin       2   // io digital
 #define switchOnPin     8   // io digital
