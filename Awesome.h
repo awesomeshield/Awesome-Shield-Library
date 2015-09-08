@@ -96,7 +96,7 @@ class Buzzer {
     bool _stateIsOn;
 };
 
-class DigitalInput {  // add pullup functionality
+class DigitalInput {
   public:
     void setup(int pin, bool stateThatMeansIsOn, bool needsPullup = false);
     bool isOn();
