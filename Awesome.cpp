@@ -154,32 +154,14 @@ float TemperatureSensor::reading() {
   return _read();
 }
 
-void Switch::setup(int pin, bool readingMeaningSwitchIsOn) {
-  _pin = pin;
-  _readingMeaningSwitchIsOn = readingMeaningSwitchIsOn;
-  pinMode(_pin, INPUT);
-}
-bool Switch::isOn() {
-  pinMode(_pin,OUTPUT);
-  digitalWrite(_pin,HIGH);
-  pinMode(_pin,INPUT);
-  if (_readingMeaningSwitchIsOn == HIGH) {
-    return digitalRead(_pin);
-  } else {
-    return ! digitalRead(_pin);
-  }
-}
-bool Switch::isOff() {
-    return ! isOn();
-}
-
 void Button::setup(int pin, bool readingMeaningButtonIsDown, bool needsPullup) {
   _pin = pin;
   _readingMeaningButtonIsDown = readingMeaningButtonIsDown;
+  _needsPullup = needsPullup;
   pinMode(_pin, INPUT);
 }
 bool Button::isDown() {
-  if ( needsPullup ) {
+  if ( _needsPullup ) {
     pinMode(_pin,OUTPUT);
     digitalWrite(_pin,HIGH);
     pinMode(_pin,INPUT);
@@ -245,12 +227,13 @@ void groveLCD::print(String message) {
 }
 
 void DigitalInput::setup(int pin, bool stateThatMeansIsOn, bool needsPullup){
-  pinMode(pin, INPUT);
   _pin = pin;
   _stateThatMeansIsOn = stateThatMeansIsOn;
+  _needsPullup = needsPullup;
+  pinMode(pin, INPUT);
 }
 bool DigitalInput::isOn(){
-  if ( needsPullup ) {
+  if ( _needsPullup ) {
     pinMode(_pin,OUTPUT);
     digitalWrite(_pin,HIGH);
     pinMode(_pin,INPUT);

@@ -79,6 +79,7 @@ class Button {
   private:
     int _pin;
     bool _readingMeaningButtonIsDown;
+    bool _needsPullup;
 };
 
 class Buzzer {
@@ -104,6 +105,7 @@ class DigitalInput {
   private:
     int _pin;
     int _stateThatMeansIsOn;
+    bool _needsPullup;
 };
 
 class DigitalOutput {
