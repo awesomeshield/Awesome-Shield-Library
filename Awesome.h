@@ -7,9 +7,15 @@
 #ifndef Awesome_h
 #define Awesome_h
 
+#include "Arduino.h"
+#include "Wire.h"
+#include "rgb_lcd.h"
+#include <Servo.h>
+
 #define rgbRedPin       5   // pwm
 #define rgbGreenPin     6   // pwm
 #define rgbBluePin      3   // pwm
+
 #define buzzerPin       9   // pwm
 #define buttonPin       2   // io digital
 #define switchOnPin     8   // io digital
@@ -29,8 +35,6 @@
 #define YELLOW   3005
 #define PURPLE   3006
 #define CYAN     3007
-
-#include "Arduino.h"
 
 class led {
   public:
@@ -58,15 +62,6 @@ class LightSensor {
     int _read();
 };
 
-class Potentiometer {
-  public:
-    void setup(int pin);
-    int reading();
-  private:
-    int _pin;
-    int _read();
-};
-
 class TemperatureSensor {
   public:
     void setup(int pin);
@@ -74,16 +69,6 @@ class TemperatureSensor {
   private:
     int _pin;
     float _read();
-};
-
-class Switch {
-  public:
-    void setup(int pin, bool readingMeaningSwitchIsOn);
-    bool isOn();
-    bool isOff();
-  private:
-    int _pin;
-    bool _readingMeaningSwitchIsOn;
 };
 
 class Button {
@@ -111,19 +96,98 @@ class Buzzer {
     bool _stateIsOn;
 };
 
+class DigitalInput {
+  public:
+    void setup(int pin, bool stateThatMeansIsOn);
+    bool isOn();
+    bool isOff();
+  private:
+    int _pin;
+    int _stateThatMeansIsOn;
+};
+
+class DigitalOutput {
+  public:
+    void setup(int pin);
+    void turnOn();
+    void turnOff();
+    bool isOn();
+    bool isOff();
+  private:
+    int _pin;
+    int _stateIsOn;
+};
+
+class AnalogInput {
+  public:
+    void setup(int pin);
+    int reading();
+  private:
+    int _pin;
+    int _value;
+};
+
+class AnalogOutput {
+  public:
+    void setup(int pin);
+    void set(int newSetting);
+    int setting();
+  private:
+    int _pin;
+    int _currentSetting;
+};
+
+class SERVO {
+  public:
+    void setup(int pin);
+    void setPosition(int position);
+    int currentPosition();
+  private:
+    int _positionSetting;
+    int _pin;
+    Servo _servo;
+};
+
+class groveLCD {
+  public:
+    void setup();
+    void print(String message);
+  private:
+    rgb_lcd _lcd;
+};
+
+class electretMic {
+  public:
+    void setup(int pin);
+    int reading();
+  private:
+    int _pin;
+};
+
 class Awesome {
   public:
     Awesome();
-
+    // core outputs
     led LED;
     Buzzer buzzer;
-
+    // core inputs
     LightSensor lightSensor;
-    Potentiometer knob;
+    AnalogInput knob;
     TemperatureSensor temperatureSensor;
     Button button;
-    Switch toggleSwitch;
-
+    DigitalInput toggleSwitch;
+    // grove components
+    AnalogInput knob2;
+    Button button2;
+    DigitalInput touchSensor;
+    DigitalOutput singleColorLED;
+    electretMic mic;
+    DigitalOutput relay;
+    AnalogInput externalTemperatureSensor;
+    AnalogInput externalLightSensor;
+    Buzzer externalBuzzer;
+    groveLCD LCD;
+    SERVO servo;
   private:
 };
 
