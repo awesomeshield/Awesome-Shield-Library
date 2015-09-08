@@ -173,15 +173,17 @@ bool Switch::isOff() {
     return ! isOn();
 }
 
-void Button::setup(int pin, bool readingMeaningButtonIsDown) {
+void Button::setup(int pin, bool readingMeaningButtonIsDown, bool needsPullup) {
   _pin = pin;
   _readingMeaningButtonIsDown = readingMeaningButtonIsDown;
   pinMode(_pin, INPUT);
 }
 bool Button::isDown() {
-  pinMode(_pin,OUTPUT);
-  digitalWrite(_pin,HIGH);
-  pinMode(_pin,INPUT);
+  if ( needsPullup ) {
+    pinMode(_pin,OUTPUT);
+    digitalWrite(_pin,HIGH);
+    pinMode(_pin,INPUT);
+  }
   if (_readingMeaningButtonIsDown == HIGH) {
     return digitalRead(_pin);
   } else {

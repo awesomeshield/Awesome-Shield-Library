@@ -73,7 +73,7 @@ class TemperatureSensor {
 
 class Button {
   public:
-    void setup(int pin, bool readingMeaningButtonIsDown);
+    void setup(int pin, bool readingMeaningButtonIsDown, bool needsPullup = false);
     bool isDown();
     bool isUp();
   private:
@@ -96,7 +96,7 @@ class Buzzer {
     bool _stateIsOn;
 };
 
-class DigitalInput {
+class DigitalInput {  // add pullup functionality
   public:
     void setup(int pin, bool stateThatMeansIsOn);
     bool isOn();
