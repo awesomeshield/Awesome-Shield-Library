@@ -244,12 +244,17 @@ void groveLCD::print(String message) {
   }
 }
 
-void DigitalInput::setup(int pin, bool stateThatMeansIsOn){
+void DigitalInput::setup(int pin, bool stateThatMeansIsOn, bool needsPullup){
   pinMode(pin, INPUT);
   _pin = pin;
   _stateThatMeansIsOn = stateThatMeansIsOn;
 }
 bool DigitalInput::isOn(){
+  if ( needsPullup ) {
+    pinMode(_pin,OUTPUT);
+    digitalWrite(_pin,HIGH);
+    pinMode(_pin,INPUT);
+  }
   if ( _stateThatMeansIsOn == HIGH) {
     return digitalRead(_pin);
   } else {
