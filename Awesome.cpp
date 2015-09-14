@@ -20,8 +20,8 @@ Awesome::Awesome() {
   lightSensor.        setup(lightSensorPin);
   knob.               setup(knobPin);
   temperatureSensor.  setup(tempSensorPin);
-  button.             setup(buttonPin, LOW);
-  toggleSwitch.       setup(switchOnPin, LOW);
+  button.             setup(buttonPin, LOW, true);
+  toggleSwitch.       setup(switchOnPin, LOW, true);
   buzzer.             setup(buzzerPin);
   // LCD.                setup(); doesn't work
 }
