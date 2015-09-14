@@ -168,6 +168,15 @@ class electretMic {
     int _pin;
 };
 
+class port{
+  public:
+    port();
+    LightSensor lightSensor;
+  private:
+    int _primaryPin;
+    int _secondaryPin;
+};
+
 class Awesome {
   public:
     Awesome();
@@ -181,7 +190,6 @@ class Awesome {
     Button button;
     DigitalInput toggleSwitch;
     // grove components
-    LightSensor port1LightSensor;
     AnalogInput knob2;
     Button button2;
     DigitalInput touchSensor;

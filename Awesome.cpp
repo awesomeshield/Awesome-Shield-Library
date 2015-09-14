@@ -24,9 +24,10 @@ Awesome::Awesome() {
   button.             setup(buttonPin, LOW, true);
   toggleSwitch.       setup(switchOnPin, LOW, true);
   buzzer.             setup(buzzerPin);
-  // tester
-  port1LightSensor.   setVariables(port1pin);
-  // LCD.                setup(); doesn't work
+}
+
+port::port() {
+  // port1LightSensor.   setVariables(port1pin);
 }
 
 void led::setup(int redPin, int greenPin, int bluePin) {
