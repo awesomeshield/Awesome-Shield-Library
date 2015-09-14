@@ -20,7 +20,7 @@ Awesome::Awesome() {
   lightSensor.        setVariables(lightSensorPin);
   knob.               setup(knobPin);
   temperatureSensor.  setup(tempSensorPin);
-  button.             setup(buttonPin, LOW, true);
+  button.             setVariables(buttonPin, LOW, true);
   toggleSwitch.       setup(switchOnPin, LOW, true);
   buzzer.             setup(buzzerPin);
   port1.              setPins(port1pin, port1pin);
@@ -35,6 +35,7 @@ void port::setPins(int primaryPin, int secondaryPin) {
   _secondaryPin = secondaryPin;
   // set ad-on pins
   lightSensor.        setVariables(primaryPin);
+  button.             setVariables(primaryPin,HIGH);
 }
 
 void led::setup(int redPin, int greenPin, int bluePin) {
@@ -170,17 +171,17 @@ float TemperatureSensor::reading() {
   return _read();
 }
 
-void Button::setup(int pin, bool readingMeaningButtonIsDown, bool needsPullup) {
+void Button::setVariables(int pin, bool readingMeaningButtonIsDown, bool needsPullup) {
   _pin = pin;
   _readingMeaningButtonIsDown = readingMeaningButtonIsDown;
   _needsPullup = needsPullup;
-  pinMode(_pin, INPUT);
 }
 bool Button::isDown() {
+  if ( ! _hardwareSetupComplete) {
+    _setupHardware();
+  }
   if ( _needsPullup ) {
-    pinMode(_pin,OUTPUT);
-    digitalWrite(_pin,HIGH);
-    pinMode(_pin,INPUT);
+    _setupPullup();
   }
   if (_readingMeaningButtonIsDown == HIGH) {
     return digitalRead(_pin);
@@ -190,6 +191,14 @@ bool Button::isDown() {
 }
 bool Button::isUp() {
     return ! isDown();
+}
+void Button::_setupHardware() {
+  pinMode(_pin, INPUT);
+}
+void Button::_setupPullup() {
+  pinMode(_pin,OUTPUT);
+  digitalWrite(_pin,HIGH);
+  pinMode(_pin,INPUT);
 }
 
 void Buzzer::setup(int pin) {

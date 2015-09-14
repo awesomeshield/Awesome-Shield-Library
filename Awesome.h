@@ -75,13 +75,16 @@ class TemperatureSensor {
 
 class Button {
   public:
-    void setup(int pin, bool readingMeaningButtonIsDown, bool needsPullup = false);
+    void setVariables(int pin, bool readingMeaningButtonIsDown, bool needsPullup = false);
     bool isDown();
     bool isUp();
   private:
     int _pin;
     bool _readingMeaningButtonIsDown;
     bool _needsPullup;
+    bool _hardwareSetupComplete;
+    void _setupHardware();
+    void _setupPullup();
 };
 
 class Buzzer {
@@ -172,6 +175,7 @@ class port{
   public:
     port();
     LightSensor lightSensor;
+    Button button;
     void setPins(int primaryPin, int secondaryPin);
   private:
     int _primaryPin;
