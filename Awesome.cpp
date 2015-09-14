@@ -24,6 +24,8 @@ Awesome::Awesome() {
   button.             setup(buttonPin, LOW, true);
   toggleSwitch.       setup(switchOnPin, LOW, true);
   buzzer.             setup(buzzerPin);
+  // tester
+  port1LightSensor.   setVariables(port1pin);
   // LCD.                setup(); doesn't work
 }
 
@@ -122,6 +124,9 @@ void LightSensor::setupHardware() {
   _hardwareSetupComplete = true;
 }
 int LightSensor::reading() {
+  if ( ! _hardwareSetupComplete ) {
+    setupHardware();
+  }
   return _read();
 }
 int LightSensor::_read() {

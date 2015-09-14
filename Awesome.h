@@ -22,8 +22,8 @@
 #define lightSensorPin  A1
 #define tempSensorPin   A2
 #define knobPin         A3
-#define port1           A5  // primary (outside) pin
-#define port2           A0  // primary (outside) pin
+#define port1pin        A5  // primary (outside) pin
+#define port2pin        A0  // primary (outside) pin
 
 // the max analogWrite value
 #define MAX      255
@@ -181,6 +181,7 @@ class Awesome {
     Button button;
     DigitalInput toggleSwitch;
     // grove components
+    LightSensor port1LightSensor;
     AnalogInput knob2;
     Button button2;
     DigitalInput touchSensor;
