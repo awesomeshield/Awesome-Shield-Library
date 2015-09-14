@@ -17,7 +17,8 @@ const int temps[] PROGMEM = { 0, 1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
 
 Awesome::Awesome() {
   LED.                setup(rgbRedPin, rgbGreenPin, rgbBluePin);
-  lightSensor.        setup(lightSensorPin);
+  lightSensor.        setVariables(lightSensorPin);
+  lightSensor.        setupHardware();
   knob.               setup(knobPin);
   temperatureSensor.  setup(tempSensorPin);
   button.             setup(buttonPin, LOW, true);
@@ -112,9 +113,13 @@ void led::flash(int duration, int howMuchRed, int howMuchGreen, int howMuchBlue)
   turnOff();
 }
 
-void LightSensor::setup(int pin) {
+void LightSensor::setVariables(int pin) {
   _pin = pin;
+  _hardwareSetupComplete = false;
+}
+void LightSensor::setupHardware() {
   pinMode(_pin,INPUT);
+  _hardwareSetupComplete = true;
 }
 int LightSensor::reading() {
   return _read();
@@ -136,13 +141,11 @@ float TemperatureSensor::_read() {
     // Serial.println(rawData[i]);
     delay(10);
   }
-
   int averageData = 0;
   for (short i=0;i<numData;i++) {
     averageData += rawData[i];
   }
   averageData = averageData / numData;
-
   int therm;
   therm = averageData-238;
   therm=pgm_read_word(&temps[therm]);
