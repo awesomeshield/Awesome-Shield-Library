@@ -172,6 +172,7 @@ class port{
   public:
     port();
     LightSensor lightSensor;
+    void setPins(int primaryPin, int secondaryPin);
   private:
     int _primaryPin;
     int _secondaryPin;
@@ -189,18 +190,8 @@ class Awesome {
     TemperatureSensor temperatureSensor;
     Button button;
     DigitalInput toggleSwitch;
-    // grove components
-    AnalogInput knob2;
-    Button button2;
-    DigitalInput touchSensor;
-    DigitalOutput singleColorLED;
-    electretMic mic;
-    DigitalOutput relay;
-    AnalogInput externalTemperatureSensor;
-    AnalogInput externalLightSensor;
-    Buzzer externalBuzzer;
-    groveLCD LCD;
-    SERVO servo;
+    // ports
+    port port1;
   private:
 };
 

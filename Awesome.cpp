@@ -27,7 +27,13 @@ Awesome::Awesome() {
 }
 
 port::port() {
-  // port1LightSensor.   setVariables(port1pin);
+}
+void port::setPins(int primaryPin, int secondaryPin) {
+  // set port pins
+  _primaryPin = primaryPin;
+  _secondaryPin = secondaryPin;
+  // set ad-on pins
+  lightSensor.        setVariables(primaryPin);
 }
 
 void led::setup(int redPin, int greenPin, int bluePin) {
