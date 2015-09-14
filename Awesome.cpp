@@ -341,16 +341,21 @@ void AnalogInput::_setupHardware() {
   pinMode(_pin,INPUT);
 }
 
-void AnalogOutput::setup(int pin) {
+void AnalogOutput::setVariables(int pin) {
   _pin = pin;
-  pinMode(_pin,OUTPUT);
 }
 void AnalogOutput::set(int newSetting) {
+  if ( ! _hardwareSetupComplete ) {
+    _setupHardware();
+  }
   analogWrite(_pin, newSetting);
   _currentSetting = newSetting;
 }
 int AnalogOutput::setting() {
   return _currentSetting;
+}
+void AnalogOutput::_setupHardware() {
+  pinMode(_pin,OUTPUT);
 }
 
 void SERVO::setup(int pin) {

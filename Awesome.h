@@ -144,12 +144,14 @@ class AnalogInput {
 
 class AnalogOutput {
   public:
-    void setup(int pin);
+    void setVariables(int pin);
     void set(int newSetting);
     int setting();
   private:
     int _pin;
     int _currentSetting;
+    bool _hardwareSetupComplete;
+    void _setupHardware();
 };
 
 class SERVO {
