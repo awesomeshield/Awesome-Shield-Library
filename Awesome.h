@@ -106,13 +106,15 @@ class Buzzer {
 
 class DigitalInput {
   public:
-    void setup(int pin, bool stateThatMeansIsOn, bool needsPullup = false);
+    void setVariables(int pin, bool stateThatMeansIsOn, bool needsPullup = false);
     bool isOn();
     bool isOff();
   private:
     int _pin;
     int _stateThatMeansIsOn;
     bool _needsPullup;
+    bool _hardwareSetupComplete;
+    void _setupHardware();
 };
 
 class DigitalOutput {
@@ -179,6 +181,7 @@ class port{
     LightSensor lightSensor;
     Button button;
     Buzzer buzzer;
+    DigitalInput touchSensor;
     void setPins(int primaryPin, int secondaryPin);
   private:
     int _primaryPin;

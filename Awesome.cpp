@@ -21,7 +21,7 @@ Awesome::Awesome() {
   knob.               setup(knobPin);
   temperatureSensor.  setup(tempSensorPin);
   button.             setVariables(buttonPin, LOW, true);
-  toggleSwitch.       setup(switchOnPin, LOW, true);
+  toggleSwitch.       setVariables(switchOnPin, LOW, true);
   buzzer.             setVariables(buzzerPin);
   port1.              setPins(port1pin, port1pin);
   port2.              setPins(port2pin, port2pin);
@@ -35,8 +35,9 @@ void port::setPins(int primaryPin, int secondaryPin) {
   _secondaryPin = secondaryPin;
   // set ad-on pins
   lightSensor.        setVariables(primaryPin);
-  button.             setVariables(primaryPin,HIGH);
+  button.             setVariables(primaryPin, HIGH);
   buzzer.             setVariables(primaryPin);
+  touchSensor.        setVariables(primaryPin, HIGH);
 }
 
 void led::setup(int redPin, int greenPin, int bluePin) {
@@ -261,13 +262,15 @@ void groveLCD::print(String message) {
   }
 }
 
-void DigitalInput::setup(int pin, bool stateThatMeansIsOn, bool needsPullup){
+void DigitalInput::setVariables(int pin, bool stateThatMeansIsOn, bool needsPullup){
   _pin = pin;
   _stateThatMeansIsOn = stateThatMeansIsOn;
   _needsPullup = needsPullup;
-  pinMode(pin, INPUT);
 }
 bool DigitalInput::isOn(){
+  if ( ! _hardwareSetupComplete ) {
+    _setupHardware();
+  }
   if ( _needsPullup ) {
     pinMode(_pin,OUTPUT);
     digitalWrite(_pin,HIGH);
@@ -281,6 +284,9 @@ bool DigitalInput::isOn(){
 }
 bool DigitalInput::isOff(){
   return ! isOn();
+}
+void DigitalInput::_setupHardware() {
+  pinMode(_pin, INPUT);
 }
 
 void DigitalOutput::setup(int pin) {
