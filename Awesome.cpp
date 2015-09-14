@@ -38,6 +38,8 @@ void port::setPins(int primaryPin, int secondaryPin) {
   button.             setVariables(primaryPin, HIGH);
   buzzer.             setVariables(primaryPin);
   touchSensor.        setVariables(primaryPin, HIGH);
+  singleColorLED.     setVariables(primaryPin);
+  relay.              setVariables(primaryPin);
 }
 
 void led::setup(int redPin, int greenPin, int bluePin) {
@@ -289,15 +291,20 @@ void DigitalInput::_setupHardware() {
   pinMode(_pin, INPUT);
 }
 
-void DigitalOutput::setup(int pin) {
+void DigitalOutput::setVariables(int pin) {
   _pin = pin;
-  pinMode(_pin, OUTPUT);
 }
 void DigitalOutput::turnOn() {
+  if ( ! _hardwareSetupComplete ) {
+    _setupHardware();
+  }
   digitalWrite(_pin, HIGH);
   _stateIsOn = true;
 }
 void DigitalOutput::turnOff() {
+  if ( ! _hardwareSetupComplete ) {
+    _setupHardware();
+  }
   digitalWrite(_pin, LOW);
   _stateIsOn = false;
 }
@@ -306,6 +313,9 @@ bool DigitalOutput::isOn() {
 }
 bool DigitalOutput::isOff() {
   return ! _stateIsOn;
+}
+void DigitalOutput::_setupHardware() {
+  pinMode(_pin, OUTPUT);
 }
 
 void AnalogInput::setup(int pin) {

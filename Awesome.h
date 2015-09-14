@@ -119,7 +119,7 @@ class DigitalInput {
 
 class DigitalOutput {
   public:
-    void setup(int pin);
+    void setVariables(int pin);
     void turnOn();
     void turnOff();
     bool isOn();
@@ -127,6 +127,8 @@ class DigitalOutput {
   private:
     int _pin;
     int _stateIsOn;
+    bool _hardwareSetupComplete;
+    void _setupHardware();
 };
 
 class AnalogInput {
@@ -182,6 +184,8 @@ class port{
     Button button;
     Buzzer buzzer;
     DigitalInput touchSensor;
+    DigitalOutput singleColorLED;
+    DigitalOutput relay;
     void setPins(int primaryPin, int secondaryPin);
   private:
     int _primaryPin;
