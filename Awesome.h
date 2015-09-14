@@ -192,6 +192,7 @@ class Awesome {
     DigitalInput toggleSwitch;
     // ports
     port port1;
+    port port2;
   private:
 };
 

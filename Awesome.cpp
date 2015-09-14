@@ -24,6 +24,8 @@ Awesome::Awesome() {
   button.             setup(buttonPin, LOW, true);
   toggleSwitch.       setup(switchOnPin, LOW, true);
   buzzer.             setup(buzzerPin);
+  port1.              setPins(port1pin, port1pin);
+  port2.              setPins(port2pin, port2pin);
 }
 
 port::port() {
