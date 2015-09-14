@@ -158,11 +158,8 @@ class SERVO {
   public:
     void setVariables(int pin);
     void setPosition(int position);
-    int currentPosition();
   private:
-    int _positionSetting;
     int _pin;
-    bool _hardwareSetupComplete;
     void _setupHardware();
     Servo _servo;
 };
