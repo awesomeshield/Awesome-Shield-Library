@@ -89,7 +89,7 @@ class Button {
 
 class Buzzer {
   public:
-    void setup(int pin);
+    void setVariables(int pin);
     void turnOn(unsigned int frequency = 400);
     void turnOff();
     bool isOn();
@@ -100,6 +100,8 @@ class Buzzer {
     int _pin;
     bool _silent;
     bool _stateIsOn;
+    bool _hardwareSetupComplete;
+    void _setupHardware();
 };
 
 class DigitalInput {
@@ -176,6 +178,7 @@ class port{
     port();
     LightSensor lightSensor;
     Button button;
+    Buzzer buzzer;
     void setPins(int primaryPin, int secondaryPin);
   private:
     int _primaryPin;

@@ -22,7 +22,7 @@ Awesome::Awesome() {
   temperatureSensor.  setup(tempSensorPin);
   button.             setVariables(buttonPin, LOW, true);
   toggleSwitch.       setup(switchOnPin, LOW, true);
-  buzzer.             setup(buzzerPin);
+  buzzer.             setVariables(buzzerPin);
   port1.              setPins(port1pin, port1pin);
   port2.              setPins(port2pin, port2pin);
 }
@@ -36,6 +36,7 @@ void port::setPins(int primaryPin, int secondaryPin) {
   // set ad-on pins
   lightSensor.        setVariables(primaryPin);
   button.             setVariables(primaryPin,HIGH);
+  buzzer.             setVariables(primaryPin);
 }
 
 void led::setup(int redPin, int greenPin, int bluePin) {
@@ -201,18 +202,24 @@ void Button::_setupPullup() {
   pinMode(_pin,INPUT);
 }
 
-void Buzzer::setup(int pin) {
+void Buzzer::setVariables(int pin) {
   _pin = pin;
-  pinMode(_pin, OUTPUT);
   _silent = false;
+  bool _hardwareSetupComplete = false;
 }
 void Buzzer::turnOn(unsigned int frequency) {
+  if ( ! _hardwareSetupComplete ) {
+    _setupHardware();
+  }
   if ( ! _silent ) {
     tone(_pin, frequency);
     _stateIsOn = true;
   }
 }
 void Buzzer::turnOff() {
+  if ( ! _hardwareSetupComplete ) {
+    _setupHardware();
+  }
   noTone(_pin);
   _stateIsOn = false;
 }
@@ -233,9 +240,12 @@ void Buzzer::beep(unsigned long millis, unsigned int frequency) {
 }
 void Buzzer::setSilentMode(bool newState) {
   _silent = newState;
-  if (_silent) {
+  if ( _silent ) {
     noTone(_pin);
   }
+}
+void Buzzer::_setupHardware() {
+  pinMode(_pin, OUTPUT);
 }
 
 void groveLCD::setup() {
