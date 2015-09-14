@@ -156,12 +156,14 @@ class AnalogOutput {
 
 class SERVO {
   public:
-    void setup(int pin);
+    void setVariables(int pin);
     void setPosition(int position);
     int currentPosition();
   private:
     int _positionSetting;
     int _pin;
+    bool _hardwareSetupComplete;
+    void _setupHardware();
     Servo _servo;
 };
 
@@ -192,6 +194,7 @@ class port {
     AnalogInput knob;
     AnalogInput temperatureSensor;
     AnalogInput lightSensor;
+    SERVO servo;
     void setPins(int primaryPin, int secondaryPin);
   private:
     int _primaryPin;
@@ -201,10 +204,10 @@ class port {
 class Awesome {
   public:
     Awesome();
-    // core outputs
+    // outputs
     led LED;
     Buzzer buzzer;
-    // core inputs
+    // inputs
     LightSensor lightSensor;
     AnalogInput knob;
     TemperatureSensor temperatureSensor;

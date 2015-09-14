@@ -43,6 +43,7 @@ void port::setPins(int primaryPin, int secondaryPin) {
   knob.               setVariables(primaryPin);
   temperatureSensor.  setVariables(primaryPin);
   lightSensor.        setVariables(primaryPin);
+  servo.              setVariables(primaryPin);
 }
 
 void led::setup(int redPin, int greenPin, int bluePin) {
@@ -358,12 +359,13 @@ void AnalogOutput::_setupHardware() {
   pinMode(_pin,OUTPUT);
 }
 
-void SERVO::setup(int pin) {
+void SERVO::setVariables(int pin) {
   _pin = pin;
-  _servo.attach(_pin);
-  setPosition(0);
 }
 void SERVO::setPosition(int position){
+  if ( ! _hardwareSetupComplete ) {
+    _setupHardware();
+  }
   if ( position > 180 ) {
     _positionSetting = 180;
   } else {
@@ -373,6 +375,11 @@ void SERVO::setPosition(int position){
 }
 int SERVO::currentPosition(){
   return _positionSetting;
+}
+void SERVO::_setupHardware() {
+  _servo.attach(_pin);
+  setPosition(0);
+  _hardwareSetupComplete = true;
 }
 
 void electretMic::setup(int pin) {
