@@ -18,7 +18,7 @@ const int temps[] PROGMEM = { 0, 1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
 Awesome::Awesome() {
   LED.                setup(rgbRedPin, rgbGreenPin, rgbBluePin);
   lightSensor.        setVariables(lightSensorPin);
-  knob.               setup(knobPin);
+  knob.               setVariables(knobPin);
   temperatureSensor.  setup(tempSensorPin);
   button.             setVariables(buttonPin, LOW, true);
   toggleSwitch.       setVariables(switchOnPin, LOW, true);
@@ -40,6 +40,9 @@ void port::setPins(int primaryPin, int secondaryPin) {
   touchSensor.        setVariables(primaryPin, HIGH);
   singleColorLED.     setVariables(primaryPin);
   relay.              setVariables(primaryPin);
+  knob.               setVariables(primaryPin);
+  temperatureSensor.  setVariables(primaryPin);
+  lightSensor.        setVariables(primaryPin);
 }
 
 void led::setup(int redPin, int greenPin, int bluePin) {
@@ -318,8 +321,7 @@ void DigitalOutput::_setupHardware() {
   pinMode(_pin, OUTPUT);
 }
 
-void AnalogInput::setup(int pin) {
-  pinMode(pin,INPUT);
+void AnalogInput::setVariables(int pin) {
   _pin = pin;
 }
 int AnalogInput::reading() {
@@ -334,6 +336,9 @@ int AnalogInput::reading() {
   // return _value;
     // return analogRead(_pin);
     return analogRead(_pin);
+}
+void AnalogInput::_setupHardware() {
+  pinMode(_pin,INPUT);
 }
 
 void AnalogOutput::setup(int pin) {

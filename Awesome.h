@@ -133,11 +133,13 @@ class DigitalOutput {
 
 class AnalogInput {
   public:
-    void setup(int pin);
+    void setVariables(int pin);
     int reading();
   private:
     int _pin;
     int _value;
+    bool _hardwareSetupComplete;
+    void _setupHardware();
 };
 
 class AnalogOutput {
@@ -177,15 +179,17 @@ class electretMic {
     int _pin;
 };
 
-class port{
+class port {
   public:
     port();
-    LightSensor lightSensor;
     Button button;
     Buzzer buzzer;
     DigitalInput touchSensor;
     DigitalOutput singleColorLED;
     DigitalOutput relay;
+    AnalogInput knob;
+    AnalogInput temperatureSensor;
+    AnalogInput lightSensor;
     void setPins(int primaryPin, int secondaryPin);
   private:
     int _primaryPin;
