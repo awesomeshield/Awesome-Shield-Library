@@ -56,11 +56,11 @@ class led {
 class LightSensor {
   public:
     void setVariables(int pin);
-    void setupHardware();
     int reading();
   private:
     int _pin;
     bool _hardwareSetupComplete;
+    void _setupHardware();
     int _read();
 };
 

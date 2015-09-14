@@ -18,7 +18,6 @@ const int temps[] PROGMEM = { 0, 1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
 Awesome::Awesome() {
   LED.                setup(rgbRedPin, rgbGreenPin, rgbBluePin);
   lightSensor.        setVariables(lightSensorPin);
-  lightSensor.        setupHardware();
   knob.               setup(knobPin);
   temperatureSensor.  setup(tempSensorPin);
   button.             setup(buttonPin, LOW, true);
@@ -128,15 +127,15 @@ void LightSensor::setVariables(int pin) {
   _pin = pin;
   _hardwareSetupComplete = false;
 }
-void LightSensor::setupHardware() {
-  pinMode(_pin,INPUT);
-  _hardwareSetupComplete = true;
-}
 int LightSensor::reading() {
   if ( ! _hardwareSetupComplete ) {
-    setupHardware();
+    _setupHardware();
   }
   return _read();
+}
+void LightSensor::_setupHardware() {
+  pinMode(_pin,INPUT);
+  _hardwareSetupComplete = true;
 }
 int LightSensor::_read() {
   return analogRead(_pin);
