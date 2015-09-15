@@ -362,9 +362,9 @@ void AnalogOutput::_setupHardware() {
 void SERVO::setVariables(int pin){
   _pin = pin;
 }
-void SERVO::setPosition(int position) {
-  _servo.write(position);
-}
+// void SERVO::setPosition(int position) {
+//   _servo.write(position);
+// }
 void SERVO::_setupHardware() {
   _servo.attach(_pin);
 }

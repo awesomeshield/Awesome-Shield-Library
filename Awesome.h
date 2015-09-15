@@ -157,11 +157,13 @@ class AnalogOutput {
 class SERVO {
   public:
     void setVariables(int pin);
-    void setPosition(int position);
-  private:
-    int _pin;
+    // void setPosition(int position);
     void _setupHardware();
     Servo _servo;
+  private:
+    int _pin;
+    //
+
 };
 
 class groveLCD {
