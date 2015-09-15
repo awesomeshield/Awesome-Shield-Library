@@ -176,10 +176,12 @@ class groveLCD {
 
 class electretMic {
   public:
-    void setup(int pin);
+    void setVariables(int pin);
     int reading();
   private:
     int _pin;
+    bool _hardwareSetupComplete;
+    void _setupHardware();
 };
 
 class port {
@@ -194,6 +196,7 @@ class port {
     AnalogInput temperatureSensor;
     AnalogInput lightSensor;
     SERVO servo;
+    electretMic mic;
     void setPins(int primaryPin, int secondaryPin);
   private:
     int _primaryPin;

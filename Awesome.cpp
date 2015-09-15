@@ -44,6 +44,7 @@ void port::setPins(int primaryPin, int secondaryPin) {
   temperatureSensor.  setVariables(primaryPin);
   lightSensor.        setVariables(primaryPin);
   servo.              setVariables(primaryPin);
+  mic.                setVariables(primaryPin);
 }
 
 void led::setup(int redPin, int greenPin, int bluePin) {
@@ -385,14 +386,16 @@ void SERVO::_setupHardware() {
   _hardwareSetupComplete = true;
 }
 
-void electretMic::setup(int pin) {
+void electretMic::setVariables(int pin) {
   _pin = pin;
-  pinMode(_pin, INPUT);
+  _hardwareSetupComplete = false;
 }
 int electretMic::reading() {
+  if ( ! _hardwareSetupComplete ) {
+    _setupHardware();
+  }
   int threshhold = 85;
   int loops = 15;
-
   int value = 0;
   // take the sum of some readings
   for (int i=0; i<loops; i++) {
@@ -408,4 +411,8 @@ int electretMic::reading() {
   // make sure value stays within expected range
   value = constrain(value,0,1023);
   return value;
+}
+void electretMic::_setupHardware() {
+  pinMode(_pin, INPUT);
+  _hardwareSetupComplete = true;
 }
