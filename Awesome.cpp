@@ -183,6 +183,7 @@ void Button::setVariables(int pin, bool readingMeaningButtonIsDown, bool needsPu
   _pin = pin;
   _readingMeaningButtonIsDown = readingMeaningButtonIsDown;
   _needsPullup = needsPullup;
+  _hardwareSetupComplete = false;
 }
 bool Button::isDown() {
   if ( ! _hardwareSetupComplete) {
@@ -202,6 +203,7 @@ bool Button::isUp() {
 }
 void Button::_setupHardware() {
   pinMode(_pin, INPUT);
+  _hardwareSetupComplete = true;
 }
 void Button::_setupPullup() {
   pinMode(_pin,OUTPUT);
