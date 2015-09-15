@@ -255,6 +255,7 @@ void Buzzer::setSilentMode(bool newState) {
 }
 void Buzzer::_setupHardware() {
   pinMode(_pin, OUTPUT);
+  _hardwareSetupComplete = true;
 }
 
 void groveLCD::setup() {
@@ -274,6 +275,7 @@ void DigitalInput::setVariables(int pin, bool stateThatMeansIsOn, bool needsPull
   _pin = pin;
   _stateThatMeansIsOn = stateThatMeansIsOn;
   _needsPullup = needsPullup;
+  _hardwareSetupComplete = false;
 }
 bool DigitalInput::isOn(){
   if ( ! _hardwareSetupComplete ) {
@@ -295,10 +297,12 @@ bool DigitalInput::isOff(){
 }
 void DigitalInput::_setupHardware() {
   pinMode(_pin, INPUT);
+  _hardwareSetupComplete = true;
 }
 
 void DigitalOutput::setVariables(int pin) {
   _pin = pin;
+  _hardwareSetupComplete = false;
 }
 void DigitalOutput::turnOn() {
   if ( ! _hardwareSetupComplete ) {
@@ -322,10 +326,12 @@ bool DigitalOutput::isOff() {
 }
 void DigitalOutput::_setupHardware() {
   pinMode(_pin, OUTPUT);
+  _hardwareSetupComplete = true;
 }
 
 void AnalogInput::setVariables(int pin) {
   _pin = pin;
+  _hardwareSetupComplete = false;
 }
 int AnalogInput::reading() {
   // _value = 0;
@@ -342,10 +348,12 @@ int AnalogInput::reading() {
 }
 void AnalogInput::_setupHardware() {
   pinMode(_pin,INPUT);
+  _hardwareSetupComplete = true;
 }
 
 void AnalogOutput::setVariables(int pin) {
   _pin = pin;
+  _hardwareSetupComplete = false;
 }
 void AnalogOutput::set(int newSetting) {
   if ( ! _hardwareSetupComplete ) {
@@ -359,6 +367,7 @@ int AnalogOutput::setting() {
 }
 void AnalogOutput::_setupHardware() {
   pinMode(_pin,OUTPUT);
+  _hardwareSetupComplete = true;
 }
 
 void SERVO::setVariables(int pin){
