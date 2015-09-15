@@ -361,12 +361,17 @@ void AnalogOutput::_setupHardware() {
 
 void SERVO::setVariables(int pin){
   _pin = pin;
+  _hardwareSetupComplete = false;
 }
-// void SERVO::setPosition(int position) {
-//   _servo.write(position);
-// }
+void SERVO::setPosition(int position) {
+  if ( ! _hardwareSetupComplete ) {
+    _setupHardware();
+  }
+  _servo.write(position);
+}
 void SERVO::_setupHardware() {
   _servo.attach(_pin);
+  _hardwareSetupComplete = true;
 }
 
 void electretMic::setup(int pin) {
