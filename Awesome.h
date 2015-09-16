@@ -184,6 +184,14 @@ class electretMic {
     void _setupHardware();
 };
 
+class UltrasonicRanger {
+  public:
+    void setVariables(int pin);
+    int reading();
+  private:
+    int _pin;
+};
+
 class port {
   public:
     port();
@@ -197,6 +205,7 @@ class port {
     AnalogInput lightSensor;
     SERVO servo;
     electretMic mic;
+    UltrasonicRanger ultrasonicRanger;
     void setPins(int primaryPin, int secondaryPin);
   private:
     int _primaryPin;

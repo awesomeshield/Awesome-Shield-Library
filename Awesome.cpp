@@ -45,6 +45,7 @@ void port::setPins(int primaryPin, int secondaryPin) {
   lightSensor.        setVariables(primaryPin);
   servo.              setVariables(primaryPin);
   mic.                setVariables(primaryPin);
+  ultrasonicRanger.   setVariables(primaryPin);
 }
 
 void led::setup(int redPin, int greenPin, int bluePin) {
@@ -415,4 +416,25 @@ int electretMic::reading() {
 void electretMic::_setupHardware() {
   pinMode(_pin, INPUT);
   _hardwareSetupComplete = true;
+}
+
+void UltrasonicRanger::setVariables(int pin) {
+  _pin = pin;
+}
+int UltrasonicRanger::reading() {
+  // send a request for data
+  pinMode(_pin, OUTPUT);
+	digitalWrite(_pin, LOW);
+	delayMicroseconds(2);
+	digitalWrite(_pin, HIGH);
+	delayMicroseconds(5);
+	digitalWrite(_pin,LOW);
+	pinMode(_pin,INPUT);
+  // record the duration of the pulse
+	long duration;
+	duration = pulseIn(_pin,HIGH);
+  // calculate the range, in centimeters
+	long range;
+	range = duration/29/2;
+	return range;
 }
