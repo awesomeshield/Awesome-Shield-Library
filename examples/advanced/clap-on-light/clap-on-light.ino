@@ -26,14 +26,14 @@ void loop() {
 
   // if the micReading is greater than the threshold
   if ( micReading > threshold ) {
-    // if the LED is off
-    if ( awesome.LED.isOff() ) {
-      // turn the LED on
-      awesome.LED.turnOn();
-      // else (if the LED is on)
-    } else {
+    // if the LED is on
+    if ( awesome.LED.isOn() ) {
       // turn the LED off
       awesome.LED.turnOff();
+      // else (if the LED is not on)
+    } else {
+      // turn the LED on
+      awesome.LED.turnOn();
     }
     // wait for the sound to end
     delay(1000);

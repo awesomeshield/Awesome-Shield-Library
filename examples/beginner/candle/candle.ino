@@ -16,8 +16,13 @@ void setup() {
 }
 
 void loop() {
+  // set red to a value between 155 and 255
   red = 155 + random(100);
+  // find green to be red time the ratio
   green = red * ratio;
+  // turn on the LED using the variables
+  // to control how strong the red and green elements are
   awesome.LED.turnOn(red, green, 0);
+  // delay for a small, random amount of time
   delay(random(10));
 }
