@@ -170,11 +170,11 @@ float TemperatureSensor::_read() {
     averageData += rawData[i];
   }
   averageData = averageData / numData;
-  int therm;
-  therm = averageData-238;
-  therm=pgm_read_word(&temps[therm]);
-  float result = therm;
-  result = result / 10;
+
+  float result = log(10000.0/(1024.0/averageData-1));
+  result = 1 / (0.001129148 + (0.000234125 + (0.0000000876741 * result * result ))* result );
+  result = result - 273.15;
+
   return result;
 }
 float TemperatureSensor::reading() {
