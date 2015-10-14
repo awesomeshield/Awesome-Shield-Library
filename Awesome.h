@@ -95,7 +95,7 @@ class Buzzer {
     void turnOff();
     bool isOn();
     bool isOff();
-    void beep(unsigned long millis, unsigned int frequency = 400);
+    void beep(unsigned long millis = 500, unsigned int frequency = 400);
     void setSilentMode(bool newState);
   private:
     int _pin;
