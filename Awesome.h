@@ -35,6 +35,7 @@
 #define YELLOW   3005
 #define PURPLE   3006
 #define CYAN     3007
+#define ORANGE   3008
 
 class led {
   public:
@@ -168,10 +169,11 @@ class SERVO {
 
 class groveLCD {
   public:
-    void setup();
     void print(String message);
   private:
     rgb_lcd _lcd;
+    void _setupHardware();
+    bool _hardwareSetupComplete;
 };
 
 class electretMic {
@@ -206,6 +208,7 @@ class port {
     SERVO servo;
     electretMic mic;
     UltrasonicRanger ultrasonicRanger;
+    groveLCD LCD;
     void setPins(int primaryPin, int secondaryPin);
   private:
     int _primaryPin;

@@ -84,6 +84,11 @@ void led::turnOn(int color) {
       analogWrite(rgbGreenPin,MAX);
       analogWrite(rgbBluePin,MAX);
       break;
+    case ORANGE:
+      analogWrite(rgbRedPin,255);
+      analogWrite(rgbGreenPin,165);
+      analogWrite(rgbBluePin,0);
+      break;
     case WHITE:
       analogWrite(rgbRedPin,255);
       analogWrite(rgbGreenPin,255);
@@ -256,17 +261,16 @@ void Buzzer::_setupHardware() {
   _hardwareSetupComplete = true;
 }
 
-void groveLCD::setup() {
+void groveLCD::_setupHardware() {
   _lcd.begin(16, 2);
+  delay(10);        // [ ] test to see if needed
 }
 void groveLCD::print(String message) {
-  _lcd.setCursor(0, 0);
-  if ( message.length() > 16 ) {
-    _lcd.autoscroll();
-    _lcd.print(message);
-  } else {
-    _lcd.print(message);
+  if ( ! _hardwareSetupComplete ) {
+    _setupHardware();
   }
+  _lcd.setCursor(0, 0);
+  _lcd.print(message);
 }
 
 void DigitalInput::setVariables(int pin, bool stateThatMeansIsOn, bool needsPullup){
