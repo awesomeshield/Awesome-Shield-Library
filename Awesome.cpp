@@ -39,6 +39,7 @@ void port::setPins(int primaryPin, int secondaryPin) {
   knob.               setVariables(primaryPin);
   temperatureSensor.  setVariables(primaryPin);
   lightSensor.        setVariables(primaryPin);
+  slider.             setVariables(primaryPin);
   servo.              setVariables(primaryPin);
   mic.                setVariables(primaryPin);
   ultrasonicRanger.   setVariables(primaryPin);

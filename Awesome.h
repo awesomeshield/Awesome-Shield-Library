@@ -208,6 +208,7 @@ class port {
     AnalogInput knob;
     AnalogInput temperatureSensor;
     AnalogInput lightSensor;
+    AnalogInput slider;
     SERVO servo;
     electretMic mic;
     UltrasonicRanger ultrasonicRanger;
