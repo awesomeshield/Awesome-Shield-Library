@@ -58,44 +58,68 @@ void led::turnOn(int color) {
       analogWrite(rgbRedPin,MAX);
       analogWrite(rgbGreenPin,0);
       analogWrite(rgbBluePin,0);
+      _redSetting = 255;
+      _greenSetting = 0;
+      _blueSetting= 0;
       break;
     case GREEN:
       analogWrite(rgbRedPin,0);
       analogWrite(rgbGreenPin,MAX);
       analogWrite(rgbBluePin,0);
+      _redSetting = 0;
+      _greenSetting = 255;
+      _blueSetting= 0;
       break;
     case BLUE:
       analogWrite(rgbRedPin,0);
       analogWrite(rgbGreenPin,0);
       analogWrite(rgbBluePin,MAX);
+      _redSetting = 0;
+      _greenSetting = 0;
+      _blueSetting= 255;
       break;
     case YELLOW:
       analogWrite(rgbRedPin,MAX);
       analogWrite(rgbGreenPin,MAX);
       analogWrite(rgbBluePin,0);
+      _redSetting = 255;
+      _greenSetting = 255;
+      _blueSetting= 0;
       break;
     case PURPLE:
       analogWrite(rgbRedPin,MAX);
       analogWrite(rgbGreenPin,0);
       analogWrite(rgbBluePin,MAX);
+      _redSetting = 255;
+      _greenSetting = 0;
+      _blueSetting= 255;
       break;
     case CYAN:
       analogWrite(rgbRedPin,0);
       analogWrite(rgbGreenPin,MAX);
       analogWrite(rgbBluePin,MAX);
+      _redSetting = 0;
+      _greenSetting = 255;
+      _blueSetting= 255;
       break;
     case ORANGE:
       analogWrite(rgbRedPin,255);
       analogWrite(rgbGreenPin,165);
       analogWrite(rgbBluePin,0);
+      _redSetting = 255;
+      _greenSetting = 165;
+      _blueSetting= 0;
       break;
     case WHITE:
       analogWrite(rgbRedPin,255);
       analogWrite(rgbGreenPin,255);
       analogWrite(rgbBluePin,255);
+      _redSetting = 255;
+      _greenSetting = 255;
+      _blueSetting= 255;
       break;
     default:
-      Serial.println("Invalid input");
+      Serial.println("Invalid input to LED.turnOn()");
   }
   _stateIsOn = true;
 }
@@ -116,11 +140,26 @@ void led::turnOn(int howMuchRed, int howMuchGreen, int howMuchBlue) {
   analogWrite(_bluePin, howMuchBlue);
   _stateIsOn = true;
 }
-void led::turnOff() {
-  digitalWrite(_redPin,LOW);
-  digitalWrite(_greenPin,LOW);
-  digitalWrite(_bluePin,LOW);
-  _stateIsOn = false;
+void led::turnOff(int color) {
+  switch (color) {
+    case WHITE:
+      digitalWrite(_redPin,LOW);
+      digitalWrite(_greenPin,LOW);
+      digitalWrite(_bluePin,LOW);
+      _stateIsOn = false;
+      break;
+    case RED:
+      turnOn(0,_greenSetting,_blueSetting);
+      break;
+    case GREEN:
+      turnOn(_redSetting,0,_blueSetting);
+      break;
+    case BLUE:
+      turnOn(_redSetting,_greenSetting,0);
+      break;
+    default:
+      Serial.println("Invalid input to LED.turnOff()");
+  }
 }
 bool led::isOn() {
   return _stateIsOn;

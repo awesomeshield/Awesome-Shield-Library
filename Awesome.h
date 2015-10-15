@@ -41,7 +41,7 @@ class led {
   public:
     void turnOn(int color = WHITE);
     void turnOn(int howMuchRed, int howMuchGreen, int howMuchBlue);
-    void turnOff();
+    void turnOff(int color = WHITE);
     bool isOn();
     bool isOff();
     void flash(int duration = 1000, int  = WHITE, int howMuchGreen = 0, int howMuchBlue = 0);
@@ -50,6 +50,9 @@ class led {
     int _redPin;
     int _greenPin;
     int _bluePin;
+    int _redSetting;
+    int _greenSetting;
+    int _blueSetting;
     bool _stateIsOn;
     void _setPins (int redPin, int greenPin, int bluePin);
 };
