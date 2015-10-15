@@ -149,13 +149,13 @@ void led::turnOff(int color) {
       _stateIsOn = false;
       break;
     case RED:
-      turnOn(0,_greenSetting,_blueSetting);
+      digitalWrite(_redPin,LOW);
       break;
     case GREEN:
-      turnOn(_redSetting,0,_blueSetting);
+      digitalWrite(_greenPin,LOW);
       break;
     case BLUE:
-      turnOn(_redSetting,_greenSetting,0);
+      digitalWrite(_bluePin,LOW);
       break;
     default:
       Serial.println("Invalid input to LED.turnOff()");
