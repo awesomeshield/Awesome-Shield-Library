@@ -38,6 +38,8 @@ temperatureSensor	LITERAL1
 button	LITERAL1
 toggleSwitch	LITERAL1
 knob	LITERAL1
+port1	LITERAL1
+port2	LITERAL1
 
 touchSensor	LITERAL1
 singleColorLED	LITERAL1
@@ -46,6 +48,7 @@ slider	LITERAL1
 servo	LITERAL1
 mic	LITERAL1
 ultrasonicRanger	LITERAL1
+IR	LITERAL1
 
 #######################################
 # Constants (LITERAL1)
