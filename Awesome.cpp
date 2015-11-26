@@ -29,7 +29,7 @@ void port::setPins(int primaryPin, int secondaryPin) {
   // set port pins
   _primaryPin = primaryPin;
   _secondaryPin = secondaryPin;
-  // set ad-on pins
+  // set add-on pins
   lightSensor.        setVariables(primaryPin);
   button.             setVariables(primaryPin, HIGH);
   buzzer.             setVariables(primaryPin);
