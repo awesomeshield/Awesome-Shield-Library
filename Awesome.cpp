@@ -392,17 +392,15 @@ void AnalogInput::setVariables(int pin) {
   _hardwareSetupComplete = false;
 }
 int AnalogInput::reading() {
-  // _value = 0;
-  // // take 5 readings
-  // for (int i = 0; i < 5; i++) {
-  //   _value = _value + analogRead(_pin);
-  //   delay(2);
-  // }
-  // _value = (float)_value / (float)l5; // problem fixed?
-  // // return average reading
-  // return _value;
-    // return analogRead(_pin);
-    return analogRead(_pin);
+  _value = 0;
+  // take 5 readings
+  for (int i = 0; i < 5; i++) {
+    _value = _value + analogRead(_pin);
+    delay(2);
+  }
+  _value = (float)_value / (float)5; // problem fixed?
+  // return average reading
+  return _value;
 }
 void AnalogInput::_setupHardware() {
   pinMode(_pin,INPUT);
