@@ -127,14 +127,24 @@ void led::turnOn(int color) {
 }
 void led::turnOn(int red, int green, int blue) {
   //  zero negative inputs
-  if (red < 0) {
+  if ( red < 0 ) {
     red = 0;
   }
-  if (green < 0) {
+  if ( green < 0 ) {
     green = 0;
   }
-  if (blue < 0) {
+  if ( blue < 0 ) {
     blue = 0;
+  }
+  // reduce inputs to max input for analogWrite
+  if ( red > MAX ) {
+    red = MAX;
+  }
+  if ( green > MAX ) {
+    green = MAX;
+  }
+  if ( blue > MAX ) {
+    blue = MAX;
   }
   // turn on LEDs
   analogWrite(_redPin, red);
