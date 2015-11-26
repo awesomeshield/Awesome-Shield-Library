@@ -12,18 +12,21 @@
 #include "rgb_lcd.h"
 #include <Servo.h>
 
-#define rgbRedPin       5   // pwm
-#define rgbGreenPin     6   // pwm
-#define rgbBluePin      3   // pwm
+#define rgbRedPin           5   // pwm
+#define rgbGreenPin         6   // pwm
+#define rgbBluePin          3   // pwm
 
-#define buzzerPin       9   // pwm
-#define buttonPin       2   // io digital
-#define switchOnPin     8   // io digital
-#define lightSensorPin  A1
-#define tempSensorPin   A2
-#define knobPin         A3
-#define port1pin        A5  // primary (outside) pin
-#define port2pin        A0  // primary (outside) pin
+#define buzzerPin           9   // pwm
+#define buttonPin           2   // io digital
+#define switchOnPin         8   // io digital
+#define lightSensorPin      A1
+#define tempSensorPin       A2
+#define knobPin             A3
+#define port1PrimaryPin     A5  // primary (outside) pin
+#define port1SecondaryPin   A4
+#define port2PrimaryPin     A0  // primary (outside) pin
+#define port2SecondaryPin   4
+
 
 // the max analogWrite value
 #define MAX      255
@@ -197,6 +200,16 @@ class UltrasonicRanger {
     int _pin;
 };
 
+class IRProximitySensor {
+  public:
+    void setVariables(int pin);
+    int reading();
+  private:
+    int _pin;
+    bool _hardwareSetupComplete;
+    void _setupHardware();
+};
+
 class port {
   public:
     port();
@@ -213,6 +226,7 @@ class port {
     electretMic mic;
     UltrasonicRanger ultrasonicRanger;
     groveLCD LCD;
+    IRProximitySensor IR;
     void setPins(int primaryPin, int secondaryPin);
   private:
     int _primaryPin;

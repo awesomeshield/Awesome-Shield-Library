@@ -1,4 +1,4 @@
-// include other libraries to support ad-ons
+// include other libraries to support add-ons
 #include "Arduino.h"
 #include "Awesome.h"
 #include "Wire.h"

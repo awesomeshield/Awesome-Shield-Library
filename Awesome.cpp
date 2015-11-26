@@ -19,8 +19,8 @@ Awesome::Awesome() {
   button.             setVariables(buttonPin, LOW, true);
   toggleSwitch.       setVariables(switchOnPin, LOW, true);
   buzzer.             setVariables(buzzerPin);
-  port1.              setPins(port1pin, port1pin);
-  port2.              setPins(port2pin, port2pin);
+  port1.              setPins(port1PrimaryPin, port1SecondaryPin);
+  port2.              setPins(port2PrimaryPin, port2SecondaryPin);
 }
 
 port::port() {
@@ -30,19 +30,20 @@ void port::setPins(int primaryPin, int secondaryPin) {
   _primaryPin = primaryPin;
   _secondaryPin = secondaryPin;
   // set add-on pins
-  lightSensor.        setVariables(primaryPin);
-  button.             setVariables(primaryPin, HIGH);
-  buzzer.             setVariables(primaryPin);
-  touchSensor.        setVariables(primaryPin, HIGH);
-  singleColorLED.     setVariables(primaryPin);
-  relay.              setVariables(primaryPin);
-  knob.               setVariables(primaryPin);
-  temperatureSensor.  setVariables(primaryPin);
-  lightSensor.        setVariables(primaryPin);
-  slider.             setVariables(primaryPin);
-  servo.              setVariables(primaryPin);
-  mic.                setVariables(primaryPin);
-  ultrasonicRanger.   setVariables(primaryPin);
+  lightSensor.        setVariables(_primaryPin);
+  button.             setVariables(_primaryPin, HIGH);
+  buzzer.             setVariables(_primaryPin);
+  touchSensor.        setVariables(_primaryPin, HIGH);
+  singleColorLED.     setVariables(_primaryPin);
+  relay.              setVariables(_primaryPin);
+  knob.               setVariables(_primaryPin);
+  temperatureSensor.  setVariables(_primaryPin);
+  lightSensor.        setVariables(_primaryPin);
+  slider.             setVariables(_primaryPin);
+  servo.              setVariables(_primaryPin);
+  mic.                setVariables(_primaryPin);
+  ultrasonicRanger.   setVariables(_primaryPin);
+  IR.                 setVariables(_secondaryPin);
 }
 
 void led::setup(int redPin, int greenPin, int bluePin) {
@@ -477,4 +478,29 @@ int UltrasonicRanger::reading() {
 	long range;
 	range = duration/29/2;
 	return range;
+}
+
+void IRProximitySensor::setVariables(int pin) {
+  _pin = pin;
+  _hardwareSetupComplete = false;
+}
+void IRProximitySensor::_setupHardware() {
+  pinMode(_pin,INPUT);
+  _hardwareSetupComplete = true;
+}
+int IRProximitySensor::reading() {
+  if ( ! _hardwareSetupComplete ) {
+    _setupHardware();
+  }
+
+  int sensorValue;
+  int sum;
+  for (int i = 0; i < 20; i++) {
+    // sum 20 readings
+    sensorValue = analogRead(_pin);
+    sum += sensorValue;
+  }
+  // average the readings
+  sensorValue = sum / 20;
+  return sensorValue;
 }
