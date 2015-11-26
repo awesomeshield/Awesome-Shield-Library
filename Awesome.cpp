@@ -245,13 +245,13 @@ void Button::setVariables(int pin, bool readingMeaningButtonIsDown, bool needsPu
   _hardwareSetupComplete = false;
 }
 bool Button::isDown() {
-  if ( ! _hardwareSetupComplete) {
+  if ( ! _hardwareSetupComplete ) {
     _setupHardware();
   }
   if ( _needsPullup ) {
     _setupPullup();
   }
-  if (_readingMeaningButtonIsDown == HIGH) {
+  if (_readingMeaningButtonIsDown == HIGH ) {
     return digitalRead(_pin);
   } else {
     return ! digitalRead(_pin);
@@ -309,7 +309,7 @@ void Buzzer::beep(unsigned long millis, unsigned int frequency) {
 void Buzzer::setSilentMode(bool newState) {
   _silent = newState;
   if ( _silent ) {
-    noTone(_pin);
+    turnOff();
   }
 }
 void Buzzer::_setupHardware() {
@@ -394,11 +394,11 @@ void AnalogInput::setVariables(int pin) {
 int AnalogInput::reading() {
   // _value = 0;
   // // take 5 readings
-  // for (int i; i < 5; i++) {
+  // for (int i = 0; i < 5; i++) {
   //   _value = _value + analogRead(_pin);
   //   delay(2);
   // }
-  // _value = (float)l_value / (float)l5; // THIS IS THE PROBLEM
+  // _value = (float)_value / (float)l5; // problem fixed?
   // // return average reading
   // return _value;
     // return analogRead(_pin);
