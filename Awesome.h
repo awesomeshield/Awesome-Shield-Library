@@ -7,15 +7,16 @@
 #ifndef Awesome_h
 #define Awesome_h
 
+// include other libraries
 #include "Arduino.h"
 #include "Wire.h"
 #include "rgb_lcd.h"
 #include <Servo.h>
 
+// define core board pin numbers
 #define rgbRedPin           5   // pwm
 #define rgbGreenPin         6   // pwm
 #define rgbBluePin          3   // pwm
-
 #define buzzerPin           9   // pwm
 #define buttonPin           2   // io digital
 #define switchOnPin         8   // io digital
@@ -43,11 +44,12 @@
 class led {
   public:
     void turnOn(int color = WHITE);
-    void turnOn(int howMuchRed, int howMuchGreen, int howMuchBlue);
+    void turnOn(int red, int green, int blue);
     void turnOff(int color = WHITE);
     bool isOn();
     bool isOff();
-    void flash(int duration = 1000, int  = WHITE, int howMuchGreen = 0, int howMuchBlue = 0);
+    void flash(int color = WHITE, int duration = 1000);
+    void flash(int red, int green, int blue, int duration = 1000);
     void setup(int redPin, int greenPin, int bluePin);
   private:
     int _redPin;

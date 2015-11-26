@@ -125,21 +125,21 @@ void led::turnOn(int color) {
   }
   _stateIsOn = true;
 }
-void led::turnOn(int howMuchRed, int howMuchGreen, int howMuchBlue) {
+void led::turnOn(int red, int green, int blue) {
   //  zero negative inputs
-  if (howMuchRed < 0) {
-    howMuchRed = 0;
+  if (red < 0) {
+    red = 0;
   }
-  if (howMuchGreen < 0) {
-    howMuchGreen = 0;
+  if (green < 0) {
+    green = 0;
   }
-  if (howMuchBlue < 0) {
-    howMuchBlue = 0;
+  if (blue < 0) {
+    blue = 0;
   }
   // turn on LEDs
-  analogWrite(_redPin, howMuchRed);
-  analogWrite(_greenPin, howMuchGreen);
-  analogWrite(_bluePin, howMuchBlue);
+  analogWrite(_redPin, red);
+  analogWrite(_greenPin, green);
+  analogWrite(_bluePin, blue);
   _stateIsOn = true;
 }
 void led::turnOff(int color) {
@@ -170,8 +170,13 @@ bool led::isOff() {
   bool stateIsOff = ! _stateIsOn;
   return stateIsOff;
 }
-void led::flash(int duration, int howMuchRed, int howMuchGreen, int howMuchBlue){
-  turnOn(howMuchRed, howMuchGreen, howMuchBlue);
+void led::flash(int color, int duration) {
+  turnOn(color);
+  delay(duration);
+  turnOff();
+}
+void led::flash(int red, int green, int blue, int duration) {
+  turnOn(red, green, blue);
   delay(duration);
   turnOff();
 }
