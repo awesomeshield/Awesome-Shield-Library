@@ -21,10 +21,15 @@ reading	KEYWORD2
 beep	KEYWORD2
 setSilentMode	KEYWORD2
 
+setPosition	KEYWORD2
+print	KEYWORD2
+
 #######################################
 # Components (LITERAL1)
 # this is a hack - should be KEYWORD1
 # but then coloring is confusing
+# first main board components
+# then add on components
 #######################################
 LED	LITERAL1
 buzzer	LITERAL1
@@ -33,6 +38,14 @@ temperatureSensor	LITERAL1
 button	LITERAL1
 toggleSwitch	LITERAL1
 knob	LITERAL1
+
+touchSensor	LITERAL1
+singleColorLED	LITERAL1
+relay	LITERAL1
+slider	LITERAL1
+servo	LITERAL1
+mic	LITERAL1
+ultrasonicRanger	LITERAL1
 
 #######################################
 # Constants (LITERAL1)
