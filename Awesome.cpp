@@ -4,6 +4,7 @@
   MIT License
 */
 
+// include other libraries
 #include "Arduino.h"
 #include "Awesome.h"
 #include "Wire.h"
@@ -11,7 +12,9 @@
 #include <avr/pgmspace.h>
 #include <Servo.h>
 
+// when the awesome object gets created...
 Awesome::Awesome() {
+  // do setup for all core board components
   LED.                setup(rgbRedPin, rgbGreenPin, rgbBluePin);
   lightSensor.        setVariables(lightSensorPin);
   knob.               setVariables(knobPin);
@@ -505,15 +508,5 @@ int IRProximitySensor::reading() {
   if ( ! _hardwareSetupComplete ) {
     _setupHardware();
   }
-
-  int sensorValue;
-  int sum;
-  for (int i = 0; i < 20; i++) {
-    // sum 20 readings
-    sensorValue = analogRead(_pin);
-    sum += sensorValue;
-  }
-  // average the readings
-  sensorValue = sum / 20;
-  return sensorValue;
+  return analogRead(_pin);
 }
