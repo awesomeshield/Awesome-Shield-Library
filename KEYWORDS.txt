@@ -49,6 +49,7 @@ servo	LITERAL1
 mic	LITERAL1
 ultrasonicRanger	LITERAL1
 IR	LITERAL1
+electromagnet	LITERAL1
 
 #######################################
 # Constants (LITERAL1)

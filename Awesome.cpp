@@ -47,6 +47,7 @@ void port::setPins(int primaryPin, int secondaryPin) {
   mic.                setVariables(_primaryPin);
   ultrasonicRanger.   setVariables(_primaryPin);
   IR.                 setVariables(_secondaryPin);
+  electromagnet.      setVariables(_primaryPin);
 }
 
 void led::setup(int redPin, int greenPin, int bluePin) {

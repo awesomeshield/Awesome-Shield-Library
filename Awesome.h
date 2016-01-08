@@ -229,6 +229,7 @@ class port {
     UltrasonicRanger ultrasonicRanger;
     groveLCD LCD;
     IRProximitySensor IR;
+    DigitalOutput electromagnet;
     void setPins(int primaryPin, int secondaryPin);
   private:
     int _primaryPin;
