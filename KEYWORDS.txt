@@ -47,7 +47,7 @@ relay	LITERAL1
 slider	LITERAL1
 servo	LITERAL1
 mic	LITERAL1
-ultrasonicRanger	LITERAL1
+sonicSensor	LITERAL1
 IR	LITERAL1
 electromagnet	LITERAL1
 

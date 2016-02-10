@@ -45,7 +45,7 @@ void port::setPins(int primaryPin, int secondaryPin) {
   slider.             setVariables(_primaryPin);
   servo.              setVariables(_primaryPin);
   mic.                setVariables(_primaryPin);
-  ultrasonicRanger.   setVariables(_primaryPin);
+  sonicSensor.        setVariables(_primaryPin);
   IR.                 setVariables(_secondaryPin);
   electromagnet.      setVariables(_primaryPin);
 }

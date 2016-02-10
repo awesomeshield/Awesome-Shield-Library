@@ -226,7 +226,7 @@ class port {
     AnalogInput slider;
     SERVO servo;
     electretMic mic;
-    UltrasonicRanger ultrasonicRanger;
+    UltrasonicRanger sonicSensor;
     groveLCD LCD;
     IRProximitySensor IR;
     DigitalOutput electromagnet;
