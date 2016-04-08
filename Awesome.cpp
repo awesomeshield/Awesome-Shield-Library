@@ -41,7 +41,7 @@ void port::setPins(int primaryPin, int secondaryPin) {
   relay.              setVariables(_primaryPin);
   knob.               setVariables(_primaryPin);
   temperatureSensor.  setVariables(_primaryPin);
-  lightSensor.        setVariables(_primaryPin);
+  lightSensor.        setVariables(_primaryPin); // dup, remove
   slider.             setVariables(_primaryPin);
   servo.              setVariables(_primaryPin);
   mic.                setVariables(_primaryPin);
