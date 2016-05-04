@@ -321,17 +321,17 @@ void Buzzer::_setupHardware() {
   _hardwareSetupComplete = true;
 }
 
-void groveLCD::_setupHardware() {
-  _lcd.begin(16, 2);
-  delay(10);        // [ ] test to see if needed
-}
-void groveLCD::print(String message) {
-  if ( ! _hardwareSetupComplete ) {
-    _setupHardware();
-  }
-  _lcd.setCursor(0, 0);
-  _lcd.print(message);
-}
+// void groveLCD::_setupHardware() {
+//   _lcd.begin(16, 2);
+//   delay(10);        // [ ] test to see if needed
+// }
+// void groveLCD::print(String message) {
+//   if ( ! _hardwareSetupComplete ) {
+//     _setupHardware();
+//   }
+//   _lcd.setCursor(0, 0);
+//   _lcd.print(message);
+// }
 
 void DigitalInput::setVariables(int pin, bool stateThatMeansIsOn, bool needsPullup){
   _pin = pin;

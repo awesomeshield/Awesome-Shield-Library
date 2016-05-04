@@ -175,14 +175,14 @@ class SERVO {
 
 };
 
-class groveLCD {
-  public:
-    void print(String message);
-  private:
-    rgb_lcd _lcd;
-    void _setupHardware();
-    bool _hardwareSetupComplete;
-};
+// class groveLCD {
+//   public:
+//     void print(String message);
+//   private:
+//     rgb_lcd _lcd;
+//     void _setupHardware();
+//     bool _hardwareSetupComplete;
+// };
 
 class electretMic {
   public:
