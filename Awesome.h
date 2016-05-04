@@ -227,7 +227,7 @@ class port {
     SERVO servo;
     electretMic mic;
     UltrasonicRanger sonicSensor;
-    groveLCD LCD;
+    // groveLCD LCD;
     IRProximitySensor IR;
     DigitalOutput electromagnet;
     void setPins(int primaryPin, int secondaryPin);
