@@ -10,7 +10,7 @@
 // include other libraries
 #include "Arduino.h"
 #include "Wire.h"
-#include "rgb_lcd.h"
+//#include "rgb_lcd.h"
 #include <Servo.h>
 
 // define core board pin numbers
