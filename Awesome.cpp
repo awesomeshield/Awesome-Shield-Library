@@ -108,14 +108,14 @@ void led::turnOn(int color) {
       _greenSetting = 255;
       _blueSetting= 255;
       break;
-    case ORANGE:
-      analogWrite(rgbRedPin,255);
-      analogWrite(rgbGreenPin,165);
-      analogWrite(rgbBluePin,0);
-      _redSetting = 255;
-      _greenSetting = 165;
-      _blueSetting= 0;
-      break;
+    // case ORANGE:
+    //   analogWrite(rgbRedPin,255);
+    //   analogWrite(rgbGreenPin,165);
+    //   analogWrite(rgbBluePin,0);
+    //   _redSetting = 255;
+    //   _greenSetting = 165;
+    //   _blueSetting= 0;
+    //   break;
     case WHITE:
       analogWrite(rgbRedPin,255);
       analogWrite(rgbGreenPin,255);

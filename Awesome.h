@@ -39,7 +39,7 @@
 #define YELLOW   3005
 #define PURPLE   3006
 #define CYAN     3007
-#define ORANGE   3008
+//#define ORANGE   3008
 
 class led {
   public:
