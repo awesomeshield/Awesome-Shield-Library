@@ -17,10 +17,10 @@ Awesome::Awesome() {
   // do setup for all core board components
   LED.                setup(rgbRedPin, rgbGreenPin, rgbBluePin);
   lightSensor.        setVariables(lightSensorPin);
-  knob.               setVariables(knobPin);
+  knob.               setVariables(knobPin, "knob");
   temperatureSensor.  setup(tempSensorPin);
   button.             setVariables(buttonPin, LOW, true);
-  toggleSwitch.       setVariables(switchOnPin, LOW, true);
+  toggleSwitch.       setVariables(switchOnPin, LOW, "toggleSwitch", true);
   buzzer.             setVariables(buzzerPin);
   port1.              setPins(port1PrimaryPin, port1SecondaryPin);
   port2.              setPins(port2PrimaryPin, port2SecondaryPin);
@@ -33,16 +33,15 @@ void port::setPins(int primaryPin, int secondaryPin) {
   _primaryPin = primaryPin;
   _secondaryPin = secondaryPin;
   // set add-on pins
-  lightSensor.        setVariables(_primaryPin);
+  lightSensor.        setVariables(_primaryPin,  "temperatureSensor");
   button.             setVariables(_primaryPin, HIGH);
   buzzer.             setVariables(_primaryPin);
-  touchSensor.        setVariables(_primaryPin, HIGH);
+  touchSensor.        setVariables(_primaryPin, HIGH, "touchSensor");
   singleColorLED.     setVariables(_primaryPin);
   relay.              setVariables(_primaryPin);
-  knob.               setVariables(_primaryPin);
-  temperatureSensor.  setVariables(_primaryPin);
-  lightSensor.        setVariables(_primaryPin); // dup, remove
-  slider.             setVariables(_primaryPin);
+  knob.               setVariables(_primaryPin, "knob");
+  temperatureSensor.  setVariables(_primaryPin, "temperatureSensor");
+  slider.             setVariables(_primaryPin, "slider");
   servo.              setVariables(_primaryPin);
   mic.                setVariables(_primaryPin);
   sonicSensor.        setVariables(_primaryPin);
@@ -205,6 +204,10 @@ int LightSensor::reading() {
   }
   return _read();
 }
+void LightSensor::print() {
+  Serial.print("Light Sensor Reading: ");
+  Serial.println(reading());
+}
 void LightSensor::_setupHardware() {
   pinMode(_pin,INPUT);
   _hardwareSetupComplete = true;
@@ -241,6 +244,10 @@ float TemperatureSensor::_read() {
 float TemperatureSensor::reading() {
   return _read();
 }
+void TemperatureSensor::print() {
+  Serial.print("Temperature Sensor Reading: ");
+  Serial.println(reading());
+}
 
 void Button::setVariables(int pin, bool readingMeaningButtonIsDown, bool needsPullup) {
   _pin = pin;
@@ -263,6 +270,15 @@ bool Button::isDown() {
 }
 bool Button::isUp() {
     return ! isDown();
+}
+void Button::print() {
+  Serial.print("Button state is: ");
+  Serial.println(isDown());
+  if ( isUp() ) {
+    Serial.print("The button is up.");
+  } else {
+    Serial.print("The button is down.");
+  }
 }
 void Button::_setupHardware() {
   pinMode(_pin, INPUT);
@@ -333,11 +349,12 @@ void Buzzer::_setupHardware() {
 //   _lcd.print(message);
 // }
 
-void DigitalInput::setVariables(int pin, bool stateThatMeansIsOn, bool needsPullup){
+void DigitalInput::setVariables(int pin, bool stateThatMeansIsOn, String componentName, bool needsPullup){
   _pin = pin;
   _stateThatMeansIsOn = stateThatMeansIsOn;
   _needsPullup = needsPullup;
   _hardwareSetupComplete = false;
+  _componentName = componentName;
 }
 bool DigitalInput::isOn(){
   if ( ! _hardwareSetupComplete ) {
@@ -356,6 +373,21 @@ bool DigitalInput::isOn(){
 }
 bool DigitalInput::isOff(){
   return ! isOn();
+}
+void DigitalInput::print() {
+  Serial.print("The ");
+  Serial.print(_componentName);
+  Serial.print(" state is: ");
+  Serial.println(isOn());
+  if ( isOn() ) {
+    Serial.print("The ");
+    Serial.print(_componentName);
+    Serial.println(" is on.");
+  } else {
+    Serial.print("The ");
+    Serial.print(_componentName);
+    Serial.println(" is off.");
+  }
 }
 void DigitalInput::_setupHardware() {
   pinMode(_pin, INPUT);
@@ -391,9 +423,10 @@ void DigitalOutput::_setupHardware() {
   _hardwareSetupComplete = true;
 }
 
-void AnalogInput::setVariables(int pin) {
+void AnalogInput::setVariables(int pin, String componentName) {
   _pin = pin;
   _hardwareSetupComplete = false;
+  _componentName = componentName;
 }
 int AnalogInput::reading() {
   _value = 0;
@@ -405,6 +438,12 @@ int AnalogInput::reading() {
   _value = (float)_value / (float)5; // problem fixed?
   // return average reading
   return _value;
+}
+void AnalogInput::print() {
+  Serial.print("The ");
+  Serial.print(_componentName);
+  Serial.print(" reading is: ");
+  Serial.println(reading());
 }
 void AnalogInput::_setupHardware() {
   pinMode(_pin,INPUT);

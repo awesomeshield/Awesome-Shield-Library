@@ -66,6 +66,7 @@ class LightSensor {
   public:
     void setVariables(int pin);
     int reading();
+    void print();
   private:
     int _pin;
     bool _hardwareSetupComplete;
@@ -77,6 +78,7 @@ class TemperatureSensor {
   public:
     void setup(int pin);
     float reading();
+    void print();
   private:
     int _pin;
     float _read();
@@ -87,6 +89,7 @@ class Button {
     void setVariables(int pin, bool readingMeaningButtonIsDown, bool needsPullup = false);
     bool isDown();
     bool isUp();
+    void print();
   private:
     int _pin;
     bool _readingMeaningButtonIsDown;
@@ -115,15 +118,17 @@ class Buzzer {
 
 class DigitalInput {
   public:
-    void setVariables(int pin, bool stateThatMeansIsOn, bool needsPullup = false);
+    void setVariables(int pin, bool stateThatMeansIsOn, String componentName, bool needsPullup = false);
     bool isOn();
     bool isOff();
+    void print();
   private:
     int _pin;
     int _stateThatMeansIsOn;
     bool _needsPullup;
     bool _hardwareSetupComplete;
     void _setupHardware();
+    String _componentName;
 };
 
 class DigitalOutput {
@@ -142,13 +147,15 @@ class DigitalOutput {
 
 class AnalogInput {
   public:
-    void setVariables(int pin);
+    void setVariables(int pin, String componentName);
     int reading();
+    void print();
   private:
     int _pin;
     int _value;
     bool _hardwareSetupComplete;
     void _setupHardware();
+    String _componentName;
 };
 
 class AnalogOutput {
