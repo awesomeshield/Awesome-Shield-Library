@@ -86,7 +86,7 @@ class TemperatureSensor {
 
 class Button {
   public:
-    void setVariables(int pin, bool readingMeaningButtonIsDown, bool needsPullup = false);
+    void setVariables(int pin, bool readingMeaningButtonIsDown, bool needsPullup = false, int portNumber = 0);
     bool isDown();
     bool isUp();
     void print();
@@ -237,10 +237,11 @@ class port {
     // groveLCD LCD;
     IRProximitySensor IR;
     DigitalOutput electromagnet;
-    void setPins(int primaryPin, int secondaryPin);
+    void setVariables(int primaryPin, int secondaryPin, int portNumber);
   private:
     int _primaryPin;
     int _secondaryPin;
+    int _portNumber;
 };
 
 class Awesome {

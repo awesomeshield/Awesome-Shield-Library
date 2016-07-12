@@ -22,16 +22,17 @@ Awesome::Awesome() {
   button.             setVariables(buttonPin, LOW, true);
   toggleSwitch.       setVariables(switchOnPin, LOW, "toggleSwitch", true);
   buzzer.             setVariables(buzzerPin);
-  port1.              setPins(port1PrimaryPin, port1SecondaryPin);
-  port2.              setPins(port2PrimaryPin, port2SecondaryPin);
+  port1.              setVariables(port1PrimaryPin, port1SecondaryPin, 1);
+  port2.              setVariables(port2PrimaryPin, port2SecondaryPin, 2);
 }
 
 port::port() {
 }
-void port::setPins(int primaryPin, int secondaryPin) {
+void port::setVariables(int primaryPin, int secondaryPin, int portNumber) {
   // set port pins
   _primaryPin = primaryPin;
   _secondaryPin = secondaryPin;
+  _portNumber = portNumber;
   // set add-on pins
   lightSensor.        setVariables(_primaryPin,  "temperatureSensor");
   button.             setVariables(_primaryPin, HIGH);
@@ -249,7 +250,7 @@ void TemperatureSensor::print() {
   Serial.println(reading());
 }
 
-void Button::setVariables(int pin, bool readingMeaningButtonIsDown, bool needsPullup) {
+void Button::setVariables(int pin, bool readingMeaningButtonIsDown, bool needsPullup, int portNumber ) {
   _pin = pin;
   _readingMeaningButtonIsDown = readingMeaningButtonIsDown;
   _needsPullup = needsPullup;
@@ -272,7 +273,13 @@ bool Button::isUp() {
     return ! isDown();
 }
 void Button::print() {
-  Serial.print("Button state is: ");
+  Serial.print("Button ");
+  if ( _portNumber != 0) {
+    Serial.print(" on port");
+    Serial.print(_portNumber);
+    Serial.print(" ");
+  }
+  Serial.print("state is: ");
   Serial.println(isDown());
   if ( isUp() ) {
     Serial.print("The button is up.");
