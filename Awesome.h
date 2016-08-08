@@ -26,7 +26,9 @@
 #define port1PrimaryPin     A5  // primary (outside) pin
 #define port1SecondaryPin   A4
 #define port2PrimaryPin     A0  // primary (outside) pin
-#define port2SecondaryPin   4
+#define port2SecondaryPin   3
+#define port3PrimaryPin     A2  // primary (outside) pin
+#define port3SecondaryPin   6
 
 
 // the max analogWrite value
@@ -251,6 +253,7 @@ class Awesome {
     // ports
     port port1;
     port port2;
+    port port3;
   private:
 };
 

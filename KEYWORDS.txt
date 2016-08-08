@@ -40,6 +40,7 @@ toggleSwitch	LITERAL1
 knob	LITERAL1
 port1	LITERAL1
 port2	LITERAL1
+port3	LITERAL1
 
 touchSensor	LITERAL1
 singleColorLED	LITERAL1

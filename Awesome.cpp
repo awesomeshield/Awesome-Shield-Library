@@ -24,6 +24,7 @@ Awesome::Awesome() {
   buzzer.             setVariables(buzzerPin);
   port1.              setPins(port1PrimaryPin, port1SecondaryPin);
   port2.              setPins(port2PrimaryPin, port2SecondaryPin);
+  port3.              setPins(port3PrimaryPin, port3SecondaryPin);
 }
 
 port::port() {
