@@ -19,7 +19,7 @@ Awesome::Awesome() {
   lightSensor.        setVariables(lightSensorPin);
   knob.               setVariables(knobPin, "knob");
   temperatureSensor.  setup(tempSensorPin);
-  button.             setVariables(buttonPin, LOW, true);
+  button.             setVariables(buttonPin, LOW, true, 0);
   toggleSwitch.       setVariables(switchOnPin, LOW, "toggleSwitch", true);
   buzzer.             setVariables(buzzerPin);
   port1.              setVariables(port1PrimaryPin, port1SecondaryPin, 1);
@@ -36,7 +36,7 @@ void port::setVariables(int primaryPin, int secondaryPin, int portNumber) {
   _portNumber = portNumber;
   // set add-on pins
   lightSensor.        setVariables(_primaryPin,  "temperatureSensor");
-  button.             setVariables(_primaryPin, HIGH);
+  button.             setVariables(_primaryPin, HIGH, false, _portNumber);
   buzzer.             setVariables(_primaryPin);
   touchSensor.        setVariables(_primaryPin, HIGH, "touchSensor");
   singleColorLED.     setVariables(_primaryPin);
@@ -275,18 +275,15 @@ bool Button::isUp() {
     return ! isDown();
 }
 void Button::print() {
-  Serial.print("Button ");
+  Serial.print("The button");
   if ( _portNumber != 0) {
-    Serial.print(" on port");
+    Serial.print(" connected to port");
     Serial.print(_portNumber);
-    Serial.print(" ");
   }
-  Serial.print("state is: ");
-  Serial.println(isDown());
   if ( isUp() ) {
-    Serial.print("The button is up.");
+    Serial.println(" is up.");
   } else {
-    Serial.print("The button is down.");
+    Serial.println(" is down.");
   }
 }
 void Button::_setupHardware() {
