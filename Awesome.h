@@ -68,6 +68,7 @@ class LightSensor {
   public:
     void setVariables(int pin);
     int reading();
+    void print();
   private:
     int _pin;
     bool _hardwareSetupComplete;
@@ -79,6 +80,7 @@ class TemperatureSensor {
   public:
     void setup(int pin);
     float reading();
+    void print();
   private:
     int _pin;
     float _read();
@@ -86,9 +88,10 @@ class TemperatureSensor {
 
 class Button {
   public:
-    void setVariables(int pin, bool readingMeaningButtonIsDown, bool needsPullup = false);
+    void setVariables(int pin, bool readingMeaningButtonIsDown, bool needsPullup = false, int portNumber = 0);
     bool isDown();
     bool isUp();
+    void print();
   private:
     int _pin;
     bool _readingMeaningButtonIsDown;
@@ -117,15 +120,17 @@ class Buzzer {
 
 class DigitalInput {
   public:
-    void setVariables(int pin, bool stateThatMeansIsOn, bool needsPullup = false);
+    void setVariables(int pin, bool stateThatMeansIsOn, String componentName, bool needsPullup = false);
     bool isOn();
     bool isOff();
+    void print();
   private:
     int _pin;
     int _stateThatMeansIsOn;
     bool _needsPullup;
     bool _hardwareSetupComplete;
     void _setupHardware();
+    String _componentName;
 };
 
 class DigitalOutput {
@@ -144,13 +149,15 @@ class DigitalOutput {
 
 class AnalogInput {
   public:
-    void setVariables(int pin);
+    void setVariables(int pin, String componentName);
     int reading();
+    void print();
   private:
     int _pin;
     int _value;
     bool _hardwareSetupComplete;
     void _setupHardware();
+    String _componentName;
 };
 
 class AnalogOutput {
@@ -232,10 +239,11 @@ class port {
     // groveLCD LCD;
     IRProximitySensor IR;
     DigitalOutput electromagnet;
-    void setPins(int primaryPin, int secondaryPin);
+    void setVariables(int primaryPin, int secondaryPin, int portNumber);
   private:
     int _primaryPin;
     int _secondaryPin;
+    int _portNumber;
 };
 
 class Awesome {
