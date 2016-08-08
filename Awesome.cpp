@@ -22,9 +22,9 @@ Awesome::Awesome() {
   button.             setVariables(buttonPin, LOW, true);
   toggleSwitch.       setVariables(switchOnPin, LOW, "toggleSwitch", true);
   buzzer.             setVariables(buzzerPin);
-  port1.              setPins(port1PrimaryPin, port1SecondaryPin);
-  port2.              setPins(port2PrimaryPin, port2SecondaryPin);
-  port3.              setPins(port3PrimaryPin, port3SecondaryPin);
+  port1.              setVariables(port1PrimaryPin, port1SecondaryPin, 1);
+  port2.              setVariables(port2PrimaryPin, port2SecondaryPin, 2);
+  port3.              setVariables(port3PrimaryPin, port3SecondaryPin, 3);
 }
 
 port::port() {
@@ -256,6 +256,7 @@ void Button::setVariables(int pin, bool readingMeaningButtonIsDown, bool needsPu
   _readingMeaningButtonIsDown = readingMeaningButtonIsDown;
   _needsPullup = needsPullup;
   _hardwareSetupComplete = false;
+  _portNumber = portNumber;
 }
 bool Button::isDown() {
   if ( ! _hardwareSetupComplete ) {

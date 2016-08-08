@@ -94,6 +94,7 @@ class Button {
     void print();
   private:
     int _pin;
+    int _portNumber;
     bool _readingMeaningButtonIsDown;
     bool _needsPullup;
     bool _hardwareSetupComplete;
