@@ -6,7 +6,8 @@
 
 /*
 # Tasks
-  [ ] update LED functions to use neopixel library
+  [WIP] update LED functions to use neopixel library
+    BUG - LED not turning off when new sketch uploaded
   [ ] make print function global
   [ ] update all components to have String name and int port
   [ ] add issue: reduce memory usage (eg. int -> uint_8t)
