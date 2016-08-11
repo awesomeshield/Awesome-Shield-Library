@@ -4,6 +4,14 @@
   MIT License
 */
 
+/*
+# Tasks
+  [ ] update LED functions to use neopixel library
+  [ ] make print function global
+  [ ] update all components to have String name and int port
+  [ ] add issue: reduce memory usage (eg. int -> uint_8t)
+*/
+
 #ifndef Awesome_h
 #define Awesome_h
 
@@ -127,7 +135,7 @@ class DigitalInput {
     void print();
   private:
     int _pin;
-    int _stateThatMeansIsOn;
+    int _stateThatMeansIsOn; // [ ] make this a bool
     bool _needsPullup;
     bool _hardwareSetupComplete;
     void _setupHardware();
@@ -143,7 +151,7 @@ class DigitalOutput {
     bool isOff();
   private:
     int _pin;
-    int _stateIsOn;
+    int _stateIsOn; // [ ] make this a bool
     bool _hardwareSetupComplete;
     void _setupHardware();
 };
