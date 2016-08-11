@@ -20,6 +20,7 @@
 #include "Wire.h"
 //#include "rgb_lcd.h"
 #include <Servo.h>
+#include <Adafruit_NeoPixel.h>
 
 // define core board pin numbers
 #define rgbRedPin           5   // pwm

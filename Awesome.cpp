@@ -11,6 +11,8 @@
 //#include "rgb_lcd.h"
 #include <avr/pgmspace.h>
 #include <Servo.h>
+#include <Adafruit_NeoPixel.h>
+
 
 // when the awesome object gets created...
 Awesome::Awesome() {
