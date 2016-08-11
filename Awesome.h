@@ -10,6 +10,8 @@
   [ ] make print function global
   [ ] update all components to have String name and int port
   [ ] add issue: reduce memory usage (eg. int -> uint_8t)
+  [ ] use constrain to constrain values in LED turnOn
+  [ ] use _redSetting and other setting variables to determine isOn() return value, remove isOn and isOff vars
 */
 
 #ifndef Awesome_h
@@ -22,10 +24,13 @@
 #include <Servo.h>
 #include <Adafruit_NeoPixel.h>
 
+//Neopixel setup
+#ifdef __AVR__
+  #include <avr/power.h>
+#endif
+
 // define core board pin numbers
-#define rgbRedPin           5   // pwm
-#define rgbGreenPin         6   // pwm
-#define rgbBluePin          3   // pwm
+#define LEDPin              5
 #define buzzerPin           9   // pwm
 #define buttonPin           2   // io digital
 #define switchOnPin         8   // io digital
@@ -39,6 +44,8 @@
 #define port3PrimaryPin     A2  // primary (outside) pin
 #define port3SecondaryPin   6
 
+// number of neopixels connected
+#define numPixels      1
 
 // the max analogWrite value
 #define MAX      255
@@ -59,13 +66,10 @@ class led {
     void turnOff(int color = WHITE);
     bool isOn();
     bool isOff();
-    void flash(int color = WHITE, int duration = 1000);
-    void flash(int red, int green, int blue, int duration = 1000);
-    void setup(int redPin, int greenPin, int bluePin);
+    void setup();
   private:
-    int _redPin;
-    int _greenPin;
-    int _bluePin;
+    Adafruit_NeoPixel _pixel = Adafruit_NeoPixel(numPixels, LEDPin, NEO_GRB + NEO_KHZ800);
+    void _update();
     int _redSetting;
     int _greenSetting;
     int _blueSetting;

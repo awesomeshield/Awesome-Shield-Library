@@ -17,7 +17,7 @@
 // when the awesome object gets created...
 Awesome::Awesome() {
   // do setup for all core board components
-  LED.                setup(rgbRedPin, rgbGreenPin, rgbBluePin);
+  LED.                setup();
   lightSensor.        setVariables(lightSensorPin);
   knob.               setVariables(knobPin, "knob");
   temperatureSensor.  setup(tempSensorPin);
@@ -53,60 +53,43 @@ void port::setVariables(int primaryPin, int secondaryPin, int portNumber) {
   electromagnet.      setVariables(_primaryPin);
 }
 
-void led::setup(int redPin, int greenPin, int bluePin) {
-  _setPins(redPin, greenPin, bluePin);
+void led::setup() {
+  _pixel.begin();
 }
-void led::_setPins (int redPin, int greenPin, int bluePin) {
-  _redPin = redPin;
-  _greenPin = greenPin;
-  _bluePin = bluePin;
+void led::_update() {
+  // set color
+  _pixel.setPixelColor(0, _pixel.Color(_redSetting, _greenSetting, _blueSetting));
+  // turn on LED
+  _pixel.show();
 }
 void led::turnOn(int color) {
   switch (color) {
     case RED:
-      analogWrite(rgbRedPin,MAX);
-      analogWrite(rgbGreenPin,0);
-      analogWrite(rgbBluePin,0);
       _redSetting = 255;
       _greenSetting = 0;
       _blueSetting= 0;
       break;
     case GREEN:
-      analogWrite(rgbRedPin,0);
-      analogWrite(rgbGreenPin,MAX);
-      analogWrite(rgbBluePin,0);
       _redSetting = 0;
       _greenSetting = 255;
       _blueSetting= 0;
       break;
     case BLUE:
-      analogWrite(rgbRedPin,0);
-      analogWrite(rgbGreenPin,0);
-      analogWrite(rgbBluePin,MAX);
       _redSetting = 0;
       _greenSetting = 0;
       _blueSetting= 255;
       break;
     case YELLOW:
-      analogWrite(rgbRedPin,MAX);
-      analogWrite(rgbGreenPin,MAX);
-      analogWrite(rgbBluePin,0);
       _redSetting = 255;
       _greenSetting = 255;
       _blueSetting= 0;
       break;
     case PURPLE:
-      analogWrite(rgbRedPin,MAX);
-      analogWrite(rgbGreenPin,0);
-      analogWrite(rgbBluePin,MAX);
       _redSetting = 255;
       _greenSetting = 0;
       _blueSetting= 255;
       break;
     case CYAN:
-      analogWrite(rgbRedPin,0);
-      analogWrite(rgbGreenPin,MAX);
-      analogWrite(rgbBluePin,MAX);
       _redSetting = 0;
       _greenSetting = 255;
       _blueSetting= 255;
@@ -120,16 +103,14 @@ void led::turnOn(int color) {
     //   _blueSetting= 0;
     //   break;
     case WHITE:
-      analogWrite(rgbRedPin,255);
-      analogWrite(rgbGreenPin,255);
-      analogWrite(rgbBluePin,255);
       _redSetting = 255;
       _greenSetting = 255;
-      _blueSetting= 255;
+      _blueSetting = 255;
       break;
     default:
       Serial.println("Invalid input to LED.turnOn()");
   }
+  _update();
   _stateIsOn = true;
 }
 void led::turnOn(int red, int green, int blue) {
@@ -153,32 +134,33 @@ void led::turnOn(int red, int green, int blue) {
   if ( blue > MAX ) {
     blue = MAX;
   }
-  // turn on LEDs
-  analogWrite(_redPin, red);
-  analogWrite(_greenPin, green);
-  analogWrite(_bluePin, blue);
+  _redSetting = red;
+  _greenSetting = green;
+  _blueSetting= blue;
+  _update();
   _stateIsOn = true;
 }
 void led::turnOff(int color) {
   switch (color) {
     case WHITE:
-      digitalWrite(_redPin,LOW);
-      digitalWrite(_greenPin,LOW);
-      digitalWrite(_bluePin,LOW);
+      _redSetting = 0;
+      _greenSetting = 0;
+      _blueSetting= 0;
       _stateIsOn = false;
       break;
     case RED:
-      digitalWrite(_redPin,LOW);
+      _redSetting = 0;
       break;
     case GREEN:
-      digitalWrite(_greenPin,LOW);
+      _greenSetting = 0;
       break;
     case BLUE:
-      digitalWrite(_bluePin,LOW);
+      _blueSetting= 0;
       break;
     default:
       Serial.println("Invalid input to LED.turnOff()");
   }
+  _update();
 }
 bool led::isOn() {
   return _stateIsOn;
@@ -186,16 +168,6 @@ bool led::isOn() {
 bool led::isOff() {
   bool stateIsOff = ! _stateIsOn;
   return stateIsOff;
-}
-void led::flash(int color, int duration) {
-  turnOn(color);
-  delay(duration);
-  turnOff();
-}
-void led::flash(int red, int green, int blue, int duration) {
-  turnOn(red, green, blue);
-  delay(duration);
-  turnOff();
 }
 
 void LightSensor::setVariables(int pin) {
