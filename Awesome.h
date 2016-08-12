@@ -63,7 +63,6 @@ class led {
     int _redSetting;
     int _greenSetting;
     int _blueSetting;
-    bool _stateIsOn;
     void _setPins (int redPin, int greenPin, int bluePin);
 };
 

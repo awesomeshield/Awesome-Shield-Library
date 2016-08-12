@@ -115,7 +115,6 @@ void led::turnOn(int color) {
       Serial.println("Invalid input to LED.turnOn()");
   }
   _update();
-  _stateIsOn = true;
 }
 void led::turnOn(int red, int green, int blue) {
   // make sure inputs are in acceptable range
@@ -123,7 +122,6 @@ void led::turnOn(int red, int green, int blue) {
   _greenSetting = constrain(green,0,MAX);
   _blueSetting = constrain(blue,0,MAX);
   _update();
-  _stateIsOn = true;
 }
 void led::turnOff(int color) {
   switch (color) {
@@ -131,7 +129,6 @@ void led::turnOff(int color) {
       _redSetting = 0;
       _greenSetting = 0;
       _blueSetting= 0;
-      _stateIsOn = false;
       break;
     case RED:
       _redSetting = 0;
@@ -148,11 +145,14 @@ void led::turnOff(int color) {
   _update();
 }
 bool led::isOn() {
-  return _stateIsOn;
+  if ( _redSetting != 0 || _greenSetting != 0 || _blueSetting != 0 ) {
+    return true;
+  } else {
+    return false;
+  }
 }
 bool led::isOff() {
-  bool stateIsOff = ! _stateIsOn;
-  return stateIsOff;
+  return ! isOn();
 }
 
 void LightSensor::setVariables(int pin) {
