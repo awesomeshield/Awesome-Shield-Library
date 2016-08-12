@@ -4,17 +4,6 @@
   MIT License
 */
 
-/*
-# Tasks
-  [WIP] update LED functions to use neopixel library
-    [x] BUG - LED not turning off when new sketch uploaded
-  [ ] make print function global
-  [ ] update all components to have String name and int port
-  [ ] add issue: reduce memory usage (eg. int -> uint_8t)
-  [ ] use constrain to constrain values in LED turnOn
-  [ ] use _redSetting and other setting variables to determine isOn() return value, remove isOn and isOff vars
-*/
-
 #ifndef Awesome_h
 #define Awesome_h
 
