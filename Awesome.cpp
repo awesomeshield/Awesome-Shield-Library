@@ -118,29 +118,10 @@ void led::turnOn(int color) {
   _stateIsOn = true;
 }
 void led::turnOn(int red, int green, int blue) {
-  //  zero negative inputs
-  if ( red < 0 ) {
-    red = 0;
-  }
-  if ( green < 0 ) {
-    green = 0;
-  }
-  if ( blue < 0 ) {
-    blue = 0;
-  }
-  // reduce inputs to max input for analogWrite
-  if ( red > MAX ) {
-    red = MAX;
-  }
-  if ( green > MAX ) {
-    green = MAX;
-  }
-  if ( blue > MAX ) {
-    blue = MAX;
-  }
-  _redSetting = red;
-  _greenSetting = green;
-  _blueSetting= blue;
+  // make sure inputs are in acceptable range
+  _redSetting = constrain(red,0,MAX);
+  _greenSetting = constrain(green,0,MAX);
+  _blueSetting = constrain(blue,0,MAX);
   _update();
   _stateIsOn = true;
 }
