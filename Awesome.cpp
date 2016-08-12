@@ -28,6 +28,9 @@ Awesome::Awesome() {
   port2.              setVariables(port2PrimaryPin, port2SecondaryPin, 2);
   port3.              setVariables(port3PrimaryPin, port3SecondaryPin, 3);
 }
+void Awesome::setup() {
+  LED.turnOff();
+}
 
 port::port() {
 }

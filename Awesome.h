@@ -277,6 +277,7 @@ class Awesome {
     port port1;
     port port2;
     port port3;
+    void setup();
   private:
 };
 
