@@ -42,8 +42,8 @@ Awesome::Awesome() {
   lightSensor.        setVariables(lightSensorPin, "lightSensor", 0);
   knob.               setVariables(knobPin, "knob", 0);
   button.             setVariables(buttonPin, LOW, true, 0);
-  toggleSwitch.       setVariables(switchOnPin, LOW, "toggleSwitch", true);
-  buzzer.             setVariables(buzzerPin);
+  toggleSwitch.       setVariables(switchOnPin, 0, LOW, "toggleSwitch", true);
+  buzzer.             setVariables(buzzerPin, 0);
   port1.              setVariables(port1PrimaryPin, port1SecondaryPin, 1);
   port2.              setVariables(port2PrimaryPin, port2SecondaryPin, 2);
   port3.              setVariables(port3PrimaryPin, port3SecondaryPin, 3);
@@ -63,18 +63,18 @@ void port::setVariables(int primaryPin, int secondaryPin, uint8_t portNumber) {
   // set add-on pins
   lightSensor.        setVariables(_primaryPin,  "lightSensor", _portNumber);
   button.             setVariables(_primaryPin, HIGH, false, _portNumber);
-  buzzer.             setVariables(_primaryPin);
-  touchSensor.        setVariables(_primaryPin, HIGH, "touchSensor");
-  singleColorLED.     setVariables(_primaryPin, "single LED");
-  relay.              setVariables(_primaryPin, "relay");
+  buzzer.             setVariables(_primaryPin, _portNumber);
+  touchSensor.        setVariables(_primaryPin, _portNumber, HIGH, "touchSensor");
+  singleColorLED.     setVariables(_primaryPin, _portNumber, "single LED");
+  relay.              setVariables(_primaryPin, _portNumber, "relay");
   knob.               setVariables(_primaryPin, "knob", _portNumber);
   temperatureSensor.  setVariables(_primaryPin, "temperatureSensor", _portNumber);
   slider.             setVariables(_primaryPin, "slider", _portNumber);
-  servo.              setVariables(_primaryPin);
-  mic.                setVariables(_primaryPin);
-  sonicSensor.        setVariables(_primaryPin);
-  IR.                 setVariables(_secondaryPin);
-  electromagnet.      setVariables(_primaryPin, "electromagnet");
+  servo.              setVariables(_primaryPin, _portNumber);
+  mic.                setVariables(_primaryPin, _portNumber);
+  sonicSensor.        setVariables(_primaryPin, _portNumber);
+  IR.                 setVariables(_secondaryPin, _portNumber);
+  electromagnet.      setVariables(_primaryPin, _portNumber, "electromagnet");
 }
 
 void led::setup() {
@@ -275,7 +275,7 @@ void Button::_setupPullup() {
   pinMode(_pin,INPUT);
 }
 
-void Buzzer::setVariables(int pin) {
+void Buzzer::setVariables(int pin, uint8_t portNumber) {
   _pin = pin;
   _silent = false;
   bool _hardwareSetupComplete = false;
@@ -334,8 +334,9 @@ void Buzzer::_setupHardware() {
 //   _lcd.print(message);
 // }
 
-void DigitalInput::setVariables(int pin, bool stateThatMeansIsOn, String componentName, bool needsPullup){
+void DigitalInput::setVariables(int pin, uint8_t portNumber, bool stateThatMeansIsOn, String componentName, bool needsPullup){
   _pin = pin;
+  _portNumber = portNumber;
   _stateThatMeansIsOn = stateThatMeansIsOn;
   _needsPullup = needsPullup;
   _hardwareSetupComplete = false;
@@ -367,8 +368,9 @@ void DigitalInput::_setupHardware() {
   _hardwareSetupComplete = true;
 }
 
-void DigitalOutput::setVariables(int pin, String name) {
+void DigitalOutput::setVariables(int pin, uint8_t portNumber, String name) {
   _pin = pin;
+  _portNumber = portNumber;
   _hardwareSetupComplete = false;
   _componentName = name;
 }
@@ -444,8 +446,9 @@ void AnalogOutput::_setupHardware() {
   _hardwareSetupComplete = true;
 }
 
-void SERVO::setVariables(int pin){
+void SERVO::setVariables(int pin, uint8_t portNumber){
   _pin = pin;
+  _portNumber = portNumber;
   _hardwareSetupComplete = false;
 }
 void SERVO::setPosition(int position) {
@@ -459,8 +462,9 @@ void SERVO::_setupHardware() {
   _hardwareSetupComplete = true;
 }
 
-void electretMic::setVariables(int pin) {
+void electretMic::setVariables(int pin, uint8_t portNumber) {
   _pin = pin;
+  _portNumber = portNumber;
   _hardwareSetupComplete = false;
 }
 int electretMic::reading() {
@@ -490,8 +494,9 @@ void electretMic::_setupHardware() {
   _hardwareSetupComplete = true;
 }
 
-void UltrasonicRanger::setVariables(int pin) {
+void UltrasonicRanger::setVariables(int pin, uint8_t portNumber) {
   _pin = pin;
+  _portNumber = portNumber;
 }
 int UltrasonicRanger::reading() {
   // send a request for data
@@ -511,8 +516,9 @@ int UltrasonicRanger::reading() {
 	return range;
 }
 
-void IRProximitySensor::setVariables(int pin) {
+void IRProximitySensor::setVariables(int pin, uint8_t portNumber) {
   _pin = pin;
+  _portNumber = portNumber;
   _hardwareSetupComplete = false;
 }
 void IRProximitySensor::_setupHardware() {

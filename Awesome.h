@@ -107,7 +107,7 @@ class Button {
 
 class Buzzer {
   public:
-    void setVariables(int pin);
+    void setVariables(int pin, uint8_t portNumber);
     void turnOn(unsigned int frequency = 400);
     void turnOff();
     bool isOn();
@@ -116,6 +116,7 @@ class Buzzer {
     void setSilentMode(bool newState);
   private:
     int _pin;
+    uint8_t _portNumber;
     bool _silent;
     bool _stateIsOn;
     bool _hardwareSetupComplete;
@@ -124,12 +125,13 @@ class Buzzer {
 
 class DigitalInput {
   public:
-    void setVariables(int pin, bool stateThatMeansIsOn, String componentName, bool needsPullup = false);
+    void setVariables(int pin, uint8_t portNumber, bool stateThatMeansIsOn, String componentName, bool needsPullup = false);
     bool isOn();
     bool isOff();
     void print();
   private:
     int _pin;
+    uint8_t _portNumber;
     int _stateThatMeansIsOn; // [ ] make this a bool
     bool _needsPullup;
     bool _hardwareSetupComplete;
@@ -139,7 +141,7 @@ class DigitalInput {
 
 class DigitalOutput {
   public:
-    void setVariables(int pin, String name);
+    void setVariables(int pin, uint8_t portNumber, String name);
     void turnOn();
     void turnOff();
     bool isOn();
@@ -147,6 +149,7 @@ class DigitalOutput {
     void print();
   private:
     int _pin;
+    uint8_t _portNumber;
     int _stateIsOn; // [ ] make this a bool
     bool _hardwareSetupComplete;
     String _componentName;
@@ -183,14 +186,14 @@ class AnalogOutput {
 
 class SERVO {
   public:
-    void setVariables(int pin);
+    void setVariables(int pin, uint8_t portNumber);
     void setPosition(int position);
     Servo _servo;
   private:
     int _pin;
+    uint8_t _portNumber;
     bool _hardwareSetupComplete;
     void _setupHardware();
-
 };
 
 // class groveLCD {
@@ -204,28 +207,31 @@ class SERVO {
 
 class electretMic {
   public:
-    void setVariables(int pin);
+    void setVariables(int pin, uint8_t portNumber);
     int reading();
   private:
     int _pin;
+    uint8_t _portNumber;
     bool _hardwareSetupComplete;
     void _setupHardware();
 };
 
 class UltrasonicRanger {
   public:
-    void setVariables(int pin);
+    void setVariables(int pin, uint8_t portNumber);
     int reading();
   private:
     int _pin;
+    uint8_t _portNumber;
 };
 
 class IRProximitySensor {
   public:
-    void setVariables(int pin);
+    void setVariables(int pin, uint8_t portNumber);
     int reading();
   private:
     int _pin;
+    uint8_t _portNumber;
     bool _hardwareSetupComplete;
     void _setupHardware();
 };
