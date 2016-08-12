@@ -22,7 +22,7 @@ void serialUpdate() {
 }
 
 void setup() {
-  Serial.begin(9600);
+  awesome.setup(9600);
 }
 
 void loop() {

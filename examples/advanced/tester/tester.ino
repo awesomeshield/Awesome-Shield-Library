@@ -7,7 +7,7 @@ Awesome awesome;
 bool lastSwitchState;
 
 void setup() {
-  Serial.begin(9600);
+  awesome.setup(9600);
   // put your setup code here, to run once:
   awesome.LED.turnOn();
   delay(500);

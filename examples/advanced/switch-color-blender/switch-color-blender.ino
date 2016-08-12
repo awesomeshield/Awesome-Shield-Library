@@ -21,6 +21,7 @@ int blue2  = 200;
 int colorValue;
 
 void setup() {
+  awesome.setup(9600);
 }
 
 void loop() {

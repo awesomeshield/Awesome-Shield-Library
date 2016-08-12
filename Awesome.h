@@ -7,7 +7,7 @@
 /*
 # Tasks
   [WIP] update LED functions to use neopixel library
-    BUG - LED not turning off when new sketch uploaded
+    [x] BUG - LED not turning off when new sketch uploaded
   [ ] make print function global
   [ ] update all components to have String name and int port
   [ ] add issue: reduce memory usage (eg. int -> uint_8t)
@@ -277,7 +277,7 @@ class Awesome {
     port port1;
     port port2;
     port port3;
-    void setup();
+    void setup(int baudRate);
   private:
 };
 

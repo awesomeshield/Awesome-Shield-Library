@@ -12,6 +12,7 @@ int blue;                     // strength of the blue LED
 
 
 void setup() {
+  awesome.setup(9600);
   // set the air temperature to the temeprature sensor reading
   // when the Arduino turns on
   airTemp = awesome.temperatureSensor.reading();

@@ -9,7 +9,7 @@ int green = 127;
 int blue = 127;
 
 void setup() {
-  Serial.begin(9600);
+  awesome.setup(9600);
 }
 
 void loop() {
