@@ -67,7 +67,7 @@ class led {
 
 class LightSensor {
   public:
-    void setVariables(int pin, String componentName, uint8_t port);
+    void setVariables(int pin, uint8_t port, String componentName);
     int reading();
     void print();
   private:
@@ -79,19 +79,9 @@ class LightSensor {
     int _read();
 };
 
-class TemperatureSensor {
-  public:
-    void setup(int pin);
-    float reading();
-    void print();
-  private:
-    int _pin;
-    float _read();
-};
-
 class Button {
   public:
-    void setVariables(int pin, bool readingMeaningButtonIsDown, bool needsPullup = false, int portNumber = 0);
+    void setVariables(int pin, int portNumber, String componentName, bool readingMeaningButtonIsDown, bool needsPullup = false);
     bool isDown();
     bool isUp();
     void print();
@@ -103,11 +93,12 @@ class Button {
     bool _hardwareSetupComplete;
     void _setupHardware();
     void _setupPullup();
+    String _componentName;
 };
 
 class Buzzer {
   public:
-    void setVariables(int pin, uint8_t portNumber);
+    void setVariables(int pin, uint8_t portNumber, String componentName);
     void turnOn(unsigned int frequency = 400);
     void turnOff();
     bool isOn();
@@ -121,11 +112,12 @@ class Buzzer {
     bool _stateIsOn;
     bool _hardwareSetupComplete;
     void _setupHardware();
+    String _componentName;
 };
 
 class DigitalInput {
   public:
-    void setVariables(int pin, uint8_t portNumber, bool stateThatMeansIsOn, String componentName, bool needsPullup = false);
+    void setVariables(int pin, uint8_t portNumber, String componentName, bool stateThatMeansIsOn, bool needsPullup = false);
     bool isOn();
     bool isOff();
     void print();
@@ -141,7 +133,7 @@ class DigitalInput {
 
 class DigitalOutput {
   public:
-    void setVariables(int pin, uint8_t portNumber, String name);
+    void setVariables(int pin, uint8_t portNumber, String componentName);
     void turnOn();
     void turnOff();
     bool isOn();
@@ -152,13 +144,13 @@ class DigitalOutput {
     uint8_t _portNumber;
     int _stateIsOn; // [ ] make this a bool
     bool _hardwareSetupComplete;
-    String _componentName;
     void _setupHardware();
+    String _componentName;
 };
 
 class AnalogInput {
   public:
-    void setVariables(int pin, String componentName, uint8_t portNumber);
+    void setVariables(int pin, uint8_t portNumber, String componentName);
     int reading();
     void print();
   private:
@@ -172,7 +164,7 @@ class AnalogInput {
 
 class AnalogOutput {
   public:
-    void setVariables(int pin);
+    void setVariables(int pin, uint8_t portNumber, String componentName);
     void set(int newSetting);
     int setting();
     void print();
@@ -182,11 +174,12 @@ class AnalogOutput {
     int _currentSetting;
     bool _hardwareSetupComplete;
     void _setupHardware();
+    String _componentName;
 };
 
 class SERVO {
   public:
-    void setVariables(int pin, uint8_t portNumber);
+    void setVariables(int pin, uint8_t portNumber, String componentName);
     void setPosition(int position);
     Servo _servo;
   private:
@@ -194,6 +187,7 @@ class SERVO {
     uint8_t _portNumber;
     bool _hardwareSetupComplete;
     void _setupHardware();
+    String _componentName;
 };
 
 // class groveLCD {
@@ -207,33 +201,36 @@ class SERVO {
 
 class electretMic {
   public:
-    void setVariables(int pin, uint8_t portNumber);
+    void setVariables(int pin, uint8_t portNumber, String componentName);
     int reading();
   private:
     int _pin;
     uint8_t _portNumber;
     bool _hardwareSetupComplete;
     void _setupHardware();
+    String _componentName;
 };
 
 class UltrasonicRanger {
   public:
-    void setVariables(int pin, uint8_t portNumber);
+    void setVariables(int pin, uint8_t portNumber, String componentName);
     int reading();
   private:
     int _pin;
     uint8_t _portNumber;
+    String _componentName;
 };
 
 class IRProximitySensor {
   public:
-    void setVariables(int pin, uint8_t portNumber);
+    void setVariables(int pin, uint8_t portNumber, String componentName);
     int reading();
   private:
     int _pin;
     uint8_t _portNumber;
     bool _hardwareSetupComplete;
     void _setupHardware();
+    String _componentName;
 };
 
 class port {

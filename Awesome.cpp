@@ -39,11 +39,11 @@ void printer(String componentName, bool value) {
 Awesome::Awesome() {
   // do setup for all core board components
   LED.                setup();
-  lightSensor.        setVariables(lightSensorPin, "lightSensor", 0);
-  knob.               setVariables(knobPin, "knob", 0);
-  button.             setVariables(buttonPin, LOW, true, 0);
-  toggleSwitch.       setVariables(switchOnPin, 0, LOW, "toggleSwitch", true);
-  buzzer.             setVariables(buzzerPin, 0);
+  lightSensor.        setVariables(lightSensorPin, 0, "lightSensor");
+  knob.               setVariables(knobPin, 0, "knob");
+  button.             setVariables(buttonPin, 0, "button", LOW, true);
+  toggleSwitch.       setVariables(switchOnPin, 0, "toggleSwitch", LOW, true);
+  buzzer.             setVariables(buzzerPin, 0, "buzzer");
   port1.              setVariables(port1PrimaryPin, port1SecondaryPin, 1);
   port2.              setVariables(port2PrimaryPin, port2SecondaryPin, 2);
   port3.              setVariables(port3PrimaryPin, port3SecondaryPin, 3);
@@ -61,19 +61,19 @@ void port::setVariables(int primaryPin, int secondaryPin, uint8_t portNumber) {
   _secondaryPin = secondaryPin;
   _portNumber = portNumber;
   // set add-on pins
-  lightSensor.        setVariables(_primaryPin,  "lightSensor", _portNumber);
-  button.             setVariables(_primaryPin, HIGH, false, _portNumber);
-  buzzer.             setVariables(_primaryPin, _portNumber);
-  touchSensor.        setVariables(_primaryPin, _portNumber, HIGH, "touchSensor");
+  lightSensor.        setVariables(_primaryPin, _portNumber, "lightSensor");
+  button.             setVariables(_primaryPin, _portNumber, "button", HIGH, false);
+  buzzer.             setVariables(_primaryPin, _portNumber, "buzzer");
+  touchSensor.        setVariables(_primaryPin, _portNumber, "touchSensor", HIGH);
   singleColorLED.     setVariables(_primaryPin, _portNumber, "single LED");
   relay.              setVariables(_primaryPin, _portNumber, "relay");
-  knob.               setVariables(_primaryPin, "knob", _portNumber);
-  temperatureSensor.  setVariables(_primaryPin, "temperatureSensor", _portNumber);
-  slider.             setVariables(_primaryPin, "slider", _portNumber);
-  servo.              setVariables(_primaryPin, _portNumber);
-  mic.                setVariables(_primaryPin, _portNumber);
-  sonicSensor.        setVariables(_primaryPin, _portNumber);
-  IR.                 setVariables(_secondaryPin, _portNumber);
+  knob.               setVariables(_primaryPin, _portNumber, "knob");
+  temperatureSensor.  setVariables(_primaryPin, _portNumber, "temperatureSensor");
+  slider.             setVariables(_primaryPin, _portNumber, "slider");
+  servo.              setVariables(_primaryPin, _portNumber, "servo");
+  mic.                setVariables(_primaryPin, _portNumber, "mic");
+  sonicSensor.        setVariables(_primaryPin, _portNumber, "sonicSensor");
+  IR.                 setVariables(_secondaryPin, _portNumber, "IR");
   electromagnet.      setVariables(_primaryPin, _portNumber, "electromagnet");
 }
 
@@ -175,7 +175,7 @@ bool led::isOff() {
   return ! isOn();
 }
 
-void LightSensor::setVariables(int pin, String componentName, uint8_t port) {
+void LightSensor::setVariables(int pin, uint8_t port, String componentName) {
   _pin = pin;
   _port = port;
   _hardwareSetupComplete = false;
@@ -197,40 +197,9 @@ int LightSensor::_read() {
   return analogRead(_pin);
 }
 
-void TemperatureSensor::setup(int pin) {
+void Button::setVariables(int pin, int portNumber, String componentName, bool readingMeaningButtonIsDown, bool needsPullup) {
   _pin = pin;
-  pinMode(_pin,INPUT);
-}
-float TemperatureSensor::_read() {
-  int numData=5;
-  int rawData[numData-1];
-  for (short i=0;i<numData;i++) {
-    rawData[i] = analogRead(_pin);
-    // Serial.print("rawData[i] = ");
-    // Serial.println(rawData[i]);
-    delay(10);
-  }
-  int averageData = 0;
-  for (short i=0;i<numData;i++) {
-    averageData += rawData[i];
-  }
-  averageData = averageData / numData;
-
-  float result = log(10000.0/(1024.0/averageData-1));
-  result = 1 / (0.001129148 + (0.000234125 + (0.0000000876741 * result * result ))* result );
-  result = result - 273.15;
-
-  return result;
-}
-float TemperatureSensor::reading() {
-  return _read();
-}
-void TemperatureSensor::print() {
-  printer("tempereSensor", reading());
-}
-
-void Button::setVariables(int pin, bool readingMeaningButtonIsDown, bool needsPullup, int portNumber ) {
-  _pin = pin;
+  _componentName = componentName;
   _readingMeaningButtonIsDown = readingMeaningButtonIsDown;
   _needsPullup = needsPullup;
   _hardwareSetupComplete = false;
@@ -275,8 +244,10 @@ void Button::_setupPullup() {
   pinMode(_pin,INPUT);
 }
 
-void Buzzer::setVariables(int pin, uint8_t portNumber) {
+void Buzzer::setVariables(int pin, uint8_t portNumber, String componentName) {
   _pin = pin;
+  _componentName = componentName;
+  _portNumber = portNumber;
   _silent = false;
   bool _hardwareSetupComplete = false;
 }
@@ -334,7 +305,7 @@ void Buzzer::_setupHardware() {
 //   _lcd.print(message);
 // }
 
-void DigitalInput::setVariables(int pin, uint8_t portNumber, bool stateThatMeansIsOn, String componentName, bool needsPullup){
+void DigitalInput::setVariables(int pin, uint8_t portNumber, String componentName, bool stateThatMeansIsOn, bool needsPullup){
   _pin = pin;
   _portNumber = portNumber;
   _stateThatMeansIsOn = stateThatMeansIsOn;
@@ -368,11 +339,11 @@ void DigitalInput::_setupHardware() {
   _hardwareSetupComplete = true;
 }
 
-void DigitalOutput::setVariables(int pin, uint8_t portNumber, String name) {
+void DigitalOutput::setVariables(int pin, uint8_t portNumber, String componentName) {
   _pin = pin;
   _portNumber = portNumber;
   _hardwareSetupComplete = false;
-  _componentName = name;
+  _componentName = componentName;
 }
 void DigitalOutput::turnOn() {
   if ( ! _hardwareSetupComplete ) {
@@ -402,7 +373,7 @@ void DigitalOutput::_setupHardware() {
   _hardwareSetupComplete = true;
 }
 
-void AnalogInput::setVariables(int pin, String componentName, uint8_t portNumber) {
+void AnalogInput::setVariables(int pin, uint8_t portNumber, String componentName) {
   _pin = pin;
   _portNumber = portNumber;
   _hardwareSetupComplete = false;
@@ -427,8 +398,10 @@ void AnalogInput::_setupHardware() {
   _hardwareSetupComplete = true;
 }
 
-void AnalogOutput::setVariables(int pin) {
+void AnalogOutput::setVariables(int pin, uint8_t portNumber, String componentName) {
   _pin = pin;
+  _componentName = componentName;
+  _portNumber = portNumber;
   _hardwareSetupComplete = false;
 }
 void AnalogOutput::set(int newSetting) {
@@ -446,9 +419,10 @@ void AnalogOutput::_setupHardware() {
   _hardwareSetupComplete = true;
 }
 
-void SERVO::setVariables(int pin, uint8_t portNumber){
+void SERVO::setVariables(int pin, uint8_t portNumber, String componentName){
   _pin = pin;
   _portNumber = portNumber;
+  _componentName = componentName;
   _hardwareSetupComplete = false;
 }
 void SERVO::setPosition(int position) {
@@ -462,9 +436,10 @@ void SERVO::_setupHardware() {
   _hardwareSetupComplete = true;
 }
 
-void electretMic::setVariables(int pin, uint8_t portNumber) {
+void electretMic::setVariables(int pin, uint8_t portNumber, String componentName) {
   _pin = pin;
   _portNumber = portNumber;
+  _componentName = componentName;
   _hardwareSetupComplete = false;
 }
 int electretMic::reading() {
@@ -494,9 +469,10 @@ void electretMic::_setupHardware() {
   _hardwareSetupComplete = true;
 }
 
-void UltrasonicRanger::setVariables(int pin, uint8_t portNumber) {
+void UltrasonicRanger::setVariables(int pin, uint8_t portNumber, String componentName) {
   _pin = pin;
   _portNumber = portNumber;
+  _componentName = componentName;
 }
 int UltrasonicRanger::reading() {
   // send a request for data
@@ -516,9 +492,10 @@ int UltrasonicRanger::reading() {
 	return range;
 }
 
-void IRProximitySensor::setVariables(int pin, uint8_t portNumber) {
+void IRProximitySensor::setVariables(int pin, uint8_t portNumber, String componentName) {
   _pin = pin;
   _portNumber = portNumber;
+  _componentName = componentName;
   _hardwareSetupComplete = false;
 }
 void IRProximitySensor::_setupHardware() {
