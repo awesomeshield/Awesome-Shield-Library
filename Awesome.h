@@ -138,15 +138,17 @@ class DigitalInput {
 
 class DigitalOutput {
   public:
-    void setVariables(int pin);
+    void setVariables(int pin, String name);
     void turnOn();
     void turnOff();
     bool isOn();
     bool isOff();
+    void print();
   private:
     int _pin;
     int _stateIsOn; // [ ] make this a bool
     bool _hardwareSetupComplete;
+    String _componentName;
     void _setupHardware();
 };
 
@@ -168,6 +170,7 @@ class AnalogOutput {
     void setVariables(int pin);
     void set(int newSetting);
     int setting();
+    void print();
   private:
     int _pin;
     int _currentSetting;

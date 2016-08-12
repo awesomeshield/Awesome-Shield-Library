@@ -13,6 +13,27 @@
 #include <Servo.h>
 #include <Adafruit_NeoPixel.h>
 
+void printer(String componentName, int value) {
+  Serial.print("The ");
+  Serial.print(componentName);
+  Serial.print(" reading is ");
+  Serial.println(value);
+}
+void printer(String componentName, float value) {
+  Serial.print("The ");
+  Serial.print(componentName);
+  Serial.print(" reading is ");
+  Serial.println(value);
+}
+void printer(String componentName, bool value) {
+  Serial.print("The ");
+  Serial.print(componentName);
+  if ( value == true) {
+    Serial.println(" is on.");
+  } else {
+    Serial.println(" is off.");
+  }
+}
 
 // when the awesome object gets created...
 Awesome::Awesome() {
@@ -45,8 +66,8 @@ void port::setVariables(int primaryPin, int secondaryPin, int portNumber) {
   button.             setVariables(_primaryPin, HIGH, false, _portNumber);
   buzzer.             setVariables(_primaryPin);
   touchSensor.        setVariables(_primaryPin, HIGH, "touchSensor");
-  singleColorLED.     setVariables(_primaryPin);
-  relay.              setVariables(_primaryPin);
+  singleColorLED.     setVariables(_primaryPin, "single LED");
+  relay.              setVariables(_primaryPin, "relay");
   knob.               setVariables(_primaryPin, "knob");
   temperatureSensor.  setVariables(_primaryPin, "temperatureSensor");
   slider.             setVariables(_primaryPin, "slider");
@@ -54,7 +75,7 @@ void port::setVariables(int primaryPin, int secondaryPin, int portNumber) {
   mic.                setVariables(_primaryPin);
   sonicSensor.        setVariables(_primaryPin);
   IR.                 setVariables(_secondaryPin);
-  electromagnet.      setVariables(_primaryPin);
+  electromagnet.      setVariables(_primaryPin, "electromagnet");
 }
 
 void led::setup() {
@@ -166,8 +187,7 @@ int LightSensor::reading() {
   return _read();
 }
 void LightSensor::print() {
-  Serial.print("Light Sensor Reading: ");
-  Serial.println(reading());
+  printer("lightSensor", reading());
 }
 void LightSensor::_setupHardware() {
   pinMode(_pin,INPUT);
@@ -206,8 +226,7 @@ float TemperatureSensor::reading() {
   return _read();
 }
 void TemperatureSensor::print() {
-  Serial.print("Temperature Sensor Reading: ");
-  Serial.println(reading());
+  printer("tempereSensor", reading());
 }
 
 void Button::setVariables(int pin, bool readingMeaningButtonIsDown, bool needsPullup, int portNumber ) {
@@ -234,6 +253,7 @@ bool Button::isUp() {
     return ! isDown();
 }
 void Button::print() {
+  // specialized print function for buttons
   Serial.print("The button");
   if ( _portNumber != 0) {
     Serial.print(" connected to port");
@@ -340,28 +360,17 @@ bool DigitalInput::isOff(){
   return ! isOn();
 }
 void DigitalInput::print() {
-  Serial.print("The ");
-  Serial.print(_componentName);
-  Serial.print(" state is: ");
-  Serial.println(isOn());
-  if ( isOn() ) {
-    Serial.print("The ");
-    Serial.print(_componentName);
-    Serial.println(" is on.");
-  } else {
-    Serial.print("The ");
-    Serial.print(_componentName);
-    Serial.println(" is off.");
-  }
+  printer(_componentName, isOn());
 }
 void DigitalInput::_setupHardware() {
   pinMode(_pin, INPUT);
   _hardwareSetupComplete = true;
 }
 
-void DigitalOutput::setVariables(int pin) {
+void DigitalOutput::setVariables(int pin, String name) {
   _pin = pin;
   _hardwareSetupComplete = false;
+  _componentName = name;
 }
 void DigitalOutput::turnOn() {
   if ( ! _hardwareSetupComplete ) {
@@ -382,6 +391,9 @@ bool DigitalOutput::isOn() {
 }
 bool DigitalOutput::isOff() {
   return ! _stateIsOn;
+}
+void DigitalOutput::print() {
+  printer(_componentName, isOn());
 }
 void DigitalOutput::_setupHardware() {
   pinMode(_pin, OUTPUT);
@@ -405,10 +417,7 @@ int AnalogInput::reading() {
   return _value;
 }
 void AnalogInput::print() {
-  Serial.print("The ");
-  Serial.print(_componentName);
-  Serial.print(" reading is: ");
-  Serial.println(reading());
+  printer(_componentName, reading());
 }
 void AnalogInput::_setupHardware() {
   pinMode(_pin,INPUT);
