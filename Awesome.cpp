@@ -39,9 +39,8 @@ void printer(String componentName, bool value) {
 Awesome::Awesome() {
   // do setup for all core board components
   LED.                setup();
-  lightSensor.        setVariables(lightSensorPin);
-  knob.               setVariables(knobPin, "knob");
-  temperatureSensor.  setup(tempSensorPin);
+  lightSensor.        setVariables(lightSensorPin, "lightSensor", 0);
+  knob.               setVariables(knobPin, "knob", 0);
   button.             setVariables(buttonPin, LOW, true, 0);
   toggleSwitch.       setVariables(switchOnPin, LOW, "toggleSwitch", true);
   buzzer.             setVariables(buzzerPin);
@@ -56,21 +55,21 @@ void Awesome::setup(int baudRate) {
 
 port::port() {
 }
-void port::setVariables(int primaryPin, int secondaryPin, int portNumber) {
+void port::setVariables(int primaryPin, int secondaryPin, uint8_t portNumber) {
   // set port pins
   _primaryPin = primaryPin;
   _secondaryPin = secondaryPin;
   _portNumber = portNumber;
   // set add-on pins
-  lightSensor.        setVariables(_primaryPin,  "temperatureSensor");
+  lightSensor.        setVariables(_primaryPin,  "lightSensor", _portNumber);
   button.             setVariables(_primaryPin, HIGH, false, _portNumber);
   buzzer.             setVariables(_primaryPin);
   touchSensor.        setVariables(_primaryPin, HIGH, "touchSensor");
   singleColorLED.     setVariables(_primaryPin, "single LED");
   relay.              setVariables(_primaryPin, "relay");
-  knob.               setVariables(_primaryPin, "knob");
-  temperatureSensor.  setVariables(_primaryPin, "temperatureSensor");
-  slider.             setVariables(_primaryPin, "slider");
+  knob.               setVariables(_primaryPin, "knob", _portNumber);
+  temperatureSensor.  setVariables(_primaryPin, "temperatureSensor", _portNumber);
+  slider.             setVariables(_primaryPin, "slider", _portNumber);
   servo.              setVariables(_primaryPin);
   mic.                setVariables(_primaryPin);
   sonicSensor.        setVariables(_primaryPin);
@@ -176,8 +175,9 @@ bool led::isOff() {
   return ! isOn();
 }
 
-void LightSensor::setVariables(int pin) {
+void LightSensor::setVariables(int pin, String componentName, uint8_t port) {
   _pin = pin;
+  _port = port;
   _hardwareSetupComplete = false;
 }
 int LightSensor::reading() {
@@ -400,8 +400,9 @@ void DigitalOutput::_setupHardware() {
   _hardwareSetupComplete = true;
 }
 
-void AnalogInput::setVariables(int pin, String componentName) {
+void AnalogInput::setVariables(int pin, String componentName, uint8_t portNumber) {
   _pin = pin;
+  _portNumber = portNumber;
   _hardwareSetupComplete = false;
   _componentName = componentName;
 }

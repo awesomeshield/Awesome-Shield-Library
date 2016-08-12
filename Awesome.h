@@ -25,7 +25,6 @@
 #define buttonPin           2   // io digital
 #define switchOnPin         8   // io digital
 #define lightSensorPin      A1
-#define tempSensorPin       A2
 #define knobPin             A3
 #define port1PrimaryPin     A5  // primary (outside) pin
 #define port1SecondaryPin   A4
@@ -68,11 +67,13 @@ class led {
 
 class LightSensor {
   public:
-    void setVariables(int pin);
+    void setVariables(int pin, String componentName, uint8_t port);
     int reading();
     void print();
   private:
     int _pin;
+    uint8_t _port;
+    String _componentName;
     bool _hardwareSetupComplete;
     void _setupHardware();
     int _read();
@@ -154,11 +155,12 @@ class DigitalOutput {
 
 class AnalogInput {
   public:
-    void setVariables(int pin, String componentName);
+    void setVariables(int pin, String componentName, uint8_t portNumber);
     int reading();
     void print();
   private:
     int _pin;
+    uint8_t _portNumber;
     int _value;
     bool _hardwareSetupComplete;
     void _setupHardware();
@@ -173,6 +175,7 @@ class AnalogOutput {
     void print();
   private:
     int _pin;
+    uint8_t _portNumber;
     int _currentSetting;
     bool _hardwareSetupComplete;
     void _setupHardware();
@@ -245,11 +248,11 @@ class port {
     // groveLCD LCD;
     IRProximitySensor IR;
     DigitalOutput electromagnet;
-    void setVariables(int primaryPin, int secondaryPin, int portNumber);
+    void setVariables(int primaryPin, int secondaryPin, uint8_t portNumber);
   private:
     int _primaryPin;
     int _secondaryPin;
-    int _portNumber;
+    uint8_t _portNumber;
 };
 
 class Awesome {
@@ -261,7 +264,6 @@ class Awesome {
     // inputs
     LightSensor lightSensor;
     AnalogInput knob;
-    TemperatureSensor temperatureSensor;
     Button button;
     DigitalInput toggleSwitch;
     // ports
