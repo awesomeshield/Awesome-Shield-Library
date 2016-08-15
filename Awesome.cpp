@@ -273,15 +273,6 @@ bool Buzzer::isOn() {
 bool Buzzer::isOff() {
   return ! _stateIsOn;
 }
-void Buzzer::beep(unsigned long millis, unsigned int frequency) {
-  if ( _silent ) {
-    return;
-  } else {
-    turnOn(frequency);
-    delay(millis);
-    turnOff();
-  }
-}
 void Buzzer::setSilentMode(bool newState) {
   _silent = newState;
   if ( _silent ) {
