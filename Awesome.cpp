@@ -75,6 +75,7 @@ void port::setVariables(int primaryPin, int secondaryPin, uint8_t portNumber) {
   sonicSensor.        setVariables(_primaryPin, _portNumber, "sonicSensor");
   IR.                 setVariables(_secondaryPin, _portNumber, "IR");
   electromagnet.      setVariables(_primaryPin, _portNumber, "electromagnet");
+  fourDigitDisplay.   setVariables(_primaryPin, _secondaryPin, _portNumber, "4DigitDisplay");
 }
 
 void led::setup() {
@@ -498,4 +499,40 @@ int IRProximitySensor::reading() {
     _setupHardware();
   }
   return analogRead(_pin);
+}
+
+void FourDigitDisplay::setVariables(PIN_T clockPin, PIN_T dataPin, uint8_t portNumber, String componentName) {
+  _clockPin = clockPin;
+  _dataPin = dataPin;
+  _portNumber = portNumber;
+  _hardwareSetupComplete = false;
+  _componentName = componentName;
+}
+void FourDigitDisplay::display(int value) {
+  if ( ! _hardwareSetupComplete ) {
+    _setupHardware();
+  }
+  if ( value > 9998 )
+  {
+    // display all 9s
+    _disp.display(0, 9);
+    _disp.display(1, 9);
+    _disp.display(2, 9);
+    _disp.display(3, 9);
+  }
+  else
+  {
+    int dig1 = value / 1000;
+    int dig2 = value % 1000 / 100;
+    int dig3 = value % 100 / 10;
+    int dig4 = value % 10;
+
+    _disp.display(0, dig1);
+    _disp.display(1, dig2);
+    _disp.display(2, dig3);
+    _disp.display(3, dig4);
+  }
+}
+void FourDigitDisplay::_setupHardware() {
+  _disp.begin(_dataPin, _clockPin);
 }

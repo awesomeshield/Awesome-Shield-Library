@@ -12,7 +12,9 @@
 #include "Wire.h"
 //#include "rgb_lcd.h"
 #include <Servo.h>
-#include <Adafruit_NeoPixel.h>
+#include <Adafruit_NeoPixel.h> // on-board LED
+#include <Four_Digit_Display.h> // Grove 4-digit diplay
+#include <Four_Digit_Display_Arduino.h> // Grove 4-digit display
 
 //Neopixel setup
 #ifdef __AVR__
@@ -232,6 +234,20 @@ class IRProximitySensor {
     String _componentName;
 };
 
+class FourDigitDisplay {
+  public:
+    void setVariables(PIN_T _clockPin, PIN_T _dataPin, uint8_t portNumber, String componentName);
+    void display(int value);
+  private:
+    Four_Digit_Display_Arduino _disp;
+    PIN_T _clockPin;
+    PIN_T _dataPin;
+    uint8_t _portNumber;
+    void _setupHardware();
+    bool _hardwareSetupComplete;
+    String _componentName;
+};
+
 class port {
   public:
     port();
@@ -250,6 +266,7 @@ class port {
     // groveLCD LCD;
     IRProximitySensor IR;
     DigitalOutput electromagnet;
+    FourDigitDisplay fourDigitDisplay;
     void setVariables(int primaryPin, int secondaryPin, uint8_t portNumber);
   private:
     int _primaryPin;
