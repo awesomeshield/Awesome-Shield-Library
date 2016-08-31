@@ -240,8 +240,8 @@ class FourDigitDisplay {
     void display(int value);
   private:
     Four_Digit_Display_Arduino _disp;
-    PIN_T _clockPin;
-    PIN_T _dataPin;
+    PIN_T _clockPin;  // special datatype used by SULI
+    PIN_T _dataPin;   // special datatype used by SULI
     uint8_t _portNumber;
     void _setupHardware();
     bool _hardwareSetupComplete;
@@ -267,6 +267,7 @@ class port {
     IRProximitySensor IR;
     DigitalOutput electromagnet;
     FourDigitDisplay fourDigitDisplay;
+    DigitalInput IRMotionSensor;
     void setVariables(int primaryPin, int secondaryPin, uint8_t portNumber);
   private:
     int _primaryPin;
