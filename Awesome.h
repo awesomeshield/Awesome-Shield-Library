@@ -268,6 +268,7 @@ class port {
     DigitalOutput electromagnet;
     FourDigitDisplay fourDigitDisplay;
     DigitalInput IRMotionSensor;
+    AnalogInput UVSensor;
     void setVariables(int primaryPin, int secondaryPin, uint8_t portNumber);
   private:
     int _primaryPin;

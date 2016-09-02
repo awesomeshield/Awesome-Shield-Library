@@ -77,6 +77,7 @@ void port::setVariables(int primaryPin, int secondaryPin, uint8_t portNumber) {
   electromagnet.      setVariables(_primaryPin, _portNumber, "electromagnet");
   fourDigitDisplay.   setVariables(_primaryPin, _secondaryPin, _portNumber, "4DigitDisplay");
   IRMotionSensor.     setVariables(_primaryPin, _portNumber, "IRMotionSensor", HIGH);
+  UVSensor.           setVariables(_primaryPin, _portNumber, "UVSensor");
 }
 
 void led::setup() {

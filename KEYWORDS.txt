@@ -53,6 +53,7 @@ IR	LITERAL1
 electromagnet	LITERAL1
 fourDigitDisplay	LITERAL1
 IRMotionSensor	LITERAL1
+UVSensor	LITERAL1
 
 #######################################
 # Constants (LITERAL1)
