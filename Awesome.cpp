@@ -65,7 +65,7 @@ void port::setVariables(int primaryPin, int secondaryPin, uint8_t portNumber) {
   button.             setVariables(_primaryPin, _portNumber, "button", HIGH, false);
   buzzer.             setVariables(_primaryPin, _portNumber, "buzzer");
   touchSensor.        setVariables(_primaryPin, _portNumber, "touchSensor", HIGH);
-  singleColorLED.     setVariables(_primaryPin, _portNumber, "single LED");
+  singleColorLED.     setVariables(_primaryPin, _portNumber, "singleColorLED");
   relay.              setVariables(_primaryPin, _portNumber, "relay");
   knob.               setVariables(_primaryPin, _portNumber, "knob");
   temperatureSensor.  setVariables(_primaryPin, _portNumber, "temperatureSensor");
@@ -78,6 +78,7 @@ void port::setVariables(int primaryPin, int secondaryPin, uint8_t portNumber) {
   fourDigitDisplay.   setVariables(_primaryPin, _secondaryPin, _portNumber, "4DigitDisplay");
   IRMotionSensor.     setVariables(_primaryPin, _portNumber, "IRMotionSensor", HIGH);
   UVSensor.           setVariables(_primaryPin, _portNumber, "UVSensor");
+  LEDString.          setVariables(_primaryPin, _portNumber, "LEDString");
 }
 
 void led::setup() {

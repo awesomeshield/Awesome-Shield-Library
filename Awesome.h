@@ -269,6 +269,7 @@ class port {
     FourDigitDisplay fourDigitDisplay;
     DigitalInput IRMotionSensor;
     AnalogInput UVSensor;
+    DigitalOutput LEDString;
     void setVariables(int primaryPin, int secondaryPin, uint8_t portNumber);
   private:
     int _primaryPin;

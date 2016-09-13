@@ -31,6 +31,7 @@ print	KEYWORD2
 # first main board components
 # then add on components
 #######################################
+awesome	LITERAL1
 LED	LITERAL1
 buzzer	LITERAL1
 lightSensor	LITERAL1
@@ -54,6 +55,7 @@ electromagnet	LITERAL1
 fourDigitDisplay	LITERAL1
 IRMotionSensor	LITERAL1
 UVSensor	LITERAL1
+LEDString	LITERAL1
 
 #######################################
 # Constants (LITERAL1)
