@@ -69,13 +69,12 @@ class led {
 
 class LightSensor {
   public:
-    void setVariables(int pin, uint8_t port, String componentName);
+    void setVariables(int pin, uint8_t port);
     int reading();
     void print();
   private:
     int _pin;
     uint8_t _port;
-    String _componentName;
     bool _hardwareSetupComplete;
     void _setupHardware();
     int _read();
@@ -83,7 +82,7 @@ class LightSensor {
 
 class Button {
   public:
-    void setVariables(int pin, int portNumber, String componentName, bool readingMeaningButtonIsDown, bool needsPullup = false);
+    void setVariables(int pin, int portNumber, bool readingMeaningButtonIsDown, bool needsPullup = false);
     bool isDown();
     bool isUp();
     void print();
@@ -95,12 +94,11 @@ class Button {
     bool _hardwareSetupComplete;
     void _setupHardware();
     void _setupPullup();
-    String _componentName;
 };
 
 class Buzzer {
   public:
-    void setVariables(int pin, uint8_t portNumber, String componentName);
+    void setVariables(int pin, uint8_t portNumber);
     void turnOn(unsigned int frequency = 400);
     void turnOff();
     bool isOn();
@@ -113,7 +111,6 @@ class Buzzer {
     bool _stateIsOn;
     bool _hardwareSetupComplete;
     void _setupHardware();
-    String _componentName;
 };
 
 class DigitalInput {
@@ -180,7 +177,7 @@ class AnalogOutput {
 
 class SERVO {
   public:
-    void setVariables(int pin, uint8_t portNumber, String componentName);
+    void setVariables(int pin, uint8_t portNumber);
     void setPosition(int position);
     Servo _servo;
   private:
@@ -188,7 +185,6 @@ class SERVO {
     uint8_t _portNumber;
     bool _hardwareSetupComplete;
     void _setupHardware();
-    String _componentName;
 };
 
 // class groveLCD {
@@ -202,41 +198,38 @@ class SERVO {
 
 class electretMic {
   public:
-    void setVariables(int pin, uint8_t portNumber, String componentName);
+    void setVariables(int pin, uint8_t portNumber);
     int reading();
   private:
     int _pin;
     uint8_t _portNumber;
     bool _hardwareSetupComplete;
     void _setupHardware();
-    String _componentName;
 };
 
 class UltrasonicRanger {
   public:
-    void setVariables(int pin, uint8_t portNumber, String componentName);
+    void setVariables(int pin, uint8_t portNumber);
     int reading();
   private:
     int _pin;
     uint8_t _portNumber;
-    String _componentName;
 };
 
 class IRProximitySensor {
   public:
-    void setVariables(int pin, uint8_t portNumber, String componentName);
+    void setVariables(int pin, uint8_t portNumber);
     int reading();
   private:
     int _pin;
     uint8_t _portNumber;
     bool _hardwareSetupComplete;
     void _setupHardware();
-    String _componentName;
 };
 
 class FourDigitDisplay {
   public:
-    void setVariables(PIN_T _clockPin, PIN_T _dataPin, uint8_t portNumber, String componentName);
+    void setVariables(PIN_T _clockPin, PIN_T _dataPin, uint8_t portNumber);
     void display(int value);
   private:
     Four_Digit_Display_Arduino _disp;
@@ -245,7 +238,6 @@ class FourDigitDisplay {
     uint8_t _portNumber;
     void _setupHardware();
     bool _hardwareSetupComplete;
-    String _componentName;
 };
 
 class port {

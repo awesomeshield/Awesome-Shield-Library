@@ -13,25 +13,46 @@
 #include <Servo.h>
 #include <Adafruit_NeoPixel.h>
 
-void printer(String componentName, int value) {
-  Serial.print("The ");
+const char STRINGS_CONNECTED_TO_PORT[] PROGMEM = " ";
+const char STRINGS_THE[] PROGMEM = "The ";
+const char STRINGS_READING_IS[] PROGMEM = " reading is ";
+
+const char STRINGS_COMPNAME_KNOB[] PROGMEM = "knob";
+const char STRINGS_COMPNAME_TOGGLESWITCH[] PROGMEM = "toggleSwitch";
+const char STRINGS_COMPNAME_BUTTON[] PROGMEM = "button";
+const char STRINGS_COMPNAME_LIGHTSENSOR[] PROGMEM = "lightSensor";
+
+void printer(String componentName, int value, int port = 0) {
+  Serial.print(STRINGS_THE);
   Serial.print(componentName);
-  Serial.print(" reading is ");
+  if ( port != 0) {
+    Serial.print(STRINGS_CONNECTED_TO_PORT);
+    Serial.print(port);
+  }
+  Serial.print(STRINGS_READING_IS);
   Serial.println(value);
 }
-void printer(String componentName, float value) {
-  Serial.print("The ");
+void printer(String componentName, float value, int port = 0) {
+  Serial.print(STRINGS_THE);
   Serial.print(componentName);
-  Serial.print(" reading is ");
+  if ( port != 0) {
+    Serial.print(STRINGS_CONNECTED_TO_PORT);
+    Serial.print(port);
+  }
+  Serial.print(STRINGS_READING_IS);
   Serial.println(value);
 }
-void printer(String componentName, bool value) {
-  Serial.print("The ");
+void printer(String componentName, bool value, int port = 0) {
+  Serial.print(STRINGS_THE);
   Serial.print(componentName);
+  if ( port != 0) {
+    Serial.print(STRINGS_CONNECTED_TO_PORT);
+    Serial.print(port);
+  }
   if ( value == true) {
-    Serial.println(" is on.");
+    Serial.println(F(" is on."));
   } else {
-    Serial.println(" is off.");
+    Serial.println(F(" is off."));
   }
 }
 
@@ -39,11 +60,11 @@ void printer(String componentName, bool value) {
 Awesome::Awesome() {
   // do setup for all core board components
   LED.                setup();
-  lightSensor.        setVariables(lightSensorPin, 0, "lightSensor");
-  knob.               setVariables(knobPin, 0, "knob");
-  button.             setVariables(buttonPin, 0, "button", LOW, true);
-  toggleSwitch.       setVariables(switchOnPin, 0, "toggleSwitch", LOW, true);
-  buzzer.             setVariables(buzzerPin, 0, "buzzer");
+  lightSensor.        setVariables(lightSensorPin, 0);
+  knob.               setVariables(knobPin, 0, STRINGS_COMPNAME_KNOB);
+  button.             setVariables(buttonPin, 0, LOW, true);
+  toggleSwitch.       setVariables(switchOnPin, 0, STRINGS_COMPNAME_TOGGLESWITCH, LOW, true);
+  buzzer.             setVariables(buzzerPin, 0);
   port1.              setVariables(port1PrimaryPin, port1SecondaryPin, 1);
   port2.              setVariables(port2PrimaryPin, port2SecondaryPin, 2);
   port3.              setVariables(port3PrimaryPin, port3SecondaryPin, 3);
@@ -61,24 +82,24 @@ void port::setVariables(int primaryPin, int secondaryPin, uint8_t portNumber) {
   _secondaryPin = secondaryPin;
   _portNumber = portNumber;
   // set add-on pins
-  lightSensor.        setVariables(_primaryPin, _portNumber, "lightSensor");
-  button.             setVariables(_primaryPin, _portNumber, "button", HIGH, false);
-  buzzer.             setVariables(_primaryPin, _portNumber, "buzzer");
-  touchSensor.        setVariables(_primaryPin, _portNumber, "touchSensor", HIGH);
-  singleColorLED.     setVariables(_primaryPin, _portNumber, "singleColorLED");
-  relay.              setVariables(_primaryPin, _portNumber, "relay");
-  knob.               setVariables(_primaryPin, _portNumber, "knob");
-  temperatureSensor.  setVariables(_primaryPin, _portNumber, "temperatureSensor");
-  slider.             setVariables(_primaryPin, _portNumber, "slider");
-  servo.              setVariables(_primaryPin, _portNumber, "servo");
-  mic.                setVariables(_primaryPin, _portNumber, "mic");
-  sonicSensor.        setVariables(_primaryPin, _portNumber, "sonicSensor");
-  IR.                 setVariables(_secondaryPin, _portNumber, "IR");
-  electromagnet.      setVariables(_primaryPin, _portNumber, "electromagnet");
-  fourDigitDisplay.   setVariables(_primaryPin, _secondaryPin, _portNumber, "4DigitDisplay");
-  IRMotionSensor.     setVariables(_primaryPin, _portNumber, "IRMotionSensor", HIGH);
-  UVSensor.           setVariables(_primaryPin, _portNumber, "UVSensor");
-  LEDString.          setVariables(_primaryPin, _portNumber, "LEDString");
+  lightSensor.        setVariables(_primaryPin, _portNumber, STRINGS_COMPNAME_LIGHTSENSOR); // TODO: Why is this analog input not light sensor class?
+  button.             setVariables(_primaryPin, _portNumber, HIGH, false);
+  buzzer.             setVariables(_primaryPin, _portNumber);
+  touchSensor.        setVariables(_primaryPin, _portNumber, F("touchSensor"), HIGH);
+  singleColorLED.     setVariables(_primaryPin, _portNumber, F("singleColorLED"));
+  relay.              setVariables(_primaryPin, _portNumber, F("relay"));
+  knob.               setVariables(_primaryPin, _portNumber, STRINGS_COMPNAME_KNOB);
+  temperatureSensor.  setVariables(_primaryPin, _portNumber, F("temperatureSensor"));
+  slider.             setVariables(_primaryPin, _portNumber, F("slider"));
+  servo.              setVariables(_primaryPin, _portNumber);
+  mic.                setVariables(_primaryPin, _portNumber);
+  sonicSensor.        setVariables(_primaryPin, _portNumber);
+  IR.                 setVariables(_secondaryPin, _portNumber);
+  electromagnet.      setVariables(_primaryPin, _portNumber, F("electromagnet"));
+  fourDigitDisplay.   setVariables(_primaryPin, _secondaryPin, _portNumber);
+  IRMotionSensor.     setVariables(_primaryPin, _portNumber, F("IRMotionSensor"), HIGH);
+  UVSensor.           setVariables(_primaryPin, _portNumber, F("UVSensor"));
+  LEDString.          setVariables(_primaryPin, _portNumber, F("LEDString"));
 }
 
 void led::setup() {
@@ -128,7 +149,7 @@ void led::turnOn(int color) {
       _blueSetting = 255;
       break;
     default:
-      Serial.println("Invalid input to LED.turnOn()");
+      Serial.println(F("Invalid input to LED.turnOn()"));
   }
   _update();
 }
@@ -156,7 +177,7 @@ void led::turnOff(int color) {
       _blueSetting= 0;
       break;
     default:
-      Serial.println("Invalid input to LED.turnOff()");
+      Serial.println(F("Invalid input to LED.turnOff()"));
   }
   _update();
 }
@@ -171,7 +192,7 @@ bool led::isOff() {
   return ! isOn();
 }
 
-void LightSensor::setVariables(int pin, uint8_t port, String componentName) {
+void LightSensor::setVariables(int pin, uint8_t port) {
   _pin = pin;
   _port = port;
   _hardwareSetupComplete = false;
@@ -183,7 +204,7 @@ int LightSensor::reading() {
   return _read();
 }
 void LightSensor::print() {
-  printer("lightSensor", reading());
+  printer(STRINGS_COMPNAME_LIGHTSENSOR, reading());
 }
 void LightSensor::_setupHardware() {
   pinMode(_pin,INPUT);
@@ -193,9 +214,8 @@ int LightSensor::_read() {
   return analogRead(_pin);
 }
 
-void Button::setVariables(int pin, int portNumber, String componentName, bool readingMeaningButtonIsDown, bool needsPullup) {
+void Button::setVariables(int pin, int portNumber, bool readingMeaningButtonIsDown, bool needsPullup) {
   _pin = pin;
-  _componentName = componentName;
   _readingMeaningButtonIsDown = readingMeaningButtonIsDown;
   _needsPullup = needsPullup;
   _hardwareSetupComplete = false;
@@ -219,16 +239,7 @@ bool Button::isUp() {
 }
 void Button::print() {
   // specialized print function for buttons
-  Serial.print("The button");
-  if ( _portNumber != 0) {
-    Serial.print(" connected to port");
-    Serial.print(_portNumber);
-  }
-  if ( isUp() ) {
-    Serial.println(" is up.");
-  } else {
-    Serial.println(" is down.");
-  }
+  printer(STRINGS_COMPNAME_BUTTON, isUp(), _portNumber);
 }
 void Button::_setupHardware() {
   pinMode(_pin, INPUT);
@@ -240,9 +251,8 @@ void Button::_setupPullup() {
   pinMode(_pin,INPUT);
 }
 
-void Buzzer::setVariables(int pin, uint8_t portNumber, String componentName) {
+void Buzzer::setVariables(int pin, uint8_t portNumber) {
   _pin = pin;
-  _componentName = componentName;
   _portNumber = portNumber;
   _silent = false;
   bool _hardwareSetupComplete = false;
@@ -406,10 +416,9 @@ void AnalogOutput::_setupHardware() {
   _hardwareSetupComplete = true;
 }
 
-void SERVO::setVariables(int pin, uint8_t portNumber, String componentName){
+void SERVO::setVariables(int pin, uint8_t portNumber){
   _pin = pin;
   _portNumber = portNumber;
-  _componentName = componentName;
   _hardwareSetupComplete = false;
 }
 void SERVO::setPosition(int position) {
@@ -423,10 +432,9 @@ void SERVO::_setupHardware() {
   _hardwareSetupComplete = true;
 }
 
-void electretMic::setVariables(int pin, uint8_t portNumber, String componentName) {
+void electretMic::setVariables(int pin, uint8_t portNumber) {
   _pin = pin;
   _portNumber = portNumber;
-  _componentName = componentName;
   _hardwareSetupComplete = false;
 }
 int electretMic::reading() {
@@ -456,10 +464,9 @@ void electretMic::_setupHardware() {
   _hardwareSetupComplete = true;
 }
 
-void UltrasonicRanger::setVariables(int pin, uint8_t portNumber, String componentName) {
+void UltrasonicRanger::setVariables(int pin, uint8_t portNumber) {
   _pin = pin;
   _portNumber = portNumber;
-  _componentName = componentName;
 }
 int UltrasonicRanger::reading() {
   // send a request for data
@@ -479,10 +486,9 @@ int UltrasonicRanger::reading() {
 	return range;
 }
 
-void IRProximitySensor::setVariables(int pin, uint8_t portNumber, String componentName) {
+void IRProximitySensor::setVariables(int pin, uint8_t portNumber) {
   _pin = pin;
   _portNumber = portNumber;
-  _componentName = componentName;
   _hardwareSetupComplete = false;
 }
 void IRProximitySensor::_setupHardware() {
@@ -496,12 +502,11 @@ int IRProximitySensor::reading() {
   return analogRead(_pin);
 }
 
-void FourDigitDisplay::setVariables(PIN_T clockPin, PIN_T dataPin, uint8_t portNumber, String componentName) {
+void FourDigitDisplay::setVariables(PIN_T clockPin, PIN_T dataPin, uint8_t portNumber) {
   _clockPin = clockPin;
   _dataPin = dataPin;
   _portNumber = portNumber;
   _hardwareSetupComplete = false;
-  _componentName = componentName;
 }
 void FourDigitDisplay::display(int value) {
   if ( ! _hardwareSetupComplete ) {
