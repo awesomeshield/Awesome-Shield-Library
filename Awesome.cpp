@@ -5,13 +5,9 @@
 */
 
 // include other libraries
-#include "Arduino.h"
 #include "Awesome.h"
-#include "Wire.h"
-//#include "rgb_lcd.h"
 #include <avr/pgmspace.h>
-#include <Servo.h>
-#include <Adafruit_NeoPixel.h>
+//#include "rgb_lcd.h"
 
 const char STRINGS_CONNECTED_TO_PORT[] PROGMEM = " ";
 const char STRINGS_THE[] PROGMEM = "The ";
