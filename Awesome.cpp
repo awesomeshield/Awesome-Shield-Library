@@ -18,7 +18,7 @@ const char STRINGS_COMPNAME_TOGGLESWITCH[] PROGMEM = "toggleSwitch";
 const char STRINGS_COMPNAME_BUTTON[] PROGMEM = "button";
 const char STRINGS_COMPNAME_LIGHTSENSOR[] PROGMEM = "lightSensor";
 
-void printer(String componentName, int value, int port = 0) {
+void printer(String componentName, int value, uint8_t port = 0) {
   Serial.print(STRINGS_THE);
   Serial.print(componentName);
   if ( port != 0) {
@@ -28,7 +28,7 @@ void printer(String componentName, int value, int port = 0) {
   Serial.print(STRINGS_READING_IS);
   Serial.println(value);
 }
-void printer(String componentName, float value, int port = 0) {
+void printer(String componentName, float value, uint8_t port = 0) {
   Serial.print(STRINGS_THE);
   Serial.print(componentName);
   if ( port != 0) {
@@ -38,7 +38,7 @@ void printer(String componentName, float value, int port = 0) {
   Serial.print(STRINGS_READING_IS);
   Serial.println(value);
 }
-void printer(String componentName, bool value, int port = 0) {
+void printer(String componentName, bool value, uint8_t port = 0) {
   Serial.print(STRINGS_THE);
   Serial.print(componentName);
   if ( port != 0) {
@@ -72,7 +72,7 @@ void Awesome::setup(int baudRate) {
 
 port::port() {
 }
-void port::setVariables(int primaryPin, int secondaryPin, uint8_t portNumber) {
+void port::setVariables(uint8_t primaryPin, uint8_t secondaryPin, uint8_t portNumber) {
   // set port pins
   _primaryPin = primaryPin;
   _secondaryPin = secondaryPin;
@@ -188,7 +188,7 @@ bool led::isOff() {
   return ! isOn();
 }
 
-void LightSensor::setVariables(int pin, uint8_t port) {
+void LightSensor::setVariables(uint8_t pin, uint8_t port) {
   _pin = pin;
   _port = port;
   _hardwareSetupComplete = false;
@@ -210,7 +210,7 @@ int LightSensor::_read() {
   return analogRead(_pin);
 }
 
-void Button::setVariables(int pin, int portNumber, bool readingMeaningButtonIsDown, bool needsPullup) {
+void Button::setVariables(uint8_t pin, uint8_t portNumber, bool readingMeaningButtonIsDown, bool needsPullup) {
   _pin = pin;
   _readingMeaningButtonIsDown = readingMeaningButtonIsDown;
   _needsPullup = needsPullup;
@@ -247,7 +247,7 @@ void Button::_setupPullup() {
   pinMode(_pin,INPUT);
 }
 
-void Buzzer::setVariables(int pin, uint8_t portNumber) {
+void Buzzer::setVariables(uint8_t pin, uint8_t portNumber) {
   _pin = pin;
   _portNumber = portNumber;
   _silent = false;
@@ -298,7 +298,7 @@ void Buzzer::_setupHardware() {
 //   _lcd.print(message);
 // }
 
-void DigitalInput::setVariables(int pin, uint8_t portNumber, String componentName, bool stateThatMeansIsOn, bool needsPullup){
+void DigitalInput::setVariables(uint8_t pin, uint8_t portNumber, String componentName, bool stateThatMeansIsOn, bool needsPullup){
   _pin = pin;
   _portNumber = portNumber;
   _stateThatMeansIsOn = stateThatMeansIsOn;
@@ -332,7 +332,7 @@ void DigitalInput::_setupHardware() {
   _hardwareSetupComplete = true;
 }
 
-void DigitalOutput::setVariables(int pin, uint8_t portNumber, String componentName) {
+void DigitalOutput::setVariables(uint8_t pin, uint8_t portNumber, String componentName) {
   _pin = pin;
   _portNumber = portNumber;
   _hardwareSetupComplete = false;
@@ -366,7 +366,7 @@ void DigitalOutput::_setupHardware() {
   _hardwareSetupComplete = true;
 }
 
-void AnalogInput::setVariables(int pin, uint8_t portNumber, String componentName) {
+void AnalogInput::setVariables(uint8_t pin, uint8_t portNumber, String componentName) {
   _pin = pin;
   _portNumber = portNumber;
   _hardwareSetupComplete = false;
@@ -391,7 +391,7 @@ void AnalogInput::_setupHardware() {
   _hardwareSetupComplete = true;
 }
 
-void AnalogOutput::setVariables(int pin, uint8_t portNumber, String componentName) {
+void AnalogOutput::setVariables(uint8_t pin, uint8_t portNumber, String componentName) {
   _pin = pin;
   _componentName = componentName;
   _portNumber = portNumber;
@@ -412,7 +412,7 @@ void AnalogOutput::_setupHardware() {
   _hardwareSetupComplete = true;
 }
 
-void SERVO::setVariables(int pin, uint8_t portNumber){
+void SERVO::setVariables(uint8_t pin, uint8_t portNumber){
   _pin = pin;
   _portNumber = portNumber;
   _hardwareSetupComplete = false;
@@ -428,7 +428,7 @@ void SERVO::_setupHardware() {
   _hardwareSetupComplete = true;
 }
 
-void electretMic::setVariables(int pin, uint8_t portNumber) {
+void electretMic::setVariables(uint8_t pin, uint8_t portNumber) {
   _pin = pin;
   _portNumber = portNumber;
   _hardwareSetupComplete = false;
@@ -460,7 +460,7 @@ void electretMic::_setupHardware() {
   _hardwareSetupComplete = true;
 }
 
-void UltrasonicRanger::setVariables(int pin, uint8_t portNumber) {
+void UltrasonicRanger::setVariables(uint8_t pin, uint8_t portNumber) {
   _pin = pin;
   _portNumber = portNumber;
 }
@@ -482,7 +482,7 @@ int UltrasonicRanger::reading() {
 	return range;
 }
 
-void IRProximitySensor::setVariables(int pin, uint8_t portNumber) {
+void IRProximitySensor::setVariables(uint8_t pin, uint8_t portNumber) {
   _pin = pin;
   _portNumber = portNumber;
   _hardwareSetupComplete = false;

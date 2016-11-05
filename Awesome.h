@@ -61,19 +61,19 @@ class led {
   private:
     Adafruit_NeoPixel _pixel = Adafruit_NeoPixel(numPixels, LEDPin, NEO_GRB + NEO_KHZ800);
     void _update();
-    int _redSetting;
-    int _greenSetting;
-    int _blueSetting;
-    void _setPins (int redPin, int greenPin, int bluePin);
+    uint8_t _redSetting;
+    uint8_t _greenSetting;
+    uint8_t _blueSetting;
+    void _setPins (uint8_t redPin, uint8_t greenPin, uint8_t bluePin);
 };
 
 class LightSensor {
   public:
-    void setVariables(int pin, uint8_t port);
+    void setVariables(uint8_t pin, uint8_t port);
     int reading();
     void print();
   private:
-    int _pin;
+    uint8_t _pin;
     uint8_t _port;
     bool _hardwareSetupComplete;
     void _setupHardware();
@@ -82,13 +82,13 @@ class LightSensor {
 
 class Button {
   public:
-    void setVariables(int pin, int portNumber, bool readingMeaningButtonIsDown, bool needsPullup = false);
+    void setVariables(uint8_t pin, uint8_t portNumber, bool readingMeaningButtonIsDown, bool needsPullup = false);
     bool isDown();
     bool isUp();
     void print();
   private:
-    int _pin;
-    int _portNumber;
+    uint8_t _pin;
+    uint8_t _portNumber;
     bool _readingMeaningButtonIsDown;
     bool _needsPullup;
     bool _hardwareSetupComplete;
@@ -98,14 +98,14 @@ class Button {
 
 class Buzzer {
   public:
-    void setVariables(int pin, uint8_t portNumber);
+    void setVariables(uint8_t pin, uint8_t portNumber);
     void turnOn(unsigned int frequency = 400);
     void turnOff();
     bool isOn();
     bool isOff();
     void setSilentMode(bool newState);
   private:
-    int _pin;
+    uint8_t _pin;
     uint8_t _portNumber;
     bool _silent;
     bool _stateIsOn;
@@ -115,14 +115,14 @@ class Buzzer {
 
 class DigitalInput {
   public:
-    void setVariables(int pin, uint8_t portNumber, String componentName, bool stateThatMeansIsOn, bool needsPullup = false);
+    void setVariables(uint8_t pin, uint8_t portNumber, String componentName, bool stateThatMeansIsOn, bool needsPullup = false);
     bool isOn();
     bool isOff();
     void print();
   private:
-    int _pin;
+    uint8_t _pin;
     uint8_t _portNumber;
-    int _stateThatMeansIsOn; // [ ] make this a bool
+    bool _stateThatMeansIsOn;
     bool _needsPullup;
     bool _hardwareSetupComplete;
     void _setupHardware();
@@ -131,14 +131,14 @@ class DigitalInput {
 
 class DigitalOutput {
   public:
-    void setVariables(int pin, uint8_t portNumber, String componentName);
+    void setVariables(uint8_t pin, uint8_t portNumber, String componentName);
     void turnOn();
     void turnOff();
     bool isOn();
     bool isOff();
     void print();
   private:
-    int _pin;
+    uint8_t _pin;
     uint8_t _portNumber;
     int _stateIsOn; // [ ] make this a bool
     bool _hardwareSetupComplete;
@@ -148,11 +148,11 @@ class DigitalOutput {
 
 class AnalogInput {
   public:
-    void setVariables(int pin, uint8_t portNumber, String componentName);
+    void setVariables(uint8_t pin, uint8_t portNumber, String componentName);
     int reading();
     void print();
   private:
-    int _pin;
+    uint8_t _pin;
     uint8_t _portNumber;
     int _value;
     bool _hardwareSetupComplete;
@@ -162,12 +162,12 @@ class AnalogInput {
 
 class AnalogOutput {
   public:
-    void setVariables(int pin, uint8_t portNumber, String componentName);
+    void setVariables(uint8_t pin, uint8_t portNumber, String componentName);
     void set(int newSetting);
     int setting();
     void print();
   private:
-    int _pin;
+    uint8_t _pin;
     uint8_t _portNumber;
     int _currentSetting;
     bool _hardwareSetupComplete;
@@ -177,11 +177,11 @@ class AnalogOutput {
 
 class SERVO {
   public:
-    void setVariables(int pin, uint8_t portNumber);
+    void setVariables(uint8_t pin, uint8_t portNumber);
     void setPosition(int position);
     Servo _servo;
   private:
-    int _pin;
+    uint8_t _pin;
     uint8_t _portNumber;
     bool _hardwareSetupComplete;
     void _setupHardware();
@@ -198,10 +198,10 @@ class SERVO {
 
 class electretMic {
   public:
-    void setVariables(int pin, uint8_t portNumber);
+    void setVariables(uint8_t pin, uint8_t portNumber);
     int reading();
   private:
-    int _pin;
+    uint8_t _pin;
     uint8_t _portNumber;
     bool _hardwareSetupComplete;
     void _setupHardware();
@@ -209,7 +209,7 @@ class electretMic {
 
 class UltrasonicRanger {
   public:
-    void setVariables(int pin, uint8_t portNumber);
+    void setVariables(uint8_t pin, uint8_t portNumber);
     int reading();
   private:
     int _pin;
@@ -218,10 +218,10 @@ class UltrasonicRanger {
 
 class IRProximitySensor {
   public:
-    void setVariables(int pin, uint8_t portNumber);
+    void setVariables(uint8_t pin, uint8_t portNumber);
     int reading();
   private:
-    int _pin;
+    uint8_t _pin;
     uint8_t _portNumber;
     bool _hardwareSetupComplete;
     void _setupHardware();
@@ -262,10 +262,10 @@ class port {
     DigitalInput IRMotionSensor;
     AnalogInput UVSensor;
     DigitalOutput LEDString;
-    void setVariables(int primaryPin, int secondaryPin, uint8_t portNumber);
+    void setVariables(uint8_t primaryPin, uint8_t secondaryPin, uint8_t portNumber);
   private:
-    int _primaryPin;
-    int _secondaryPin;
+    uint8_t _primaryPin;
+    uint8_t _secondaryPin;
     uint8_t _portNumber;
 };
 
