@@ -50,6 +50,9 @@
 #define CYAN     3007
 //#define ORANGE   3008
 
+// C major scale, two octaves from C4 to C6
+const int Cmaj[] = {262, 294, 329, 349, 392, 440, 494, 523, 587, 659, 698, 784, 880, 988, 1046};
+
 class led {
   public:
     void turnOn(int color = WHITE);
