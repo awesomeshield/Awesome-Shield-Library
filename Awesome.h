@@ -15,6 +15,8 @@
 #include <Adafruit_NeoPixel.h> // on-board LED
 #include <Four_Digit_Display.h> // Grove 4-digit diplay
 #include <Four_Digit_Display_Arduino.h> // Grove 4-digit display
+#include <TM1637Display.h>
+
 
 //Neopixel setup
 #ifdef __AVR__
@@ -234,19 +236,21 @@ class IRProximitySensor {
     String _componentName;
 };
 
+/* NOT WORKING WIP
 class FourDigitDisplay {
   public:
-    void setVariables(PIN_T _clockPin, PIN_T _dataPin, uint8_t portNumber, String componentName);
+    void setVariables(int _clockPin, int _dataPin, uint8_t portNumber, String componentName);
     void display(int value);
   private:
-    Four_Digit_Display_Arduino _disp;
-    PIN_T _clockPin;  // special datatype used by SULI
-    PIN_T _dataPin;   // special datatype used by SULI
+    TM1637Display _disp;
+    int _clockPin;  // special datatype used by SULI
+    int _dataPin;   // special datatype used by SULI
     uint8_t _portNumber;
     void _setupHardware();
     bool _hardwareSetupComplete;
     String _componentName;
 };
+*/
 
 class port {
   public:
@@ -266,7 +270,7 @@ class port {
     // groveLCD LCD;
     IRProximitySensor IR;
     DigitalOutput electromagnet;
-    FourDigitDisplay fourDigitDisplay;
+    // FourDigitDisplay fourDigitDisplay;
     DigitalInput IRMotionSensor;
     AnalogInput UVSensor;
     DigitalOutput LEDString;
