@@ -9,40 +9,31 @@
 #include <avr/pgmspace.h>
 //#include "rgb_lcd.h"
 
-const char STRINGS_CONNECTED_TO_PORT[] PROGMEM = " ";
-const char STRINGS_THE[] PROGMEM = "The ";
-const char STRINGS_READING_IS[] PROGMEM = " reading is ";
-
-const char STRINGS_COMPNAME_KNOB[] PROGMEM = "knob";
-const char STRINGS_COMPNAME_TOGGLESWITCH[] PROGMEM = "toggleSwitch";
-const char STRINGS_COMPNAME_BUTTON[] PROGMEM = "button";
-const char STRINGS_COMPNAME_LIGHTSENSOR[] PROGMEM = "lightSensor";
-
 void printer(String componentName, int value, uint8_t port = 0) {
-  Serial.print(STRINGS_THE);
+  Serial.print(F("The "));
   Serial.print(componentName);
   if ( port != 0) {
-    Serial.print(STRINGS_CONNECTED_TO_PORT);
+    Serial.print(F(" "));
     Serial.print(port);
   }
-  Serial.print(STRINGS_READING_IS);
+  Serial.print(F(" reading is "));
   Serial.println(value);
 }
 void printer(String componentName, float value, uint8_t port = 0) {
-  Serial.print(STRINGS_THE);
+  Serial.print(F("The "));
   Serial.print(componentName);
   if ( port != 0) {
-    Serial.print(STRINGS_CONNECTED_TO_PORT);
+    Serial.print(F(" "));
     Serial.print(port);
   }
-  Serial.print(STRINGS_READING_IS);
+  Serial.print(F(" reading is "));
   Serial.println(value);
 }
 void printer(String componentName, bool value, uint8_t port = 0) {
-  Serial.print(STRINGS_THE);
+  Serial.print(F("The "));
   Serial.print(componentName);
   if ( port != 0) {
-    Serial.print(STRINGS_CONNECTED_TO_PORT);
+    Serial.print(F(" "));
     Serial.print(port);
   }
   if ( value == true) {
@@ -57,9 +48,9 @@ Awesome::Awesome() {
   // do setup for all core board components
   LED.                setup();
   lightSensor.        setVariables(lightSensorPin, 0);
-  knob.               setVariables(knobPin, 0, STRINGS_COMPNAME_KNOB);
+  knob.               setVariables(knobPin, 0, F("knob"));
   button.             setVariables(buttonPin, 0, LOW, true);
-  toggleSwitch.       setVariables(switchOnPin, 0, STRINGS_COMPNAME_TOGGLESWITCH, LOW, true);
+  toggleSwitch.       setVariables(switchOnPin, 0, F("toggleSwitch"), LOW, true);
   buzzer.             setVariables(buzzerPin, 0);
   port1.              setVariables(port1PrimaryPin, port1SecondaryPin, 1);
   port2.              setVariables(port2PrimaryPin, port2SecondaryPin, 2);
@@ -78,13 +69,13 @@ void port::setVariables(uint8_t primaryPin, uint8_t secondaryPin, uint8_t portNu
   _secondaryPin = secondaryPin;
   _portNumber = portNumber;
   // set add-on pins
-  lightSensor.        setVariables(_primaryPin, _portNumber, STRINGS_COMPNAME_LIGHTSENSOR); // TODO: Why is this analog input not light sensor class?
+  lightSensor.        setVariables(_primaryPin, _portNumber, F("lightSensor")); // TODO: Why is this analog input not light sensor class?
   button.             setVariables(_primaryPin, _portNumber, HIGH, false);
   buzzer.             setVariables(_primaryPin, _portNumber);
   touchSensor.        setVariables(_primaryPin, _portNumber, F("touchSensor"), HIGH);
   singleColorLED.     setVariables(_primaryPin, _portNumber, F("singleColorLED"));
   relay.              setVariables(_primaryPin, _portNumber, F("relay"));
-  knob.               setVariables(_primaryPin, _portNumber, STRINGS_COMPNAME_KNOB);
+  knob.               setVariables(_primaryPin, _portNumber, F("knob"));
   temperatureSensor.  setVariables(_primaryPin, _portNumber, F("temperatureSensor"));
   slider.             setVariables(_primaryPin, _portNumber, F("slider"));
   servo.              setVariables(_primaryPin, _portNumber);
@@ -200,7 +191,7 @@ int LightSensor::reading() {
   return _read();
 }
 void LightSensor::print() {
-  printer(STRINGS_COMPNAME_LIGHTSENSOR, reading());
+  printer(F("lightSensor"), reading());
 }
 void LightSensor::_setupHardware() {
   pinMode(_pin,INPUT);
@@ -235,7 +226,7 @@ bool Button::isUp() {
 }
 void Button::print() {
   // specialized print function for buttons
-  printer(STRINGS_COMPNAME_BUTTON, isUp(), _portNumber);
+  printer(F("button"), isUp(), _portNumber);
 }
 void Button::_setupHardware() {
   pinMode(_pin, INPUT);
