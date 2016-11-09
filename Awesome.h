@@ -40,14 +40,10 @@
 
 // the max analogWrite value
 #define MAX      255
-// assign values to the text based color inputs
-#define WHITE    3001
-#define RED      3002
-#define GREEN    3003
-#define BLUE     3004
-#define YELLOW   3005
-#define PURPLE   3006
-#define CYAN     3007
+
+// Enumeration of possible color values
+enum LedColor {WHITE,RED,GREEN,BLUE,YELLOW,PURPLE,CYAN};
+
 //#define ORANGE   3008
 
 // C major scale, two octaves from C4 to C6 {C, D, E, F, G, A, B, C, D, E, F, G, A, B, C }
@@ -57,9 +53,9 @@ const int Cmin[] = {262, 294, 311, 349, 392, 415, 466, 523, 587, 622, 698, 784, 
 
 class led {
   public:
-    void turnOn(int color = WHITE);
+    void turnOn(LedColor color = WHITE);
     void turnOn(int red, int green, int blue);
-    void turnOff(int color = WHITE);
+    void turnOff(LedColor color = WHITE);
     bool isOn();
     bool isOff();
     void setup();

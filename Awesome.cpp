@@ -107,7 +107,7 @@ void led::_update() {
   // turn on LED
   _pixel.show();
 }
-void led::turnOn(int color) {
+void led::turnOn(LedColor color) {
   switch (color) {
     case RED:
       _redSetting = 255;
@@ -156,7 +156,7 @@ void led::turnOn(int red, int green, int blue) {
   _blueSetting = constrain(blue,0,MAX);
   _update();
 }
-void led::turnOff(int color) {
+void led::turnOff(LedColor color) {
   switch (color) {
     case WHITE:
       _redSetting = 0;
