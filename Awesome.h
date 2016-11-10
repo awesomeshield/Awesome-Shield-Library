@@ -43,8 +43,6 @@
 // Enumeration of possible color values
 enum LedColor {WHITE,RED,GREEN,BLUE,YELLOW,PURPLE,CYAN};
 
-//#define ORANGE   3008
-
 // C major scale, two octaves from C4 to C6 {C, D, E, F, G, A, B, C, D, E, F, G, A, B, C }
 const int Cmaj[] = {262, 294, 329, 349, 392, 440, 494, 523, 587, 659, 698, 784, 880, 988, 1046};
 // C major scale, two octaves from C4 to C6 {C, D, Eb, F, G, Ab, Bb, C, D, Eb, F, G, Ab, Bb, C }
@@ -187,15 +185,6 @@ class SERVO {
     void _setupHardware();
 };
 
-// class groveLCD {
-//   public:
-//     void print(String message);
-//   private:
-//     rgb_lcd _lcd;
-//     void _setupHardware();
-//     bool _hardwareSetupComplete;
-// };
-
 class electretMic {
   public:
     void setVariables(uint8_t pin, uint8_t portNumber);
@@ -255,7 +244,6 @@ class port {
     SERVO servo;
     electretMic mic;
     UltrasonicRanger sonicSensor;
-    // groveLCD LCD;
     IRProximitySensor IR;
     DigitalOutput electromagnet;
     FourDigitDisplay fourDigitDisplay;
