@@ -489,7 +489,7 @@ int IRProximitySensor::reading() {
   return analogRead(_pin);
 }
 
-void FourDigitDisplay::setVariables(PIN_T clockPin, PIN_T dataPin, uint8_t portNumber) {
+void FourDigitDisplay::setVariables(AS_PIN_T clockPin, AS_PIN_T dataPin, uint8_t portNumber) {
   _clockPin = clockPin;
   _dataPin = dataPin;
   _portNumber = portNumber;

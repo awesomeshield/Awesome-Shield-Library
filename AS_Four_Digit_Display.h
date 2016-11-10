@@ -51,7 +51,7 @@ enum AS_brightness_t
 };
 
 
-void AS_four_digit_init(PIN_T data, PIN_T clk);                // init
+void AS_four_digit_init(AS_PIN_T data, AS_PIN_T clk);                // init
 
 void AS_four_digit_set_brightness(enum AS_brightness_t b);        // set before calling display
 void AS_four_digit_set_point(bool disp_point);                 // set before calling display

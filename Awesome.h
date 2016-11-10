@@ -229,12 +229,12 @@ class IRProximitySensor {
 
 class FourDigitDisplay {
   public:
-    void setVariables(PIN_T _clockPin, PIN_T _dataPin, uint8_t portNumber);
+    void setVariables(AS_PIN_T _clockPin, AS_PIN_T _dataPin, uint8_t portNumber);
     void display(int value);
   private:
     AS_Four_Digit_Display_Arduino _disp;
-    PIN_T _clockPin;  // special datatype used by SULI
-    PIN_T _dataPin;   // special datatype used by SULI
+    AS_PIN_T _clockPin;  // special datatype used by SULI
+    AS_PIN_T _dataPin;   // special datatype used by SULI
     uint8_t _portNumber;
     void _setupHardware();
     bool _hardwareSetupComplete;

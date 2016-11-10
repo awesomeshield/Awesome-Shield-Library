@@ -26,8 +26,8 @@
 
 #include "AS_Four_Digit_Display.h"
 
-IO_T AS__pinDta;
-IO_T AS__pinClk;
+AS_IO_T AS__pinDta;
+AS_IO_T AS__pinClk;
 
 
 uint8 AS_Cmd_DispCtrl  = 0;
@@ -48,47 +48,47 @@ void AS_writeByte(int8 wr_data)
     uint8 i,count1;
     for(i=0;i<8;i++)                                  //sent 8bit data
     {
-        suli_pin_write(&AS__pinClk, HAL_PIN_LOW);
-        if(wr_data & 0x01)suli_pin_write(&AS__pinDta, HAL_PIN_HIGH); //LSB first
-        else suli_pin_write(&AS__pinDta,HAL_PIN_LOW);
+        AS_suli_pin_write(&AS__pinClk, AS_HAL_PIN_LOW);
+        if(wr_data & 0x01)AS_suli_pin_write(&AS__pinDta, AS_HAL_PIN_HIGH); //LSB first
+        else AS_suli_pin_write(&AS__pinDta,AS_HAL_PIN_LOW);
         wr_data >>= 1;
-        suli_pin_write(&AS__pinClk,HAL_PIN_HIGH);
+        AS_suli_pin_write(&AS__pinClk,AS_HAL_PIN_HIGH);
     }
-    suli_pin_write(&AS__pinClk,HAL_PIN_LOW);                 //wait for the ACK
-    suli_pin_write(&AS__pinDta,HAL_PIN_HIGH);
-    suli_pin_write(&AS__pinClk,HAL_PIN_HIGH);
+    AS_suli_pin_write(&AS__pinClk,AS_HAL_PIN_LOW);                 //wait for the ACK
+    AS_suli_pin_write(&AS__pinDta,AS_HAL_PIN_HIGH);
+    AS_suli_pin_write(&AS__pinClk,AS_HAL_PIN_HIGH);
 
-    suli_pin_dir(&AS__pinDta, HAL_PIN_INPUT);
-    while(suli_pin_read(&AS__pinDta))
+    AS_suli_pin_dir(&AS__pinDta, AS_HAL_PIN_INPUT);
+    while(AS_suli_pin_read(&AS__pinDta))
     {
         count1 +=1;
         if(count1 == 200)//
         {
-            suli_pin_dir(&AS__pinDta, HAL_PIN_OUTPUT);
-            suli_pin_write(&AS__pinDta,HAL_PIN_LOW);
+            AS_suli_pin_dir(&AS__pinDta, AS_HAL_PIN_OUTPUT);
+            AS_suli_pin_write(&AS__pinDta,AS_HAL_PIN_LOW);
             count1 =0;
         }
-        suli_pin_dir(&AS__pinDta, HAL_PIN_INPUT);
+        AS_suli_pin_dir(&AS__pinDta, AS_HAL_PIN_INPUT);
     }
-    suli_pin_dir(&AS__pinDta, HAL_PIN_OUTPUT);
+    AS_suli_pin_dir(&AS__pinDta, AS_HAL_PIN_OUTPUT);
 }
 
 // send start signal to TM1637
 void AS_start(void)
 {
-    suli_pin_write(&AS__pinClk, HAL_PIN_HIGH);//send start signal to TM1637
-    suli_pin_write(&AS__pinDta, HAL_PIN_HIGH);
-    suli_pin_write(&AS__pinDta, HAL_PIN_LOW);
-    suli_pin_write(&AS__pinClk, HAL_PIN_LOW);
+    AS_suli_pin_write(&AS__pinClk, AS_HAL_PIN_HIGH);//send start signal to TM1637
+    AS_suli_pin_write(&AS__pinDta, AS_HAL_PIN_HIGH);
+    AS_suli_pin_write(&AS__pinDta, AS_HAL_PIN_LOW);
+    AS_suli_pin_write(&AS__pinClk, AS_HAL_PIN_LOW);
 }
 
 // End of transmission
 void AS_stop(void)
 {
-    suli_pin_write(&AS__pinClk,HAL_PIN_LOW);
-    suli_pin_write(&AS__pinDta,HAL_PIN_LOW);
-    suli_pin_write(&AS__pinClk,HAL_PIN_HIGH);
-    suli_pin_write(&AS__pinDta,HAL_PIN_HIGH);
+    AS_suli_pin_write(&AS__pinClk,AS_HAL_PIN_LOW);
+    AS_suli_pin_write(&AS__pinDta,AS_HAL_PIN_LOW);
+    AS_suli_pin_write(&AS__pinClk,AS_HAL_PIN_HIGH);
+    AS_suli_pin_write(&AS__pinDta,AS_HAL_PIN_HIGH);
 }
 
 //
@@ -116,14 +116,14 @@ uint8 AS_coding(int8 DispData)
 }
 
 // initialize
-void AS_four_digit_init(PIN_T data, PIN_T clk)
+void AS_four_digit_init(AS_PIN_T data, AS_PIN_T clk)
 {
 
-    suli_pin_init(&AS__pinDta, data);
-    suli_pin_init(&AS__pinClk, clk);
+    AS_suli_pin_init(&AS__pinDta, data);
+    AS_suli_pin_init(&AS__pinClk, clk);
 
-    suli_pin_dir(&AS__pinDta, HAL_PIN_OUTPUT);
-    suli_pin_dir(&AS__pinClk, HAL_PIN_OUTPUT);
+    AS_suli_pin_dir(&AS__pinDta, AS_HAL_PIN_OUTPUT);
+    AS_suli_pin_dir(&AS__pinClk, AS_HAL_PIN_OUTPUT);
 
     AS_four_digit_clear();
 }
