@@ -12,7 +12,7 @@
 #include "Wire.h"
 //#include "rgb_lcd.h"
 #include <Servo.h>
-#include <Adafruit_NeoPixel.h> // on-board LED
+#include <AS_Adafruit_NeoPixel.h> // on-board LED
 #include <Four_Digit_Display.h> // Grove 4-digit diplay
 #include <Four_Digit_Display_Arduino.h> // Grove 4-digit display
 
