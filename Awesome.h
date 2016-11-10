@@ -10,7 +10,7 @@
 // include other libraries
 #include "Arduino.h"
 #include "Wire.h"
-//#include "rgb_lcd.h"
+// #include "rgb_lcd.h"
 #include <Servo.h>
 #include <Adafruit_NeoPixel.h> // on-board LED
 #include <Four_Digit_Display.h> // Grove 4-digit diplay
