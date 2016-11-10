@@ -226,7 +226,7 @@ bool Button::isUp() {
 }
 void Button::print() {
   // specialized print function for buttons
-  printer(F("button"), isUp(), _portNumber);
+  printer(F("button"), isDown(), _portNumber);
 }
 void Button::_setupHardware() {
   pinMode(_pin, INPUT);
