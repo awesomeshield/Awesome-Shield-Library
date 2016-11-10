@@ -35,7 +35,7 @@
 #define port3SecondaryPin   6
 
 // number of neopixels connected
-#define numPixels      1
+#define numberOfPixels      1
 
 // the max analogWrite value
 #define MAX      255
@@ -57,7 +57,7 @@ class led {
     bool isOff();
     void setup();
   private:
-    AS_Adafruit_NeoPixel _pixel = AS_Adafruit_NeoPixel(numPixels, LEDPin, AS_NEO_GRB + AS_NEO_KHZ800);
+    AS_Adafruit_NeoPixel _pixel = AS_Adafruit_NeoPixel(numberOfPixels, LEDPin, AS_NEO_GRB + AS_NEO_KHZ800);
     void _update();
     uint8_t _redSetting;
     uint8_t _greenSetting;

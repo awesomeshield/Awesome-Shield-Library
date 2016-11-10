@@ -28,8 +28,8 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef __SEEED_UNIFIED_LIBRARY_INTERFACE_H__
-#define __SEEED_UNIFIED_LIBRARY_INTERFACE_H__
+#ifndef __AS_SEEED_UNIFIED_LIBRARY_INTERFACE_H__
+#define __AS_SEEED_UNIFIED_LIBRARY_INTERFACE_H__
 
 #include <Arduino.h>
 

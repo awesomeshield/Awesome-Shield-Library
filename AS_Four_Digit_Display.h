@@ -30,24 +30,24 @@
 
 
 //************definitions for TM1637*********************
-#define ADDR_AUTO  0x40
-#define ADDR_FIXED 0x44
+#define AS_ADDR_AUTO  0x40
+#define AS_ADDR_FIXED 0x44
 
-#define STARTADDR  0xc0
+#define AS_STARTADDR  0xc0
 /**** definitions for the clock point of the digit tube *******/
-#define POINT_ON   1
-#define POINT_OFF  0
+#define AS_POINT_ON   1
+#define AS_POINT_OFF  0
 /**************definitions for brightness***********************/
-//#define  BRIGHT_DARKEST 0
-//#define  BRIGHT_TYPICAL 2
-//#define  BRIGHTEST      7
+//#define  AS_BRIGHT_DARKEST 0
+//#define  AS_BRIGHT_TYPICAL 2
+//#define  AS_BRIGHTEST      7
 
 
 enum AS_brightness_t
 {
-    BRIGHT_DARKEST = 0,
-    BRIGHT_TYPICAL = 2,
-    BRIGHTEST      = 7
+    AS_BRIGHT_DARKEST = 0,
+    AS_BRIGHT_TYPICAL = 2,
+    AS_BRIGHTEST      = 7
 };
 
 

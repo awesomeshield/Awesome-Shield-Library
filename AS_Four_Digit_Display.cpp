@@ -92,10 +92,10 @@ void AS_stop(void)
 }
 
 //
-void AS_AS_codingS(int8 *DispData)
+void AS_codingS(int8 *DispData)
 {
     uint8 PointData;
-    if(AS__PointFlag == POINT_ON)PointData = 0x80;
+    if(AS__PointFlag == AS_POINT_ON)PointData = 0x80;
     else PointData = 0;
     for(uint8 i = 0;i < 4;i ++)
     {
@@ -108,7 +108,7 @@ void AS_AS_codingS(int8 *DispData)
 uint8 AS_coding(int8 DispData)
 {
     uint8 PointData;
-    if(AS__PointFlag == POINT_ON)PointData = 0x80;
+    if(AS__PointFlag == AS_POINT_ON)PointData = 0x80;
     else PointData = 0;
     if(DispData == 0x7f) DispData = 0x00 + PointData;//The bit digital tube off
     else DispData = AS_TubeTab[DispData] + PointData;
@@ -146,7 +146,7 @@ void AS_Four_Digit_Display(uint8 BitAddr,int8 DispData)
     uint8 SegData;
     SegData = AS_coding(DispData);
     AS_start();          //start signal sent to TM1637 from MCU
-    AS_writeByte(ADDR_FIXED);//
+    AS_writeByte(AS_ADDR_FIXED);//
     AS_stop();           //
     AS_start();          //
     AS_writeByte(BitAddr|0xc0);//

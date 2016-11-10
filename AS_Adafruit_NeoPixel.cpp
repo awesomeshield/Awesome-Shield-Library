@@ -1670,7 +1670,7 @@ uint16_t AS_Adafruit_NeoPixel::numPixels(void) const {
   return numLEDs;
 }
 
-// Adjust output brightness; 0=darkest (off), 255=brightest.  This does
+// Adjust output brightness; 0=darkest (off), 255=BRIGHTEST.  This does
 // NOT immediately affect what's currently displayed on the LEDs.  The
 // next call to show() will refresh the LEDs at this level.  However,
 // this process is potentially "lossy," especially when increasing
