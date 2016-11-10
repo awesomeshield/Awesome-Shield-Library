@@ -34,7 +34,7 @@
 #include "AS_Adafruit_NeoPixel.h"
 
 // Constructor when length, pin and type are known at compile-time:
-AS_Adafruit_NeoPixel::AS_Adafruit_NeoPixel(uint16_t n, uint8_t p, neoPixelType t) :
+AS_Adafruit_NeoPixel::AS_Adafruit_NeoPixel(uint16_t n, uint8_t p, AS_neoPixelType t) :
   begun(false), brightness(0), pixels(NULL), endTime(0)
 {
   updateType(t);
@@ -48,7 +48,7 @@ AS_Adafruit_NeoPixel::AS_Adafruit_NeoPixel(uint16_t n, uint8_t p, neoPixelType t
 // command.  If using this constructor, MUST follow up with updateType(),
 // updateLength(), etc. to establish the strand type, length and pin number!
 AS_Adafruit_NeoPixel::AS_Adafruit_NeoPixel() :
-#ifdef NEO_KHZ400
+#ifdef AS_NEO_KHZ400
   is800KHz(true),
 #endif
   begun(false), numLEDs(0), numBytes(0), pin(-1), brightness(0), pixels(NULL),
@@ -82,14 +82,14 @@ void AS_Adafruit_NeoPixel::updateLength(uint16_t n) {
   }
 }
 
-void AS_Adafruit_NeoPixel::updateType(neoPixelType t) {
+void AS_Adafruit_NeoPixel::updateType(AS_neoPixelType t) {
   boolean oldThreeBytesPerPixel = (wOffset == rOffset); // false if RGBW
 
   wOffset = (t >> 6) & 0b11; // See notes in header file
   rOffset = (t >> 4) & 0b11; // regarding R/G/B/W offsets
   gOffset = (t >> 2) & 0b11;
   bOffset =  t       & 0b11;
-#ifdef NEO_KHZ400
+#ifdef AS_NEO_KHZ400
   is800KHz = (t < 256);      // 400 KHz flag is 1<<8
 #endif
 
@@ -162,7 +162,7 @@ void AS_Adafruit_NeoPixel::show(void) {
 // 8 MHz(ish) AVR ---------------------------------------------------------
 #if (F_CPU >= 7400000UL) && (F_CPU <= 9500000UL)
 
-#ifdef NEO_KHZ400 // 800 KHz check needed only if 400 KHz support enabled
+#ifdef AS_NEO_KHZ400 // 800 KHz check needed only if 400 KHz support enabled
   if(is800KHz) {
 #endif
 
@@ -549,7 +549,7 @@ void AS_Adafruit_NeoPixel::show(void) {
  #endif // defined(PORTD/B/C)
 #endif // defined(PORTF)
 
-#ifdef NEO_KHZ400
+#ifdef AS_NEO_KHZ400
   } else { // end 800 KHz, do 400 KHz
 
     // Timing is more relaxed; unrolling the inner loop for each bit is
@@ -600,12 +600,12 @@ void AS_Adafruit_NeoPixel::show(void) {
         [lo]    "r" (lo),
         [ptr]   "e" (ptr));
   }
-#endif // NEO_KHZ400
+#endif // AS_NEO_KHZ400
 
 // 12 MHz(ish) AVR --------------------------------------------------------
 #elif (F_CPU >= 11100000UL) && (F_CPU <= 14300000UL)
 
-#ifdef NEO_KHZ400 // 800 KHz check needed only if 400 KHz support enabled
+#ifdef AS_NEO_KHZ400 // 800 KHz check needed only if 400 KHz support enabled
   if(is800KHz) {
 #endif
 
@@ -870,7 +870,7 @@ void AS_Adafruit_NeoPixel::show(void) {
  #endif // defined(PORTD/B/C)
 #endif // defined(PORTF)
 
-#ifdef NEO_KHZ400
+#ifdef AS_NEO_KHZ400
   } else { // 400 KHz
 
     // 30 instruction clocks per bit: HHHHHHxxxxxxxxxLLLLLLLLLLLLLLL
@@ -918,12 +918,12 @@ void AS_Adafruit_NeoPixel::show(void) {
         [lo]     "r" (lo),
         [ptr]    "e" (ptr));
   }
-#endif // NEO_KHZ400
+#endif // AS_NEO_KHZ400
 
 // 16 MHz(ish) AVR --------------------------------------------------------
 #elif (F_CPU >= 15400000UL) && (F_CPU <= 19000000L)
 
-#ifdef NEO_KHZ400 // 800 KHz check needed only if 400 KHz support enabled
+#ifdef AS_NEO_KHZ400 // 800 KHz check needed only if 400 KHz support enabled
   if(is800KHz) {
 #endif
 
@@ -972,7 +972,7 @@ void AS_Adafruit_NeoPixel::show(void) {
         [hi]     "r" (hi),
         [lo]     "r" (lo));
 
-#ifdef NEO_KHZ400
+#ifdef AS_NEO_KHZ400
   } else { // 400 KHz
 
     // The 400 KHz clock on 16 MHz MCU is the most 'relaxed' version.
@@ -1030,7 +1030,7 @@ void AS_Adafruit_NeoPixel::show(void) {
         [hi]     "r" (hi),
         [lo]     "r" (lo));
   }
-#endif // NEO_KHZ400
+#endif // AS_NEO_KHZ400
 
 #else
  #error "CPU SPEED NOT SUPPORTED"
@@ -1060,7 +1060,7 @@ void AS_Adafruit_NeoPixel::show(void) {
   ARM_DEMCR    |= ARM_DEMCR_TRCENA;
   ARM_DWT_CTRL |= ARM_DWT_CTRL_CYCCNTENA;
 
-#ifdef NEO_KHZ400 // 800 KHz check needed only if 400 KHz support enabled
+#ifdef AS_NEO_KHZ400 // 800 KHz check needed only if 400 KHz support enabled
   if(is800KHz) {
 #endif
     cyc = ARM_DWT_CYCCNT + CYCLES_800;
@@ -1079,7 +1079,7 @@ void AS_Adafruit_NeoPixel::show(void) {
       }
     }
     while(ARM_DWT_CYCCNT - cyc < CYCLES_800);
-#ifdef NEO_KHZ400
+#ifdef AS_NEO_KHZ400
   } else { // 400 kHz bitstream
     cyc = ARM_DWT_CYCCNT + CYCLES_400;
     while(p < end) {
@@ -1098,7 +1098,7 @@ void AS_Adafruit_NeoPixel::show(void) {
     }
     while(ARM_DWT_CYCCNT - cyc < CYCLES_400);
   }
-#endif // NEO_KHZ400
+#endif // AS_NEO_KHZ400
 
 #elif defined(__MKL26Z64__) // Teensy-LC
 
@@ -1204,7 +1204,7 @@ void AS_Adafruit_NeoPixel::show(void) {
   volatile uint32_t *set = &(PORT->Group[portNum].OUTSET.reg),
                     *clr = &(PORT->Group[portNum].OUTCLR.reg);
 
-#ifdef NEO_KHZ400 // 800 KHz check needed only if 400 KHz support enabled
+#ifdef AS_NEO_KHZ400 // 800 KHz check needed only if 400 KHz support enabled
   if(is800KHz) {
 #endif
     for(;;) {
@@ -1229,7 +1229,7 @@ void AS_Adafruit_NeoPixel::show(void) {
         bitMask = 0x80;
       }
     }
-#ifdef NEO_KHZ400
+#ifdef AS_NEO_KHZ400
   } else { // 400 KHz bitstream
     for(;;) {
       *set = pinMask;
@@ -1279,7 +1279,7 @@ void AS_Adafruit_NeoPixel::show(void) {
   volatile uint16_t *set = &(PIN_MAP[pin].gpio_device->regs->BSRRL);
   volatile uint16_t *clr = &(PIN_MAP[pin].gpio_device->regs->BSRRH);
 
-#ifdef NEO_KHZ400 // 800 KHz check needed only if 400 KHz support enabled
+#ifdef AS_NEO_KHZ400 // 800 KHz check needed only if 400 KHz support enabled
   if(is800KHz) {
 #endif
     for(;;) {
@@ -1338,7 +1338,7 @@ void AS_Adafruit_NeoPixel::show(void) {
         bitMask = 0x80;
       }
     }
-#ifdef NEO_KHZ400
+#ifdef AS_NEO_KHZ400
   } else { // 400 KHz bitstream
     // ToDo!
   }
@@ -1377,13 +1377,13 @@ void AS_Adafruit_NeoPixel::show(void) {
   pix       = *p++;
   mask      = 0x80;
 
-#ifdef NEO_KHZ400 // 800 KHz check needed only if 400 KHz support enabled
+#ifdef AS_NEO_KHZ400 // 800 KHz check needed only if 400 KHz support enabled
   if(is800KHz) {
 #endif
     time0  = TIME_800_0;
     time1  = TIME_800_1;
     period = PERIOD_800;
-#ifdef NEO_KHZ400
+#ifdef AS_NEO_KHZ400
   } else { // 400 KHz bitstream
     time0  = TIME_400_0;
     time1  = TIME_400_1;
