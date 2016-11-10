@@ -60,7 +60,7 @@ class led {
     bool isOff();
     void setup();
   private:
-    Adafruit_NeoPixel _pixel = Adafruit_NeoPixel(numPixels, LEDPin, NEO_GRB + NEO_KHZ800);
+    AS_Adafruit_NeoPixel _pixel = AS_Adafruit_NeoPixel(numPixels, LEDPin, NEO_GRB + NEO_KHZ800);
     void _update();
     uint8_t _redSetting;
     uint8_t _greenSetting;

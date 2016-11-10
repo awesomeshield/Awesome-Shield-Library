@@ -16,8 +16,8 @@
   <http://www.gnu.org/licenses/>.
   --------------------------------------------------------------------*/
 
-#ifndef ADAFRUIT_NEOPIXEL_H
-#define ADAFRUIT_NEOPIXEL_H
+#ifndef AS_Adafruit_NeoPixel_H
+#define AS_Adafruit_NeoPixel_H
 
 #if (ARDUINO >= 100)
  #include <Arduino.h>
@@ -28,7 +28,7 @@
 
 // The order of primary colors in the NeoPixel data stream can vary
 // among device types, manufacturers and even different revisions of
-// the same item.  The third parameter to the Adafruit_NeoPixel
+// the same item.  The third parameter to the AS_Adafruit_NeoPixel
 // constructor encodes the per-pixel byte offsets of the red, green
 // and blue primaries (plus white, if present) in the data stream --
 // the following #defines provide an easier-to-use named version for
@@ -113,14 +113,14 @@ typedef uint16_t neoPixelType;
 typedef uint8_t  neoPixelType;
 #endif
 
-class Adafruit_NeoPixel {
+class AS_Adafruit_NeoPixel {
 
  public:
 
   // Constructor: number of LEDs, pin number, LED type
-  Adafruit_NeoPixel(uint16_t n, uint8_t p=6, neoPixelType t=NEO_GRB + NEO_KHZ800);
-  Adafruit_NeoPixel(void);
-  ~Adafruit_NeoPixel();
+  AS_Adafruit_NeoPixel(uint16_t n, uint8_t p=6, neoPixelType t=NEO_GRB + NEO_KHZ800);
+  AS_Adafruit_NeoPixel(void);
+  ~AS_Adafruit_NeoPixel();
 
   void
     begin(void),
@@ -178,4 +178,4 @@ class Adafruit_NeoPixel {
 
 };
 
-#endif // ADAFRUIT_NEOPIXEL_H
+#endif // AS_Adafruit_NeoPixel_H
