@@ -5,4 +5,4 @@
 // #include "rgb_lcd.h"
 #include <avr/pgmspace.h>
 #include <Servo.h>
-#include <Adafruit_NeoPixel.h>
+#include <AS_Adafruit_NeoPixel.h>
