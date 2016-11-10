@@ -33,15 +33,15 @@ class AS_Four_Digit_Display_Arduino{
 
 public:
 
-    void begin(int pinData, int pinClk, enum brightness_t b=BRIGHT_TYPICAL)
+    void begin(int pinData, int pinClk, enum AS_brightness_t b=BRIGHT_TYPICAL)
     {
-        four_digit_init(pinData, pinClk);
-        four_digit_set_brightness(b);
+        AS_four_digit_init(pinData, pinClk);
+        AS_four_digit_set_brightness(b);
     }
 
     void clear()
     {
-        four_digit_clear();
+        AS_four_digit_clear();
     }
 
     void display(int bitAddr, int num)
@@ -52,12 +52,12 @@ public:
 
     void pointOn()
     {
-        four_digit_set_point(1);
+        AS_four_digit_set_point(1);
     }
 
     void pointOff()
     {
-        four_digit_set_point(0);
+        AS_four_digit_set_point(0);
     }
 
 };

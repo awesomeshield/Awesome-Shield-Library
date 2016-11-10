@@ -26,15 +26,15 @@
 
 #include "AS_Four_Digit_Display.h"
 
-IO_T __pinDta;
-IO_T __pinClk;
+IO_T AS__pinDta;
+IO_T AS__pinClk;
 
 
-uint8 Cmd_DispCtrl  = 0;
-uint8 _PointFlag    = 0;     //_PointFlag=1:the clock point on
+uint8 AS_Cmd_DispCtrl  = 0;
+uint8 AS__PointFlag    = 0;     //AS__PointFlag=1:the clock point on
 
 
-const int8 TubeTab[] =
+const int8 AS_TubeTab[] =
 {
     0x3f,0x06,0x5b,0x4f,
     0x66,0x6d,0x7d,0x07,
@@ -43,122 +43,122 @@ const int8 TubeTab[] =
 }; //0~9,A,b,C,d,E,F
 
 // write a byte
-void writeByte(int8 wr_data)
+void AS_writeByte(int8 wr_data)
 {
     uint8 i,count1;
     for(i=0;i<8;i++)                                  //sent 8bit data
     {
-        suli_pin_write(&__pinClk, HAL_PIN_LOW);
-        if(wr_data & 0x01)suli_pin_write(&__pinDta, HAL_PIN_HIGH); //LSB first
-        else suli_pin_write(&__pinDta,HAL_PIN_LOW);
+        suli_pin_write(&AS__pinClk, HAL_PIN_LOW);
+        if(wr_data & 0x01)suli_pin_write(&AS__pinDta, HAL_PIN_HIGH); //LSB first
+        else suli_pin_write(&AS__pinDta,HAL_PIN_LOW);
         wr_data >>= 1;
-        suli_pin_write(&__pinClk,HAL_PIN_HIGH);
+        suli_pin_write(&AS__pinClk,HAL_PIN_HIGH);
     }
-    suli_pin_write(&__pinClk,HAL_PIN_LOW);                 //wait for the ACK
-    suli_pin_write(&__pinDta,HAL_PIN_HIGH);
-    suli_pin_write(&__pinClk,HAL_PIN_HIGH);
+    suli_pin_write(&AS__pinClk,HAL_PIN_LOW);                 //wait for the ACK
+    suli_pin_write(&AS__pinDta,HAL_PIN_HIGH);
+    suli_pin_write(&AS__pinClk,HAL_PIN_HIGH);
 
-    suli_pin_dir(&__pinDta, HAL_PIN_INPUT);
-    while(suli_pin_read(&__pinDta))
+    suli_pin_dir(&AS__pinDta, HAL_PIN_INPUT);
+    while(suli_pin_read(&AS__pinDta))
     {
         count1 +=1;
         if(count1 == 200)//
         {
-            suli_pin_dir(&__pinDta, HAL_PIN_OUTPUT);
-            suli_pin_write(&__pinDta,HAL_PIN_LOW);
+            suli_pin_dir(&AS__pinDta, HAL_PIN_OUTPUT);
+            suli_pin_write(&AS__pinDta,HAL_PIN_LOW);
             count1 =0;
         }
-        suli_pin_dir(&__pinDta, HAL_PIN_INPUT);
+        suli_pin_dir(&AS__pinDta, HAL_PIN_INPUT);
     }
-    suli_pin_dir(&__pinDta, HAL_PIN_OUTPUT);
+    suli_pin_dir(&AS__pinDta, HAL_PIN_OUTPUT);
 }
 
 // send start signal to TM1637
-void start(void)
+void AS_start(void)
 {
-    suli_pin_write(&__pinClk, HAL_PIN_HIGH);//send start signal to TM1637
-    suli_pin_write(&__pinDta, HAL_PIN_HIGH);
-    suli_pin_write(&__pinDta, HAL_PIN_LOW);
-    suli_pin_write(&__pinClk, HAL_PIN_LOW);
+    suli_pin_write(&AS__pinClk, HAL_PIN_HIGH);//send start signal to TM1637
+    suli_pin_write(&AS__pinDta, HAL_PIN_HIGH);
+    suli_pin_write(&AS__pinDta, HAL_PIN_LOW);
+    suli_pin_write(&AS__pinClk, HAL_PIN_LOW);
 }
 
 // End of transmission
-void stop(void)
+void AS_stop(void)
 {
-    suli_pin_write(&__pinClk,HAL_PIN_LOW);
-    suli_pin_write(&__pinDta,HAL_PIN_LOW);
-    suli_pin_write(&__pinClk,HAL_PIN_HIGH);
-    suli_pin_write(&__pinDta,HAL_PIN_HIGH);
+    suli_pin_write(&AS__pinClk,HAL_PIN_LOW);
+    suli_pin_write(&AS__pinDta,HAL_PIN_LOW);
+    suli_pin_write(&AS__pinClk,HAL_PIN_HIGH);
+    suli_pin_write(&AS__pinDta,HAL_PIN_HIGH);
 }
 
 //
-void codingS(int8 *DispData)
+void AS_AS_codingS(int8 *DispData)
 {
     uint8 PointData;
-    if(_PointFlag == POINT_ON)PointData = 0x80;
+    if(AS__PointFlag == POINT_ON)PointData = 0x80;
     else PointData = 0;
     for(uint8 i = 0;i < 4;i ++)
     {
         if(DispData[i] == 0x7f)DispData[i] = 0x00;
-        else DispData[i] = TubeTab[DispData[i]] + PointData;
+        else DispData[i] = AS_TubeTab[DispData[i]] + PointData;
     }
 }
 
 //
-uint8 coding(int8 DispData)
+uint8 AS_coding(int8 DispData)
 {
     uint8 PointData;
-    if(_PointFlag == POINT_ON)PointData = 0x80;
+    if(AS__PointFlag == POINT_ON)PointData = 0x80;
     else PointData = 0;
     if(DispData == 0x7f) DispData = 0x00 + PointData;//The bit digital tube off
-    else DispData = TubeTab[DispData] + PointData;
+    else DispData = AS_TubeTab[DispData] + PointData;
     return DispData;
 }
 
 // initialize
-void four_digit_init(PIN_T data, PIN_T clk)
+void AS_four_digit_init(PIN_T data, PIN_T clk)
 {
 
-    suli_pin_init(&__pinDta, data);
-    suli_pin_init(&__pinClk, clk);
+    suli_pin_init(&AS__pinDta, data);
+    suli_pin_init(&AS__pinClk, clk);
 
-    suli_pin_dir(&__pinDta, HAL_PIN_OUTPUT);
-    suli_pin_dir(&__pinClk, HAL_PIN_OUTPUT);
+    suli_pin_dir(&AS__pinDta, HAL_PIN_OUTPUT);
+    suli_pin_dir(&AS__pinClk, HAL_PIN_OUTPUT);
 
-    four_digit_clear();
+    AS_four_digit_clear();
 }
 
 // set brightness
-void four_digit_set_brightness(enum brightness_t b)           //set before calling display
+void AS_four_digit_set_brightness(enum AS_brightness_t b)           //set before calling display
 {
-    Cmd_DispCtrl = 0x88 + b;
+    AS_Cmd_DispCtrl = 0x88 + b;
 }
 
 // show :
-void four_digit_set_point(bool disp_point)              //set before calling display
+void AS_four_digit_set_point(bool disp_point)              //set before calling display
 {
-    _PointFlag = disp_point;
+    AS__PointFlag = disp_point;
 }
 
 // display a bit
 void AS_Four_Digit_Display(uint8 BitAddr,int8 DispData)
 {
     uint8 SegData;
-    SegData = coding(DispData);
-    start();          //start signal sent to TM1637 from MCU
-    writeByte(ADDR_FIXED);//
-    stop();           //
-    start();          //
-    writeByte(BitAddr|0xc0);//
-    writeByte(SegData);//
-    stop();            //
-    start();          //
-    writeByte(Cmd_DispCtrl);//
-    stop();           //
+    SegData = AS_coding(DispData);
+    AS_start();          //start signal sent to TM1637 from MCU
+    AS_writeByte(ADDR_FIXED);//
+    AS_stop();           //
+    AS_start();          //
+    AS_writeByte(BitAddr|0xc0);//
+    AS_writeByte(SegData);//
+    AS_stop();            //
+    AS_start();          //
+    AS_writeByte(AS_Cmd_DispCtrl);//
+    AS_stop();           //
 }
 
 // clear display
-void four_digit_clear()
+void AS_four_digit_clear()
 {
     AS_Four_Digit_Display(0x00,0x7f);
     AS_Four_Digit_Display(0x01,0x7f);
