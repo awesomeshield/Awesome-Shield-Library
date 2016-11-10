@@ -13,8 +13,7 @@
 //#include "rgb_lcd.h"
 #include <Servo.h>
 #include <AS_Adafruit_NeoPixel.h> // on-board LED
-#include <Four_Digit_Display.h> // Grove 4-digit diplay
-#include <Four_Digit_Display_Arduino.h> // Grove 4-digit display
+#include <AS_Four_Digit_Display_Arduino.h> // Grove 4-digit display
 
 //Neopixel setup
 #ifdef __AVR__
@@ -233,7 +232,7 @@ class FourDigitDisplay {
     void setVariables(PIN_T _clockPin, PIN_T _dataPin, uint8_t portNumber);
     void display(int value);
   private:
-    Four_Digit_Display_Arduino _disp;
+    AS_Four_Digit_Display_Arduino _disp;
     PIN_T _clockPin;  // special datatype used by SULI
     PIN_T _dataPin;   // special datatype used by SULI
     uint8_t _portNumber;
