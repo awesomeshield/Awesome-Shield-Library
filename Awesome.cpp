@@ -197,7 +197,13 @@ void LightSensor::_setupHardware() {
   _hardwareSetupComplete = true;
 }
 int LightSensor::_read() {
-  return analogRead(_pin);
+  int numSamples = 20;
+  int value = 0;
+  for (int i = 0; i < numSamples; i++) {
+    value += analogRead(_pin);
+    delay(2);
+  }
+  return value / numSamples;
 }
 
 void Button::setVariables(uint8_t pin, uint8_t portNumber, bool readingMeaningButtonIsDown, bool needsPullup) {
