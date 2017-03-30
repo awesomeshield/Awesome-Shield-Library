@@ -277,6 +277,16 @@ void Buzzer::setSilentMode(bool newState) {
     turnOff();
   }
 }
+void Buzzer::playFanfare() {
+  for (int i = 0; i < 3; i++) {
+    turnOn(Cmaj[0]);
+    delay(150);
+    turnOff();
+  }
+  turnOn(Cmaj[4]);
+  delay(150*4);
+  turnOff();
+}
 void Buzzer::_setupHardware() {
   pinMode(_pin, OUTPUT);
   _hardwareSetupComplete = true;

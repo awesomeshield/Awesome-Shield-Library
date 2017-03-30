@@ -20,6 +20,7 @@ flash	KEYWORD2
 reading	KEYWORD2
 beep	KEYWORD2
 setSilentMode	KEYWORD2
+playFanfare	KEYWORD2
 
 setPosition	KEYWORD2
 print	KEYWORD2

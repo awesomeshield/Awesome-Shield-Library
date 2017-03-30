@@ -102,6 +102,7 @@ class Buzzer {
     bool isOn();
     bool isOff();
     void setSilentMode(bool newState);
+    void playFanfare();
   private:
     uint8_t _pin;
     uint8_t _portNumber;
