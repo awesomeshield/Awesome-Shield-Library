@@ -41,7 +41,7 @@
 #define MAX      255
 
 // Enumeration of possible color values
-enum LedColor {WHITE,RED,GREEN,BLUE,YELLOW,PURPLE,CYAN};
+enum LedColor {WHITE,RED,GREEN,BLUE,YELLOW,PURPLE,CYAN,PINK,ORANGE};
 
 // C major scale, two octaves from C4 to C6 {C, D, E, F, G, A, B, C, D, E, F, G, A, B, C }
 const int Cmaj[] = {262, 294, 329, 349, 392, 440, 494, 523, 587, 659, 698, 784, 880, 988, 1046};

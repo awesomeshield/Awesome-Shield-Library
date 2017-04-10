@@ -116,7 +116,7 @@ void led::turnOn(LedColor color) {
       break;
     case YELLOW:
       _redSetting = 255;
-      _greenSetting = 255;
+      _greenSetting = 85;
       _blueSetting= 0;
       break;
     case PURPLE:
@@ -128,6 +128,16 @@ void led::turnOn(LedColor color) {
       _redSetting = 0;
       _greenSetting = 255;
       _blueSetting= 255;
+      break;
+    case PINK:
+      _redSetting = 255;
+      _greenSetting = 25;
+      _blueSetting= 38;
+      break;
+    case ORANGE:
+      _redSetting = 255;
+      _greenSetting = 32;
+      _blueSetting= 0;
       break;
     case WHITE:
       _redSetting = 255;
