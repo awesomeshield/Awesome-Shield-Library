@@ -254,7 +254,8 @@ void Buzzer::turnOn(unsigned int frequency) {
     _setupHardware();
   }
   if ( ! _silent ) {
-    tone(_pin, frequency);
+    // tone needs an argument in the range 31-65535
+    tone(_pin, constrain(frequency,31,65535));
     _stateIsOn = true;
   }
 }
